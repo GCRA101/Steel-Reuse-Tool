@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReuseSchemeTool</RootNamespace>
+    <AssemblyName>ReuseSchemeTool</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2022\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
+    </Reference>
+    <Reference Include="RevitUIAPI">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2022\RevitUIAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BitmapImageFactory.cs" />
+    <Compile Include="ColorPalette.cs" />
+    <Compile Include="ColorsFactory.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="controller\AudioManagerInterface.cs" />
+    <Compile Include="controller\ControllerInterface.cs" />
+    <Compile Include="controller\EventsListener.cs" />
+    <Compile Include="controller\ExceptionHandler.cs" />
+    <Compile Include="controller\ExceptionHandlerInterface.cs" />
+    <Compile Include="controller\MissingInputsHandler.cs" />
+    <Compile Include="controller\RST_Controller.cs" />
+    <Compile Include="controller\Sound.cs" />
+    <Compile Include="controller\SoundManager.cs" />
+    <Compile Include="controller\SoundPathRetriever.cs" />
+    <Compile Include="model\data_structures\RBColor.cs" />
+    <Compile Include="model\data_structures\RBNode.cs" />
+    <Compile Include="model\data_structures\RBTree.cs" />
+    <Compile Include="model\ExistingSteelFrame.cs" />
+    <Compile Include="model\Frame.cs" />
+    <Compile Include="model\FrameDecorator.cs" />
+    <Compile Include="model\FrameInterface.cs" />
+    <Compile Include="model\Geometry.cs" />
+    <Compile Include="model\IncludePrivateResolver.cs" />
+    <Compile Include="model\JSONSerializer.cs" />
+    <Compile Include="model\Line.cs" />
+    <Compile Include="model\MissingInputsException.cs" />
+    <Compile Include="model\Observable.cs" />
+    <Compile Include="model\Observer.cs" />
+    <Compile Include="model\Point.cs" />
+    <Compile Include="model\ProposedSteelFrame.cs" />
+    <Compile Include="model\RST_Model.cs" />
+    <Compile Include="model\ViewFiltersFactory.cs" />
+    <Compile Include="OverrideGraphicsFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevitViewFiltersFactory.cs" />
+    <Compile Include="RibbonItemFactory.cs" />
+    <Compile Include="RibbonTabPanelFactory.cs" />
+    <Compile Include="view\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\InputsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\InputsView.Designer.cs">
+      <DependentUpon>InputsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\RibbonUI.cs" />
+    <Compile Include="view\RST_View.cs" />
+    <Compile Include="view\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ReuseSchemeTool.addin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppLogo.png" />
+    <EmbeddedResource Include="AppLogo64x64.png" />
+    <EmbeddedResource Include="AppLogo96x96.png" />
+    <EmbeddedResource Include="AppLongDescription.txt" />
+    <EmbeddedResource Include="view\InputsView.resx">
+      <DependentUpon>InputsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="sounds\CHECKBOX.wav" />
+    <EmbeddedResource Include="sounds\CLICKBUTTON.wav" />
+    <EmbeddedResource Include="sounds\SPLASHSCREEN.wav" />
+    <EmbeddedResource Include="sounds\WARNING.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"
+copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName).addin"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
