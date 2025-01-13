@@ -36,8 +36,8 @@ namespace ReuseSchemeTool.view
                 //2. Create new RibbonTab Panel
                 ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, "BH Plugins", "Reuse Toolkit");
                 //3. Buildup Inputs for RibbonItemFactory
-                String imagePath = "ReuseSchemeTool.AppLogo64x64.png";
-                String largeImagePath = "ReuseSchemeTool.AppLogo96x96.png";
+                String imagePath = "ReuseSchemeTool.AppLogo16x16.png";
+                String largeImagePath = "ReuseSchemeTool.AppLogo32x32.png";
                 String toolTipImagePath = "ReuseSchemeTool.AppLogo.png";
                 String toolTipText = "Reuse Scheme Tool";
                 String longDescriptionFilePath = "ReuseSchemeTool.AppLongDescription.txt";

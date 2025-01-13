@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
@@ -557,6 +558,98 @@ namespace ReuseSchemeTool.model.data_structures
             }
 
             return;
+
+        }
+
+
+        /* DELETE */
+
+        // Auxiliary Function for deleting one single leaf
+        private void deleteLeaf(RBNode<T> p, RBNode<T> node)
+        {
+            // Update the field "child" (Left/Right) of the parent of the leaf to be deleted
+            if (node==node.parent.left)
+            {
+                node.parent.left = null;
+            }
+            else
+            {
+                node.parent.right = null;
+            }
+            return;
+        }
+        // Main function for deleting the node having key =k
+        public void delete(T k)
+        {
+            // Extract node having key =k
+            RBNode<T> node = this.search(k);
+            // If the node doesn't exist, just exit the function...
+            if (node == null) return;
+
+            // CASE 1 - The Node has NO CHILDREN
+            // Cancel the node updating the corresponding "child" field of the Parent node.
+            if ((node.left == null) && (node.right == null))
+            {
+                this.deleteLeaf(this.root, node);
+            }
+
+            // CASE 2 - The Node has ONE CHILD
+            // Connect the parent of the deleted node with its only child
+            // If the only child is the LEFT one...
+            if ((node.left != null) && (node.right == null))
+            {
+                // Assign the Parent of the node to the Left Child...
+                node.left.parent = node.parent;
+                // Assign the Left Child to the Parent of the node...
+                if (node == node.parent.left)
+                {
+                    node.parent.left = node.left;
+                }
+                else
+                {
+                    node.parent.right = node.left;
+                }
+            }
+            // If the only child is the RIGHT one...
+            if ((node.left == null) && (node.right != null))
+            {
+                // Assign the Parent of the node to the Right Child...
+                node.right.parent = node.parent;
+                // Assign the Right Child to the Parent of the node...
+                if (node == node.parent.left)
+                {
+                    node.parent.left = node.right;
+                }
+                else
+                {
+                    node.parent.right = node.right;
+                }
+            }
+
+            // CASE 3 - The Node has TWO CHILDREN
+            /* Find the predecessor/successor of the node to be deleted, copy its content 
+             * in the node to be deleted and, finally, delete the predecessor/successor node... */
+            if ((node.left != null) && (node.right != null))
+            {
+                // Get the Predecessor and Successor nodes...
+                RBNode<T> pred = this.predecessor(node.key);
+                RBNode<T> succ = this.successor(node.key);
+                // Replace the key of the node and delete the predecessor/successor
+                if (pred!=null)
+                {
+                    node.key = pred.key;
+                    this.deleteLeaf(this.root, pred);
+                }
+                else
+                {
+                    node.key = succ.key;
+                    this.deleteLeaf(this.root, succ);
+                }
+            }
+
+            this.deleteLeaf(this.root, node);
+
+
 
         }
     }

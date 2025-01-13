@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ReuseSchemeTool.view
 {
@@ -20,13 +21,35 @@ namespace ReuseSchemeTool.view
         // CONSTRUCTOR
         public SplashScreen(RST_Model model)
         {
-            this.model= model;
+            // This call is required by the designer.
             InitializeComponent();
+            // Set up centered position on the screen
+            this.StartPosition = FormStartPosition.CenterScreen;
+            // Initialize the model.  
+            this.model= model;
+            // Set up Load event handler
+            this.Load += new EventHandler(splashScreen_Load);
+        }
+
+        private void splashScreen_Load(object sender,System.EventArgs e) 
+        {
+            // Set up the dialog text at runtime according to the application's assembly information.  
+            this.update();
         }
 
         public void update()
         {
-            throw new NotImplementedException();
+            //Application Name
+            this.lblApplicationName.Text = this.model.getModelName();
+            //Application Version
+            this.lblVersion.Text = this.model.getModelVersion();
+            //Copyright info
+            this.lblCopyright.Text = this.model.getModelCopyRight();
+        }
+
+        private void pbAppLogo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

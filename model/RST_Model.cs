@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
+using Autodesk.Revit.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,13 @@ namespace ReuseSchemeTool.model
         public void registerObserver(Observer o){this.observers.Add(o);}
         public void removeObserver(Observer o){this.observers.Remove(o);}
         public void notifyObservers(){this.observers.ForEach(o=>o.update());}
+
+
+        public string getModelName() { return MODEL_NAME; }
+        public string getModelVersion() { return MODEL_VERSION; }
+        public string getModelCopyRight() { return MODEL_COPYRIGHT; }
+        public string getModelAuthor() { return MODEL_AUTHOR; }
+        public string getModelOwner() { return MODEL_OWNER; }
 
     }
 }

@@ -96,6 +96,11 @@
     <Compile Include="model\ViewFiltersFactory.cs" />
     <Compile Include="OverrideGraphicsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RevitViewFiltersFactory.cs" />
     <Compile Include="RibbonItemFactory.cs" />
     <Compile Include="RibbonTabPanelFactory.cs" />
@@ -129,9 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppLogo.png" />
-    <EmbeddedResource Include="AppLogo64x64.png" />
-    <EmbeddedResource Include="AppLogo96x96.png" />
     <EmbeddedResource Include="AppLongDescription.txt" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\InputsView.resx">
       <DependentUpon>InputsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +151,10 @@
     <EmbeddedResource Include="sounds\CLICKBUTTON.wav" />
     <EmbeddedResource Include="sounds\SPLASHSCREEN.wav" />
     <EmbeddedResource Include="sounds\WARNING.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppLogo16x16.png" />
+    <EmbeddedResource Include="AppLogo32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

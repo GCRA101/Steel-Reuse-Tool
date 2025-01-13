@@ -32,9 +32,10 @@
             // 
             // InputsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 531);
+            this.ClientSize = new System.Drawing.Size(380, 654);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "InputsView";
             this.Text = "InputsView";
             this.ResumeLayout(false);
