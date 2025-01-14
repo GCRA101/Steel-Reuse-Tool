@@ -19,12 +19,12 @@ namespace ReuseSchemeTool.view
         //ATTRIBUTES
 
         //References to Model and Controller
-        protected RST_Model model { set; get; }
-        protected RST_Controller controller { set; get; }
+        public RST_Model model { set; get; }
+        public RST_Controller controller { set; get; }
         //Main windows of the View
-        protected SplashScreen splashScreen { set; get; }
-        protected AboutBox aboutBox { set; get; }
-        protected InputsView inputsView { set; get; }
+        public SplashScreen splashScreen { set; get; }
+        public AboutBox aboutBox { set; get; }
+        public InputsView inputsView { set; get; }
 
         //CONSTRUCTORS
         public RST_View(RST_Model model, RST_Controller controller)
@@ -56,12 +56,12 @@ namespace ReuseSchemeTool.view
             this.model.registerObserver(this.aboutBox);
             this.model.notifyObservers();
             this.aboutBox.Show();
+            this.aboutBox.Refresh();
         }
 
         public void createViewInputs()
         {
             this.inputsView = new InputsView(this.model, this.controller);
-
 
             this.model.removeObserver(this.aboutBox);
             this.model.registerObserver(this.inputsView);

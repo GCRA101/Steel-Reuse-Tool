@@ -16,7 +16,7 @@ namespace ReuseSchemeTool.view
     public partial class SplashScreen : Form, model.Observer
     {
         // ATTRIBUTES
-        RST_Model model;
+        private RST_Model model;
 
         // CONSTRUCTOR
         public SplashScreen(RST_Model model)

@@ -36,7 +36,7 @@ namespace ReuseSchemeTool.controller
             //Instantiate AudioManagers
             this.soundManager=SoundManager.getInstance();
             //Instatiate EventsListener
-
+            this.eventsListener = new EventsListener(this, this.view);
             //Instantiate ExceptionHandlers
             this.createExceptionHandlers();
         }
@@ -56,9 +56,9 @@ namespace ReuseSchemeTool.controller
             //Show the SplashScreen
             this.view.createSplashScreen();
             //Show the AboutBox
-            //this.view.createAboutBox();
+            this.view.createAboutBox();
             //Activate the EventsListener of the AboutBox
-            //this.eventsListener.initializeAboutBox()
+            this.eventsListener.initializeAboutBox();
         }
 
         public void run()
