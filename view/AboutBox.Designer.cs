@@ -69,9 +69,9 @@
             // 
             this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProductName.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductName.Location = new System.Drawing.Point(216, 0);
+            this.lblProductName.Location = new System.Drawing.Point(215, 0);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(391, 54);
+            this.lblProductName.Size = new System.Drawing.Size(392, 54);
             this.lblProductName.TabIndex = 0;
             this.lblProductName.Text = "Product Name";
             this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -80,9 +80,9 @@
             // 
             this.lblVersion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(216, 54);
+            this.lblVersion.Location = new System.Drawing.Point(215, 54);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(391, 49);
+            this.lblVersion.Size = new System.Drawing.Size(392, 49);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "Version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -91,9 +91,9 @@
             // 
             this.lblCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCopyright.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCopyright.Location = new System.Drawing.Point(216, 103);
+            this.lblCopyright.Location = new System.Drawing.Point(215, 103);
             this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(391, 49);
+            this.lblCopyright.Size = new System.Drawing.Size(392, 49);
             this.lblCopyright.TabIndex = 2;
             this.lblCopyright.Text = "Copyright";
             this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -102,9 +102,9 @@
             // 
             this.lblCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCompanyName.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompanyName.Location = new System.Drawing.Point(216, 152);
+            this.lblCompanyName.Location = new System.Drawing.Point(215, 152);
             this.lblCompanyName.Name = "lblCompanyName";
-            this.lblCompanyName.Size = new System.Drawing.Size(391, 49);
+            this.lblCompanyName.Size = new System.Drawing.Size(392, 49);
             this.lblCompanyName.TabIndex = 3;
             this.lblCompanyName.Text = "Company Name";
             this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -117,7 +117,7 @@
             this.plAppLogo.Location = new System.Drawing.Point(3, 3);
             this.plAppLogo.Name = "plAppLogo";
             this.tlpAboutBox.SetRowSpan(this.plAppLogo, 4);
-            this.plAppLogo.Size = new System.Drawing.Size(207, 195);
+            this.plAppLogo.Size = new System.Drawing.Size(206, 195);
             this.plAppLogo.TabIndex = 4;
             // 
             // btnOK

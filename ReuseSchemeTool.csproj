@@ -139,6 +139,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\InputsView.resx">
       <DependentUpon>InputsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +158,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AppLogo16x16.png" />
     <EmbeddedResource Include="AppLogo32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\BHicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

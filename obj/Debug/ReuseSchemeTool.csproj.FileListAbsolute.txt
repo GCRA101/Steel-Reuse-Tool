@@ -36,6 +36,8 @@ C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Stee
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\bin\Debug\zh-CN\AdWindows.resources.dll
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\bin\Debug\zh-TW\AdWindows.resources.dll
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.csproj.AssemblyReference.cache
+C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.Properties.Resources.resources
+C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.view.AboutBox.resources
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.view.InputsView.resources
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.view.SplashScreen.resources
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.csproj.GenerateResource.cache
@@ -43,4 +45,3 @@ C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Stee
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSch.8C26D012.Up2Date
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.dll
 C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.pdb
-C:\Users\galbieri\Buro Happold\Design & Technology - R&D Wishlist\00728_STR Steel Re-use\04_Dev\ReuseSchemeTool\ReuseSchemeTool\obj\Debug\ReuseSchemeTool.Properties.Resources.resources

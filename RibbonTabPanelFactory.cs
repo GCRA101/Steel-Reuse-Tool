@@ -29,7 +29,9 @@ namespace ReuseSchemeTool
         // Public .create Method - FACTORY PATTERN
         public RibbonPanel create(UIControlledApplication application, String tabName, String panelName)
         {
+
             return application.CreateRibbonPanel(tabName, panelName);
+            
         }
     }
 
