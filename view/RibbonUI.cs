@@ -31,23 +31,14 @@ namespace ReuseSchemeTool.view
         {
             try
             {
-                //1. Set up Ribbon Tab and Ribbon Panel reference variables
                 string tabName = "BH Plugins";
                 string panelName = "Reuse Toolkit";
 
-                // 2. Check if Tab and Panel already exist
-                bool tabExists;
-                tabExists = application.GetRibbonPanels(tabName).Count != 0 ? true : false;
-                RibbonPanel ribbonPanel = application.GetRibbonPanels(tabName).
-                          Find(rbPanel => rbPanel.Name == panelName);
-
-                // 3. Create new Ribbon Tab and new Ribbon Panel
-                // If the tab doesn't exist, create a new RibbonTab
-                if (!tabExists) { application.CreateRibbonTab("BH Plugins"); }
-                // If the panel doesn't exist, create new RibbonTab Panel
-                if (ribbonPanel == null) { ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName); }
-
-                // 4. Buildup Inputs for RibbonItemFactory
+                //1. Create new RibbonTab
+                application.CreateRibbonTab(tabName);
+                //2. Create new RibbonTab Panel
+                ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName);
+                //3. Buildup Inputs for RibbonItemFactory
                 String imagePath = "ReuseSchemeTool.AppLogo16x16.png";
                 String largeImagePath = "ReuseSchemeTool.AppLogo32x32.png";
                 String toolTipImagePath = "ReuseSchemeTool.AppLogo.png";
@@ -56,7 +47,7 @@ namespace ReuseSchemeTool.view
                 String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
                 String assemblyFullPath = Assembly.GetExecutingAssembly().Location;
                 String className = "ReuseSchemeTool.Command";
-                // 5. Create RibbonItem (PushButton)
+                //4. Create RibbonItem (PushButton)
                 RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", imagePath,
                                                        largeImagePath, toolTipImagePath, toolTipText, longDescription, assemblyFullPath,
                                                        className);
