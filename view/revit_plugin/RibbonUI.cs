@@ -13,9 +13,6 @@ namespace ReuseSchemeTool.view
     public class RibbonUI : IExternalApplication
     {
         /* ATTRIBUTES */
-        //private String projectFolderPath = System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName;
-        private String projectFolderPath = "c:\\Users\\galbieri\\OneDrive - Buro Happold\\Structures\\10_Computational\\HOI\\Revit API Plugins\\ReuseSchemeTool\\ReuseSchemeTool\\";
-
         private RibbonPanel ribbonPanel;
 
 
@@ -39,9 +36,9 @@ namespace ReuseSchemeTool.view
                 //2. Create new RibbonTab Panel
                 ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName);
                 //3. Buildup Inputs for RibbonItemFactory
-                String imagePath = "ReuseSchemeTool.AppLogo16x16.png";
-                String largeImagePath = "ReuseSchemeTool.AppLogo32x32.png";
-                String toolTipImagePath = "ReuseSchemeTool.AppLogo.png";
+                String imagePath = "ReuseSchemeTool.images.AppLogo16x16.png";
+                String largeImagePath = "ReuseSchemeTool.images.AppLogo32x32.png";
+                String toolTipImagePath = "ReuseSchemeTool.images.AppLogo.png";
                 String toolTipText = "Reuse Scheme Tool";
                 String longDescriptionFilePath = "ReuseSchemeTool.AppLongDescription.txt";
                 String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();

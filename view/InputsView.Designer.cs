@@ -45,6 +45,10 @@
             this.lblMinWeight = new System.Windows.Forms.Label();
             this.lblMaxWeight = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
+            this.lblMinLengthValue = new System.Windows.Forms.Label();
+            this.lblMaxLengthValue = new System.Windows.Forms.Label();
+            this.lblMinWeightValue = new System.Windows.Forms.Label();
+            this.lblMaxWeightValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMaxLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinWeight)).BeginInit();
@@ -73,7 +77,6 @@
             this.prgbProgress.Name = "prgbProgress";
             this.prgbProgress.Size = new System.Drawing.Size(323, 32);
             this.prgbProgress.TabIndex = 1;
-            this.prgbProgress.Click += new System.EventHandler(this.progressBar1_Click);
             // 
             // trbMinLength
             // 
@@ -81,10 +84,9 @@
             this.trbMinLength.Maximum = 6;
             this.trbMinLength.Minimum = 2;
             this.trbMinLength.Name = "trbMinLength";
-            this.trbMinLength.Size = new System.Drawing.Size(323, 56);
+            this.trbMinLength.Size = new System.Drawing.Size(257, 56);
             this.trbMinLength.TabIndex = 2;
             this.trbMinLength.Value = 2;
-            this.trbMinLength.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // trbMaxLength
             // 
@@ -93,7 +95,7 @@
             this.trbMaxLength.Maximum = 18;
             this.trbMaxLength.Minimum = 6;
             this.trbMaxLength.Name = "trbMaxLength";
-            this.trbMaxLength.Size = new System.Drawing.Size(323, 56);
+            this.trbMaxLength.Size = new System.Drawing.Size(257, 56);
             this.trbMaxLength.TabIndex = 3;
             this.trbMaxLength.Value = 6;
             // 
@@ -106,7 +108,6 @@
             this.lblProgrBar.Size = new System.Drawing.Size(135, 17);
             this.lblProgrBar.TabIndex = 29;
             this.lblProgrBar.Text = "Iteration in Progress...";
-            this.lblProgrBar.Click += new System.EventHandler(this.lblProgrBar_Click);
             // 
             // btnRun
             // 
@@ -118,7 +119,6 @@
             this.btnRun.TabIndex = 30;
             this.btnRun.Text = "RUN";
             this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRunIteration_Click);
             // 
             // lblSectionTypes
             // 
@@ -161,7 +161,7 @@
             // 
             this.lblMinLength.AutoSize = true;
             this.lblMinLength.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinLength.Location = new System.Drawing.Point(122, 247);
+            this.lblMinLength.Location = new System.Drawing.Point(92, 247);
             this.lblMinLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinLength.Name = "lblMinLength";
             this.lblMinLength.Size = new System.Drawing.Size(144, 17);
@@ -172,32 +172,33 @@
             // 
             this.lblMaxLength.AutoSize = true;
             this.lblMaxLength.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaxLength.Location = new System.Drawing.Point(121, 318);
+            this.lblMaxLength.Location = new System.Drawing.Point(92, 318);
             this.lblMaxLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaxLength.Name = "lblMaxLength";
             this.lblMaxLength.Size = new System.Drawing.Size(147, 17);
             this.lblMaxLength.TabIndex = 40;
             this.lblMaxLength.Text = "MAXIMUM LENGTH [m]";
+            this.lblMaxLength.Click += new System.EventHandler(this.lblMaxLength_Click);
             // 
             // trbMinWeight
             // 
             this.trbMinWeight.Location = new System.Drawing.Point(26, 409);
             this.trbMinWeight.Name = "trbMinWeight";
-            this.trbMinWeight.Size = new System.Drawing.Size(323, 56);
+            this.trbMinWeight.Size = new System.Drawing.Size(257, 56);
             this.trbMinWeight.TabIndex = 41;
             // 
             // trbMaxWeight
             // 
             this.trbMaxWeight.Location = new System.Drawing.Point(26, 480);
             this.trbMaxWeight.Name = "trbMaxWeight";
-            this.trbMaxWeight.Size = new System.Drawing.Size(323, 56);
+            this.trbMaxWeight.Size = new System.Drawing.Size(257, 56);
             this.trbMaxWeight.TabIndex = 42;
             // 
             // lblMinWeight
             // 
             this.lblMinWeight.AutoSize = true;
             this.lblMinWeight.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinWeight.Location = new System.Drawing.Point(121, 389);
+            this.lblMinWeight.Location = new System.Drawing.Point(92, 389);
             this.lblMinWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinWeight.Name = "lblMinWeight";
             this.lblMinWeight.Size = new System.Drawing.Size(146, 17);
@@ -208,7 +209,7 @@
             // 
             this.lblMaxWeight.AutoSize = true;
             this.lblMaxWeight.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaxWeight.Location = new System.Drawing.Point(120, 460);
+            this.lblMaxWeight.Location = new System.Drawing.Point(92, 460);
             this.lblMaxWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaxWeight.Name = "lblMaxWeight";
             this.lblMaxWeight.Size = new System.Drawing.Size(149, 17);
@@ -225,13 +226,52 @@
             this.lblDescription.Text = "Select Section Type, Steel Grade as well as range of lengths and weights that are" +
     " acceptable for reuse purposes.";
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblDescription.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lblMinLengthValue
+            // 
+            this.lblMinLengthValue.BackColor = System.Drawing.SystemColors.Info;
+            this.lblMinLengthValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMinLengthValue.Location = new System.Drawing.Point(289, 267);
+            this.lblMinLengthValue.Name = "lblMinLengthValue";
+            this.lblMinLengthValue.Size = new System.Drawing.Size(60, 24);
+            this.lblMinLengthValue.TabIndex = 50;
+            // 
+            // lblMaxLengthValue
+            // 
+            this.lblMaxLengthValue.BackColor = System.Drawing.SystemColors.Info;
+            this.lblMaxLengthValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMaxLengthValue.Location = new System.Drawing.Point(289, 338);
+            this.lblMaxLengthValue.Name = "lblMaxLengthValue";
+            this.lblMaxLengthValue.Size = new System.Drawing.Size(60, 24);
+            this.lblMaxLengthValue.TabIndex = 51;
+            // 
+            // lblMinWeightValue
+            // 
+            this.lblMinWeightValue.BackColor = System.Drawing.SystemColors.Info;
+            this.lblMinWeightValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMinWeightValue.Location = new System.Drawing.Point(289, 409);
+            this.lblMinWeightValue.Name = "lblMinWeightValue";
+            this.lblMinWeightValue.Size = new System.Drawing.Size(60, 24);
+            this.lblMinWeightValue.TabIndex = 52;
+            // 
+            // lblMaxWeightValue
+            // 
+            this.lblMaxWeightValue.BackColor = System.Drawing.SystemColors.Info;
+            this.lblMaxWeightValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMaxWeightValue.Location = new System.Drawing.Point(289, 480);
+            this.lblMaxWeightValue.Name = "lblMaxWeightValue";
+            this.lblMaxWeightValue.Size = new System.Drawing.Size(60, 24);
+            this.lblMaxWeightValue.TabIndex = 53;
             // 
             // InputsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 706);
+            this.Controls.Add(this.lblMaxWeightValue);
+            this.Controls.Add(this.lblMinWeightValue);
+            this.Controls.Add(this.lblMaxLengthValue);
+            this.Controls.Add(this.lblMinLengthValue);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblMaxWeight);
             this.Controls.Add(this.lblMinWeight);
@@ -279,5 +319,9 @@
         internal System.Windows.Forms.Label lblMinWeight;
         internal System.Windows.Forms.Label lblMaxWeight;
         public System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Label lblMinLengthValue;
+        private System.Windows.Forms.Label lblMaxLengthValue;
+        private System.Windows.Forms.Label lblMinWeightValue;
+        private System.Windows.Forms.Label lblMaxWeightValue;
     }
 }

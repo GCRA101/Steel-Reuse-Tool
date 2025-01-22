@@ -149,7 +149,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AboutBox";
             this.Text = "AboutBox";
-            this.Load += new System.EventHandler(this.AboutBox_Load_1);
+            this.Load += new System.EventHandler(this.aboutBox_Load);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

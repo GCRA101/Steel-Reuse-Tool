@@ -29,46 +29,16 @@ namespace ReuseSchemeTool.view
             // Initialize model and controller
             this.model = model;
             this.controller = controller;
-
-            
         }
+
+        
 
         public void update()
         {
             throw new NotImplementedException();
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProgrBar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRunIteration_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void lblMaxLength_Click(object sender, EventArgs e)
         {
 
         }

@@ -22,7 +22,7 @@ namespace ReuseSchemeTool.controller
 
             //Run the OpenFileDialog to get the File path from the user
             ofd.Title = dialogTitle;
-            ofd.InitialDirectory="C:\";
+            ofd.InitialDirectory="C:\\";
             ofd.Multiselect = false;
             ofd.Filter = filter;
 
