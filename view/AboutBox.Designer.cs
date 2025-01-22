@@ -36,7 +36,7 @@
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.plAppLogo = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbAbout = new System.Windows.Forms.RichTextBox();
             this.tlpAboutBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             this.tlpAboutBox.Controls.Add(this.lblCompanyName, 1, 3);
             this.tlpAboutBox.Controls.Add(this.plAppLogo, 0, 0);
             this.tlpAboutBox.Controls.Add(this.btnOK, 1, 5);
-            this.tlpAboutBox.Controls.Add(this.richTextBox1, 0, 4);
+            this.tlpAboutBox.Controls.Add(this.rtbAbout, 0, 4);
             this.tlpAboutBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpAboutBox.Location = new System.Drawing.Point(0, 0);
             this.tlpAboutBox.Name = "tlpAboutBox";
@@ -130,15 +130,15 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // rtbAbout
             // 
-            this.tlpAboutBox.SetColumnSpan(this.richTextBox1, 2);
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 204);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(604, 197);
-            this.richTextBox1.TabIndex = 6;
-            this.richTextBox1.Text = "";
+            this.tlpAboutBox.SetColumnSpan(this.rtbAbout, 2);
+            this.rtbAbout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbAbout.Location = new System.Drawing.Point(3, 204);
+            this.rtbAbout.Name = "rtbAbout";
+            this.rtbAbout.Size = new System.Drawing.Size(604, 197);
+            this.rtbAbout.TabIndex = 6;
+            this.rtbAbout.Text = "";
             // 
             // AboutBox
             // 
@@ -149,6 +149,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AboutBox";
             this.Text = "AboutBox";
+            this.Load += new System.EventHandler(this.AboutBox_Load_1);
             this.tlpAboutBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -163,6 +164,6 @@
         public System.Windows.Forms.Label lblCompanyName;
         public System.Windows.Forms.Panel plAppLogo;
         public System.Windows.Forms.Button btnOK;
-        public System.Windows.Forms.RichTextBox richTextBox1;
+        public System.Windows.Forms.RichTextBox rtbAbout;
     }
 }

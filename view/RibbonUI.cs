@@ -35,7 +35,7 @@ namespace ReuseSchemeTool.view
                 string panelName = "Reuse Toolkit";
 
                 //1. Create new RibbonTab
-                application.CreateRibbonTab(tabName);
+                //application.CreateRibbonTab(tabName);
                 //2. Create new RibbonTab Panel
                 ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName);
                 //3. Buildup Inputs for RibbonItemFactory

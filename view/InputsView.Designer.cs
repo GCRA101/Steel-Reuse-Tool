@@ -44,7 +44,7 @@
             this.trbMaxWeight = new System.Windows.Forms.TrackBar();
             this.lblMinWeight = new System.Windows.Forms.Label();
             this.lblMaxWeight = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMaxLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinWeight)).BeginInit();
@@ -55,9 +55,16 @@
             // 
             this.clbSectionTypes.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbSectionTypes.FormattingEnabled = true;
+            this.clbSectionTypes.Items.AddRange(new object[] {
+            "CHS",
+            "PFC",
+            "RHS",
+            "SHS",
+            "UB",
+            "UC"});
             this.clbSectionTypes.Location = new System.Drawing.Point(26, 113);
             this.clbSectionTypes.Name = "clbSectionTypes";
-            this.clbSectionTypes.Size = new System.Drawing.Size(149, 106);
+            this.clbSectionTypes.Size = new System.Drawing.Size(149, 104);
             this.clbSectionTypes.TabIndex = 0;
             // 
             // prgbProgress
@@ -71,18 +78,24 @@
             // trbMinLength
             // 
             this.trbMinLength.Location = new System.Drawing.Point(26, 267);
+            this.trbMinLength.Maximum = 6;
+            this.trbMinLength.Minimum = 2;
             this.trbMinLength.Name = "trbMinLength";
             this.trbMinLength.Size = new System.Drawing.Size(323, 56);
             this.trbMinLength.TabIndex = 2;
+            this.trbMinLength.Value = 2;
             this.trbMinLength.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // trbMaxLength
             // 
             this.trbMaxLength.BackColor = System.Drawing.SystemColors.Control;
             this.trbMaxLength.Location = new System.Drawing.Point(26, 338);
+            this.trbMaxLength.Maximum = 18;
+            this.trbMaxLength.Minimum = 6;
             this.trbMaxLength.Name = "trbMaxLength";
             this.trbMaxLength.Size = new System.Drawing.Size(323, 56);
             this.trbMaxLength.TabIndex = 3;
+            this.trbMaxLength.Value = 6;
             // 
             // lblProgrBar
             // 
@@ -133,9 +146,15 @@
             // 
             this.clbSteelGrades.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbSteelGrades.FormattingEnabled = true;
+            this.clbSteelGrades.Items.AddRange(new object[] {
+            "S455",
+            "S355",
+            "S275",
+            "S235",
+            "UNKNOWN"});
             this.clbSteelGrades.Location = new System.Drawing.Point(200, 113);
             this.clbSteelGrades.Name = "clbSteelGrades";
-            this.clbSteelGrades.Size = new System.Drawing.Size(149, 106);
+            this.clbSteelGrades.Size = new System.Drawing.Size(149, 104);
             this.clbSteelGrades.TabIndex = 37;
             // 
             // lblMinLength
@@ -196,24 +215,24 @@
             this.lblMaxWeight.TabIndex = 44;
             this.lblMaxWeight.Text = "MAXIMUM WEIGHT [kg]";
             // 
-            // label1
+            // lblDescription
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(30, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(319, 70);
-            this.label1.TabIndex = 45;
-            this.label1.Text = "asdfasdfdassdfsadfsadfafsafaadsfasdfasdfasdfsadfsfasdfdfsdfsadfsadfasdfasdfasfsaf" +
-    "sfasfsfasfsafasfasfsadfsdfadsfssdfadsfasdfasdfasdfasfasdsdfa";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(30, 23);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(319, 70);
+            this.lblDescription.TabIndex = 45;
+            this.lblDescription.Text = "Select Section Type, Steel Grade as well as range of lengths and weights that are" +
+    " acceptable for reuse purposes.";
+            this.lblDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblDescription.Click += new System.EventHandler(this.label1_Click);
             // 
             // InputsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 706);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblMaxWeight);
             this.Controls.Add(this.lblMinWeight);
             this.Controls.Add(this.trbMaxWeight);
@@ -259,6 +278,6 @@
         private System.Windows.Forms.TrackBar trbMaxWeight;
         internal System.Windows.Forms.Label lblMinWeight;
         internal System.Windows.Forms.Label lblMaxWeight;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblDescription;
     }
 }

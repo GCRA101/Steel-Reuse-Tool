@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,8 +45,13 @@ namespace ReuseSchemeTool.view
             this.lblCopyright.Text = this.model.getModelCopyRight();
             //Company Name info
             this.lblCompanyName.Text = this.model.getModelOwner();
+            //Description
+            //this.rtbAbout.Text = File.ReadAllText();
         }
 
+        private void AboutBox_Load_1(object sender, EventArgs e)
+        {
 
+        }
     }
 }

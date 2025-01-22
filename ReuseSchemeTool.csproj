@@ -162,9 +162,12 @@
   <ItemGroup>
     <EmbeddedResource Include="icons\BHicon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="text files\AboutBox_Description.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"
-copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName).addin"</PostBuildEvent>
+copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2022\10_$(TargetName).addin"</PostBuildEvent>
   </PropertyGroup>
 </Project>
