@@ -49,9 +49,5 @@ namespace ReuseSchemeTool.view
             //this.rtbAbout.Text = File.ReadAllText();
         }
 
-        private void AboutBox_Load_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }

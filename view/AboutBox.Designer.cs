@@ -29,41 +29,41 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
-            this.tlpAboutBox = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.lblProductName = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblCompanyName = new System.Windows.Forms.Label();
-            this.plAppLogo = new System.Windows.Forms.Panel();
+            this.panelImage = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
-            this.rtbAbout = new System.Windows.Forms.RichTextBox();
-            this.tlpAboutBox.SuspendLayout();
+            this.txtDescription = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpAboutBox
             // 
-            this.tlpAboutBox.ColumnCount = 2;
-            this.tlpAboutBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.91803F));
-            this.tlpAboutBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.08197F));
-            this.tlpAboutBox.Controls.Add(this.lblProductName, 1, 0);
-            this.tlpAboutBox.Controls.Add(this.lblVersion, 1, 1);
-            this.tlpAboutBox.Controls.Add(this.lblCopyright, 1, 2);
-            this.tlpAboutBox.Controls.Add(this.lblCompanyName, 1, 3);
-            this.tlpAboutBox.Controls.Add(this.plAppLogo, 0, 0);
-            this.tlpAboutBox.Controls.Add(this.btnOK, 1, 5);
-            this.tlpAboutBox.Controls.Add(this.rtbAbout, 0, 4);
-            this.tlpAboutBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpAboutBox.Location = new System.Drawing.Point(0, 0);
-            this.tlpAboutBox.Name = "tlpAboutBox";
-            this.tlpAboutBox.RowCount = 6;
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
-            this.tlpAboutBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tlpAboutBox.Size = new System.Drawing.Size(610, 453);
-            this.tlpAboutBox.TabIndex = 0;
+            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.91803F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.08197F));
+            this.tableLayoutPanel.Controls.Add(this.lblProductName, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.lblVersion, 1, 1);
+            this.tableLayoutPanel.Controls.Add(this.lblCopyright, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.lblCompanyName, 1, 3);
+            this.tableLayoutPanel.Controls.Add(this.panelImage, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.btnOK, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.txtDescription, 0, 4);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Name = "tlpAboutBox";
+            this.tableLayoutPanel.RowCount = 6;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(610, 453);
+            this.tableLayoutPanel.TabIndex = 0;
             // 
             // lblProductName
             // 
@@ -111,14 +111,14 @@
             // 
             // plAppLogo
             // 
-            this.plAppLogo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("plAppLogo.BackgroundImage")));
-            this.plAppLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.plAppLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plAppLogo.Location = new System.Drawing.Point(3, 3);
-            this.plAppLogo.Name = "plAppLogo";
-            this.tlpAboutBox.SetRowSpan(this.plAppLogo, 4);
-            this.plAppLogo.Size = new System.Drawing.Size(206, 195);
-            this.plAppLogo.TabIndex = 4;
+            this.panelImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("plAppLogo.BackgroundImage")));
+            this.panelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelImage.Location = new System.Drawing.Point(3, 3);
+            this.panelImage.Name = "plAppLogo";
+            this.tableLayoutPanel.SetRowSpan(this.panelImage, 4);
+            this.panelImage.Size = new System.Drawing.Size(206, 195);
+            this.panelImage.TabIndex = 4;
             // 
             // btnOK
             // 
@@ -132,38 +132,38 @@
             // 
             // rtbAbout
             // 
-            this.tlpAboutBox.SetColumnSpan(this.rtbAbout, 2);
-            this.rtbAbout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbAbout.Location = new System.Drawing.Point(3, 204);
-            this.rtbAbout.Name = "rtbAbout";
-            this.rtbAbout.Size = new System.Drawing.Size(604, 197);
-            this.rtbAbout.TabIndex = 6;
-            this.rtbAbout.Text = "";
+            this.tableLayoutPanel.SetColumnSpan(this.txtDescription, 2);
+            this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDescription.Location = new System.Drawing.Point(3, 204);
+            this.txtDescription.Name = "rtbAbout";
+            this.txtDescription.Size = new System.Drawing.Size(604, 197);
+            this.txtDescription.TabIndex = 6;
+            this.txtDescription.Text = "";
             // 
             // AboutBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 453);
-            this.Controls.Add(this.tlpAboutBox);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AboutBox";
             this.Text = "AboutBox";
             this.Load += new System.EventHandler(this.AboutBox_Load_1);
-            this.tlpAboutBox.ResumeLayout(false);
+            this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.TableLayoutPanel tlpAboutBox;
+        public System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         public System.Windows.Forms.Label lblProductName;
         public System.Windows.Forms.Label lblVersion;
         public System.Windows.Forms.Label lblCopyright;
         public System.Windows.Forms.Label lblCompanyName;
-        public System.Windows.Forms.Panel plAppLogo;
+        public System.Windows.Forms.Panel panelImage;
         public System.Windows.Forms.Button btnOK;
-        public System.Windows.Forms.RichTextBox rtbAbout;
+        public System.Windows.Forms.RichTextBox txtDescription;
     }
 }

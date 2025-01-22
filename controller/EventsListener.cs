@@ -63,7 +63,7 @@ namespace ReuseSchemeTool.controller
             //Play Sound Effect
             this.controller.getSoundManager().play(Sound.CLICKBUTTON);
             //Create the View
-            view.createViewInputs();
+            view.createInputsView();
             //Initialize Components for Events listening
             this.initializeInputsView();
         }

@@ -46,10 +46,5 @@ namespace ReuseSchemeTool.view
             //Copyright info
             this.lblCopyright.Text = this.model.getModelCopyRight();
         }
-
-        private void pbAppLogo_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

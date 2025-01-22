@@ -121,7 +121,6 @@
             this.pbAppLogo.Size = new System.Drawing.Size(402, 404);
             this.pbAppLogo.TabIndex = 3;
             this.pbAppLogo.TabStop = false;
-            this.pbAppLogo.Click += new System.EventHandler(this.pbAppLogo_Click);
             // 
             // SplashScreen
             // 

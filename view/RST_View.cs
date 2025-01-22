@@ -59,7 +59,7 @@ namespace ReuseSchemeTool.view
             this.aboutBox.Refresh();
         }
 
-        public void createViewInputs()
+        public void createInputsView()
         {
             this.inputsView = new InputsView(this.model, this.controller);
 
