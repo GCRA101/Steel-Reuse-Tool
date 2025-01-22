@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ReuseSchemeTool.controller
 {
@@ -15,7 +16,11 @@ namespace ReuseSchemeTool.controller
         private RST_Controller controller;
         private RST_View view;
 
-        private System.Windows.Forms.Button aboutBoxBtnOk;
+        private Button aboutBoxBtnOk;
+
+        private CheckedListBox clbSectionTypes, clbSteelGrades;
+        private TrackBar trbMinLength, trbMaxLength, trbMinWeight, trbMaxWeight;
+        private Button btnRun;
 
         //CONSTRUCTORS
         //Overloaded
@@ -31,18 +36,54 @@ namespace ReuseSchemeTool.controller
             aboutBoxBtnOk.Click += new EventHandler(aboutBoxBtnOk_Click);
         }
 
+        public void initializeInputsView()
+        {            
+            EventHandler clbClickHandler =new EventHandler(inputsViewClb_Click);
+            EventHandler trbScrollHandler = new EventHandler(inputsViewTrb_Scroll);
+            EventHandler btnRunClickHandler = new EventHandler(inputsViewBtnRun_Click);
+
+            this.clbSectionTypes = this.view.inputsView.clbSectionTypes;
+            clbSectionTypes.Click += clbClickHandler;
+            this.clbSteelGrades = this.view.inputsView.clbSectionTypes;
+            clbSteelGrades.Click += clbClickHandler;
+            this.trbMinLength = this.view.inputsView.trbMinLength;
+            trbMinLength.Scroll += trbScrollHandler;
+            this.trbMaxLength = this.view.inputsView.trbMaxLength;
+            trbMaxLength.Scroll += trbScrollHandler;
+            this.trbMinWeight = this.view.inputsView.trbMinWeight;
+            trbMinWeight.Scroll += trbScrollHandler;
+            this.trbMaxWeight = this.view.inputsView.trbMaxWeight;
+            trbMaxWeight.Scroll += trbScrollHandler;
+            this.btnRun = this.view.inputsView.btnRun;
+            btnRun.Click += btnRunClickHandler;
+        }
+
+
         private void aboutBoxBtnOk_Click(System.Object sender, System.EventArgs e) {
             //Play Sound Effect
             this.controller.getSoundManager().play(Sound.CLICKBUTTON);
             //Create the View
             view.createViewInputs();
             //Initialize Components for Events listening
-            this.initializeViewInputs();
+            this.initializeInputsView();
         }
 
-        public void initializeViewInputs()
+        private void inputsViewClb_Click(System.Object sender, System.EventArgs e)
         {
-           
+            //Play Sound Effect
+            this.controller.getSoundManager().play(Sound.CHECKBOX);
+        }
+
+        private void inputsViewTrb_Scroll(System.Object sender, System.EventArgs e)
+        {
+            //Play Sound Effect
+            //this.controller.getSoundManager().play(Sound.CLICKBUTTON);
+        }
+
+        private void inputsViewBtnRun_Click(System.Object sender, System.EventArgs e)
+        {
+            //Play Sound Effect
+            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
         }
 
 

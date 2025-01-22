@@ -29,6 +29,7 @@ namespace ReuseSchemeTool.controller
                     return "ReuseSchemeTool.sounds.WARNING.wav";
                     break;
                 case Sound.ENDRUN:
+                    return "ReuseSchemeTool.sounds.ENDRUN.wav";
                     break;
                 default:
                     return "";

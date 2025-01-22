@@ -13,16 +13,18 @@ namespace ReuseSchemeTool.controller
 
         // ATTRIBUTES
         // References to Model and View
-        protected RST_Model model { get; set; }
-        protected RST_View view { get; set; }
+        public RST_Model model { get; set; }
+        public RST_View view { get; set; }
         // Reference to Revit UI Application
-        Autodesk.Revit.UI.UIApplication uiApp { get; set; }
+        public Autodesk.Revit.UI.UIApplication uiApp { get; set; }
         // ExceptionHandlers
-        private MissingInputsHandler missingInputsHandler { get; set; }
+        public MissingInputsHandler missingInputsHandler { get; set; }
         // EventListeners
-        private EventsListener eventsListener { get; set; }
+        public EventsListener eventsListener { get; set; }
         // AudioManagers
-        private SoundManager soundManager { get; set; }
+        public SoundManager soundManager { get; set; }
+        // Other Variables
+        public string jsonFilePath { get; set; }
 
 
 

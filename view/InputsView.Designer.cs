@@ -263,21 +263,21 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox clbSectionTypes;
-        private System.Windows.Forms.ProgressBar prgbProgress;
-        private System.Windows.Forms.TrackBar trbMinLength;
-        private System.Windows.Forms.TrackBar trbMaxLength;
+        public System.Windows.Forms.CheckedListBox clbSectionTypes;
+        public System.Windows.Forms.ProgressBar prgbProgress;
+        public System.Windows.Forms.TrackBar trbMinLength;
+        public System.Windows.Forms.TrackBar trbMaxLength;
         internal System.Windows.Forms.Label lblProgrBar;
-        internal System.Windows.Forms.Button btnRun;
+        public System.Windows.Forms.Button btnRun;
         internal System.Windows.Forms.Label lblSectionTypes;
         internal System.Windows.Forms.Label lblSteelGrades;
-        private System.Windows.Forms.CheckedListBox clbSteelGrades;
+        public System.Windows.Forms.CheckedListBox clbSteelGrades;
         internal System.Windows.Forms.Label lblMinLength;
         internal System.Windows.Forms.Label lblMaxLength;
-        private System.Windows.Forms.TrackBar trbMinWeight;
-        private System.Windows.Forms.TrackBar trbMaxWeight;
+        public System.Windows.Forms.TrackBar trbMinWeight;
+        public System.Windows.Forms.TrackBar trbMaxWeight;
         internal System.Windows.Forms.Label lblMinWeight;
         internal System.Windows.Forms.Label lblMaxWeight;
-        private System.Windows.Forms.Label lblDescription;
+        public System.Windows.Forms.Label lblDescription;
     }
 }
