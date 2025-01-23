@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class ProposedSteelFrame
+    public class ProposedSteelFrame: FrameDecorator
     {
+        /* ATTRIBUTES */
+
+
+        /* CONSTRUCTORS */
+        public ProposedSteelFrame(Frame frame): base(frame) { }
+
+
+        /* METHODS */
+
+
+
+
     }
 }

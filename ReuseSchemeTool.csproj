@@ -75,14 +75,18 @@
     <Compile Include="controller\Sound.cs" />
     <Compile Include="controller\SoundManager.cs" />
     <Compile Include="controller\SoundPathRetriever.cs" />
+    <Compile Include="model\ConditionSurveyInfo.cs" />
     <Compile Include="model\data_structures\RBColor.cs" />
     <Compile Include="model\data_structures\RBNode.cs" />
     <Compile Include="model\data_structures\RBTree.cs" />
+    <Compile Include="model\DimensionalSurveyInfo.cs" />
     <Compile Include="model\ExistingSteelFrame.cs" />
     <Compile Include="model\Frame.cs" />
     <Compile Include="model\FrameDecorator.cs" />
     <Compile Include="model\FrameInterface.cs" />
     <Compile Include="model\Geometry.cs" />
+    <Compile Include="model\Geometry1D.cs" />
+    <Compile Include="model\GeometryInterface.cs" />
     <Compile Include="model\IncludePrivateResolver.cs" />
     <Compile Include="model\JSONSerializer.cs" />
     <Compile Include="model\Line.cs" />
@@ -91,11 +95,17 @@
     <Compile Include="model\Observer.cs" />
     <Compile Include="model\Point.cs" />
     <Compile Include="model\ProposedSteelFrame.cs" />
+    <Compile Include="model\ReuseRating.cs" />
+    <Compile Include="model\ReuseRatingCalculator.cs" />
+    <Compile Include="model\ReuseRatingInterface.cs" />
+    <Compile Include="model\ReuseRatingStrategy.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
     <Compile Include="model\revit\ViewFiltersFactory.cs" />
     <Compile Include="model\RST_Model.cs" />
+    <Compile Include="model\Section.cs" />
+    <Compile Include="model\UserDefined_RatingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
