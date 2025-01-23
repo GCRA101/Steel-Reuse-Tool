@@ -3,7 +3,7 @@
 	<AddIn Type="Application">
 		<Name> Reuse Scheme Tool </Name>
 		<Assembly>ReuseSchemeTool\ReuseSchemeTool.dll</Assembly>
-		<FullClassName>ReuseSchemeTool.view.RibbonUI</FullClassName>
+		<FullClassName>ReuseSchemeTool.view.revit_plugin.RibbonUI</FullClassName>
 		<ClientId>330DEEFA-9342-469C-8534-B52CB6A95393</ClientId>
 		<VendorId>GCRA010</VendorId>
 		<VendorDescription>BH</VendorDescription>

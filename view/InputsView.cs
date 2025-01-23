@@ -31,16 +31,19 @@ namespace ReuseSchemeTool.view
             this.controller = controller;
         }
 
-        
+        public void initialise()
+        {
+            this.lblMinLengthValue.Text=this.trbMinLength.Value.ToString();
+            this.lblMaxLengthValue.Text = this.trbMaxLength.Value.ToString();
+            this.lblMinWeightValue.Text = this.trbMinWeight.Value.ToString();
+            this.lblMaxWeightValue.Text = this.trbMaxWeight.Value.ToString();
+
+        }
 
         public void update()
         {
             throw new NotImplementedException();
         }
 
-        private void lblMaxLength_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB.Structure;
+using ReuseSchemeTool.model;
 using ReuseSchemeTool.view;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,7 @@ namespace ReuseSchemeTool.controller
             trbMinWeight.Scroll += trbScrollHandler;
             this.trbMaxWeight = this.view.inputsView.trbMaxWeight;
             trbMaxWeight.Scroll += trbScrollHandler;
+
             this.btnRun = this.view.inputsView.btnRun;
             btnRun.Click += btnRunClickHandler;
         }
@@ -61,7 +63,7 @@ namespace ReuseSchemeTool.controller
 
         private void aboutBoxBtnOk_Click(System.Object sender, System.EventArgs e) {
             //Play Sound Effect
-            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
+            this.controller.soundManager.play(Sound.CLICKBUTTON);
             //Create the View
             view.createInputsView();
             //Initialize Components for Events listening
@@ -71,19 +73,38 @@ namespace ReuseSchemeTool.controller
         private void inputsViewClb_Click(System.Object sender, System.EventArgs e)
         {
             //Play Sound Effect
-            this.controller.getSoundManager().play(Sound.CHECKBOX);
+            this.controller.soundManager.play(Sound.CHECKBOX);
         }
 
         private void inputsViewTrb_Scroll(System.Object sender, System.EventArgs e)
         {
             //Play Sound Effect
             //this.controller.getSoundManager().play(Sound.CLICKBUTTON);
+
+
+            if (sender== trbMinLength) {this.view.inputsView.lblMinLengthValue.Text = trbMinLength.Value.ToString();}
+            if (sender == trbMaxLength) { this.view.inputsView.lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
+            if (sender == trbMinWeight) { this.view.inputsView.lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
+            if (sender == trbMaxWeight) { this.view.inputsView.lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
         }
 
         private void inputsViewBtnRun_Click(System.Object sender, System.EventArgs e)
         {
             //Play Sound Effect
-            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
+            this.controller.soundManager.play(Sound.CLICKBUTTON);
+
+            //Launch the process while catching exceptions
+            try
+            {
+                this.controller.processInputData();
+                this.controller.run();
+                this.controller.terminate();
+            }
+            catch (MissingInputsException ex1) 
+            {
+                this.controller.missingInputsHandler.execute(ex1); 
+            }
+            
         }
 
 

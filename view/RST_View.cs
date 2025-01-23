@@ -40,7 +40,7 @@ namespace ReuseSchemeTool.view
         public void createSplashScreen()
         {
             this.splashScreen = new SplashScreen(this.model);
-            this.controller.getSoundManager().play(Sound.SPLASHSCREEN);
+            this.controller.soundManager.play(Sound.SPLASHSCREEN);
             this.model.registerObserver(this.splashScreen);
             System.Threading.Thread.Sleep(1000);
             this.splashScreen.Show();
@@ -62,6 +62,7 @@ namespace ReuseSchemeTool.view
         public void createInputsView()
         {
             this.inputsView = new InputsView(this.model, this.controller);
+            this.inputsView.initialise();
 
             this.model.removeObserver(this.aboutBox);
             this.model.registerObserver(this.inputsView);

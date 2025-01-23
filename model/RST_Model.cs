@@ -21,6 +21,7 @@ namespace ReuseSchemeTool.model
         private List<ProposedSteelFrame> proposedSteelFrames;
         public Autodesk.Revit.UI.UIApplication uiApp;
         public Autodesk.Revit.UI.UIDocument uiDoc;
+        public Autodesk.Revit.DB.Document dbDoc;
 
 
 
@@ -56,7 +57,7 @@ namespace ReuseSchemeTool.model
             if (uiApp == null) throw new MissingInputsException("Revit UI Application is missing/not valid.");
             this.uiApp = uiApp;
             this.uiDoc = uiApp.ActiveUIDocument;
-
+            this.dbDoc = uiDoc.Document;
         }
 
         public void runScheming()

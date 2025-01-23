@@ -178,7 +178,6 @@
             this.lblMaxLength.Size = new System.Drawing.Size(147, 17);
             this.lblMaxLength.TabIndex = 40;
             this.lblMaxLength.Text = "MAXIMUM LENGTH [m]";
-            this.lblMaxLength.Click += new System.EventHandler(this.lblMaxLength_Click);
             // 
             // trbMinWeight
             // 
@@ -231,37 +230,45 @@
             // 
             this.lblMinLengthValue.BackColor = System.Drawing.SystemColors.Info;
             this.lblMinLengthValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMinLengthValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMinLengthValue.Location = new System.Drawing.Point(289, 267);
             this.lblMinLengthValue.Name = "lblMinLengthValue";
             this.lblMinLengthValue.Size = new System.Drawing.Size(60, 24);
             this.lblMinLengthValue.TabIndex = 50;
+            this.lblMinLengthValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMaxLengthValue
             // 
             this.lblMaxLengthValue.BackColor = System.Drawing.SystemColors.Info;
             this.lblMaxLengthValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMaxLengthValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaxLengthValue.Location = new System.Drawing.Point(289, 338);
             this.lblMaxLengthValue.Name = "lblMaxLengthValue";
             this.lblMaxLengthValue.Size = new System.Drawing.Size(60, 24);
             this.lblMaxLengthValue.TabIndex = 51;
+            this.lblMaxLengthValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMinWeightValue
             // 
             this.lblMinWeightValue.BackColor = System.Drawing.SystemColors.Info;
             this.lblMinWeightValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMinWeightValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMinWeightValue.Location = new System.Drawing.Point(289, 409);
             this.lblMinWeightValue.Name = "lblMinWeightValue";
             this.lblMinWeightValue.Size = new System.Drawing.Size(60, 24);
             this.lblMinWeightValue.TabIndex = 52;
+            this.lblMinWeightValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMaxWeightValue
             // 
             this.lblMaxWeightValue.BackColor = System.Drawing.SystemColors.Info;
             this.lblMaxWeightValue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblMaxWeightValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaxWeightValue.Location = new System.Drawing.Point(289, 480);
             this.lblMaxWeightValue.Name = "lblMaxWeightValue";
             this.lblMaxWeightValue.Size = new System.Drawing.Size(60, 24);
             this.lblMaxWeightValue.TabIndex = 53;
+            this.lblMaxWeightValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InputsView
             // 
@@ -319,9 +326,9 @@
         internal System.Windows.Forms.Label lblMinWeight;
         internal System.Windows.Forms.Label lblMaxWeight;
         public System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.Label lblMinLengthValue;
-        private System.Windows.Forms.Label lblMaxLengthValue;
-        private System.Windows.Forms.Label lblMinWeightValue;
-        private System.Windows.Forms.Label lblMaxWeightValue;
+        public System.Windows.Forms.Label lblMinLengthValue;
+        public System.Windows.Forms.Label lblMaxLengthValue;
+        public System.Windows.Forms.Label lblMinWeightValue;
+        public System.Windows.Forms.Label lblMaxWeightValue;
     }
 }
