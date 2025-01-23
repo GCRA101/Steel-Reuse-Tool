@@ -7,7 +7,7 @@ using Autodesk.Revit.Attributes;
 using System.IO;
 using System.Reflection;
 
-namespace ReuseSchemeTool.view
+namespace ReuseSchemeTool.view.revit_plugin
 {
     [Transaction(TransactionMode.Manual)]
     public class RibbonUI : IExternalApplication
@@ -40,10 +40,10 @@ namespace ReuseSchemeTool.view
                 String largeImagePath = "ReuseSchemeTool.images.AppLogo32x32.png";
                 String toolTipImagePath = "ReuseSchemeTool.images.AppLogo.png";
                 String toolTipText = "Reuse Scheme Tool";
-                String longDescriptionFilePath = "ReuseSchemeTool.AppLongDescription.txt";
+                String longDescriptionFilePath = "ReuseSchemeTool.text_files.AppLongDescription.txt";
                 String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
                 String assemblyFullPath = Assembly.GetExecutingAssembly().Location;
-                String className = "ReuseSchemeTool.Command";
+                String className = "ReuseSchemeTool.view.revit_plugin.Command";
                 //4. Create RibbonItem (PushButton)
                 RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", imagePath,
                                                        largeImagePath, toolTipImagePath, toolTipText, longDescription, assemblyFullPath,

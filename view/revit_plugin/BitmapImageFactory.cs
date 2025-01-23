@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.view.revit_plugin
 {
     internal class BitmapImageFactory
     {

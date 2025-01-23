@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.model.revit
 {
     public class ColorsFactory
     {

@@ -3,7 +3,7 @@
 using Autodesk.Revit.DB;
 
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.model.revit
 {
     public class OverrideGraphicsFactory
     {

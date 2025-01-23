@@ -25,7 +25,7 @@ using System.Security.Cryptography;
 using ReuseSchemeTool.controller;
 
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.view.revit_plugin
 {
     /* COMMAND CLASS ************************************************************ */
 

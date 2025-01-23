@@ -9,7 +9,7 @@ using System.Drawing;
 using Autodesk.Revit.UI;
 using System.Windows.Media;
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.view.revit_plugin
 {
     public class RibbonItemFactory
     {

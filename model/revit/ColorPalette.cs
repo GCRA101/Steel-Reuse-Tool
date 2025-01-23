@@ -2,7 +2,7 @@
 /* COLORPALETTE CLASS 
  * Enum Class defining different types of color palettes. */
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.model.revit
 {
     public enum ColorPalette
     {

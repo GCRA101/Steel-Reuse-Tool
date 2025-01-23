@@ -5,7 +5,7 @@ using Autodesk.Revit.UI;
 
 
 
-namespace ReuseSchemeTool
+namespace ReuseSchemeTool.view.revit_plugin
 {
     public class RibbonTabPanelFactory
     {
