@@ -17,6 +17,14 @@ namespace ReuseSchemeTool.model
 
         /* METHODS */
 
+        public override int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        
+
 
 
 

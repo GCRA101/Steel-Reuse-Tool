@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class FrameDecorator : FrameInterface, IComparable
+    public abstract class FrameDecorator : FrameInterface, IComparable
     {
         /* ATTRIBUTES */
         protected Frame frame;
@@ -29,6 +29,7 @@ namespace ReuseSchemeTool.model
         public void setMaterial(string material) { this.frame.setMaterial(material); }
         public void setSection(Section section) { this.frame.setSection(section); }
         public void setUniqueId(string uniqueId) { this.frame.setUniqueId(uniqueId); }
+        public void setType(FrameType type){ this.frame.setType(type); }
 
         // Getters
         public Line getGeometry() {return frame.getGeometry();}
@@ -37,6 +38,8 @@ namespace ReuseSchemeTool.model
         public Section getSection(){ return frame.getSection();}
         public string getUniqueId(){ return frame.getUniqueId();}
         public Frame getFrame(){ return frame; }
+        public FrameType getType(){ return frame.getType(); }
 
+        public abstract int CompareTo(object obj);
     }
 }

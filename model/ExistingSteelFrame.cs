@@ -61,7 +61,7 @@ namespace ReuseSchemeTool.model
            The method needs to be implemented accordingly with the criteria we want to use to define
            which object is greater or smaller than the other based on the values assigned to its 
            attributes. */
-        public int CompareTo(object o)
+        public override int CompareTo(object o)
         {
             // 1. Check if object is null or has a different data type
             if (o == null || !(o is ExistingSteelFrame)) return 1;
