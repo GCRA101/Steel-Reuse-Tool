@@ -1,12 +1,14 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.Exceptions;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ReuseSchemeTool.model
 {
@@ -17,12 +19,14 @@ namespace ReuseSchemeTool.model
         private static RST_Model instance;
         private List<Observer> observers;
         private JSONSerializer<List<FrameDecorator>> jsonSerializer;
+        private List<Frame> steelFrames;
         private List<ExistingSteelFrame> existingSteelFrames;
         private List<ProposedSteelFrame> proposedSteelFrames;
         public Autodesk.Revit.UI.UIApplication uiApp;
         public Autodesk.Revit.UI.UIDocument uiDoc;
         public Autodesk.Revit.DB.Document dbDoc;
-
+        private ReuseRatingCalculator reuseRatingCalculator;
+        private FrameConverter frameConverter;
 
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
@@ -52,16 +56,74 @@ namespace ReuseSchemeTool.model
         }
 
 
-        public void initialize(Autodesk.Revit.UI.UIApplication uiApp)
+        public void initialize(Autodesk.Revit.UI.UIApplication uiApp, ReuseRatingCalculator reuseRatingCalculator)
         {
             if (uiApp == null) throw new MissingInputsException("Revit UI Application is missing/not valid.");
             this.uiApp = uiApp;
             this.uiDoc = uiApp.ActiveUIDocument;
             this.dbDoc = uiDoc.Document;
+            this.reuseRatingCalculator= reuseRatingCalculator;
+            frameConverter = new FrameConverter(dbDoc);
         }
 
         public void runScheming()
         {
+
+            Transaction revitTransaction = new Transaction(dbDoc, "Reuse Rating");
+
+            try
+            {
+
+                /* 1. BUILD REVIT COLLECTOR FILTERS */
+
+                // StructuralType Filters
+                ElementStructuralTypeFilter filterBeams = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Beam);
+                ElementStructuralTypeFilter filterColumns = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Column);
+                ElementStructuralTypeFilter filterBraces = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Brace);
+                // List of Filters
+                List<ElementFilter> filtersList = new List<ElementFilter>() { filterBeams, filterColumns, filterBraces };
+                // Logical Or Filter
+                LogicalOrFilter filterStrFrames = new LogicalOrFilter(filtersList);
+
+                /* 2. EXTRACT REVIT STRUCTURAL FRAMES*/
+
+                // FilteredElementCollector
+                FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
+                List<Element> frameElements = elemCollector.WherePasses(filterStrFrames).ToList();
+
+                /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
+                steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
+                existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
+
+                /* 4. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
+                existingSteelFrames.ForEach(esframe => this.reuseRatingCalculator.calculateRating(esframe));
+                
+
+                existingSteelFrames.Sort((x,y)=> x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
+
+
+                frameElements.ForEach(frameEl =>
+                {
+                    String frameElId = frameEl.Id.ToString();
+
+                    int index = existingSteelFrames.Select(esf => esf.getFrame().getUniqueId()).ToList()
+                                                 .BinarySearch(frameElId);
+                    ReuseRating reuseRating = existingSteelFrames[index].getReuseRating();
+
+                    frameEl.LookupParameter("").Set(reuseRating.ToString());
+                });
+
+            } catch (Exception ex) {
+
+                if (revitTransaction != null) { revitTransaction.RollBack();}
+
+                TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                // Close and Dispose Transaction
+                revitTransaction.Commit();
+                revitTransaction.Dispose();
+            }
+
 
         }
 
