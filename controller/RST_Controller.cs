@@ -110,57 +110,12 @@ namespace ReuseSchemeTool.controller
                 Single.Parse(this.view.inputsView.lblMaxWeightValue.Text)
             };
 
+            UserDefined_RatingStrategy udRatingStrategy = 
+                new UserDefined_RatingStrategy(selSectionTypes, selSteelGrades, lengthsRange, weightsRange);
 
+            ReuseRatingCalculator reuseRatingCalculator = new ReuseRatingCalculator(udRatingStrategy);
 
-
-
-            '2. Initialize the Model
-
-        Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup,
-                            CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex)),
-                            CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
-                            Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0)
-
-        'Retain only points belonging to selected Group
-
-        Me.model.filterPointsByGroup()
-
-
-
-        '3. Set Up the pile objects restraints/stiffnesses based on input criteria
-
-
-        If Me.view.getViewInputs().rbRigid.Checked = True Then
-
-            ' Rigid Piles
-
-            Dim restraintBools As Boolean() = { True, True, True, False, False, False}
-            Me.model.setPointRestraints(restraintBools)
-
-        ElseIf Me.view.getViewInputs().rbSpring.Checked = True Then
-
-            ' Constant Stiffness Piles
-
-            If Me.view.getViewInputs().tbStiffness.Text() = "" Then Throw New MissingInputsException("Piles Stiffness Missing")
-			Dim stiffness_Nmm As Double = CDbl(Me.view.getViewInputs().tbStiffness.Text()) * 1000
-
-            Dim stiffnessValues As Double() = { 0.0, 0.0, stiffness_Nmm, 0.0, 0.0, 0.0}
-            Me.model.setPointStiffnessesFromValues(stiffnessValues)
-
-        ElseIf Me.view.getViewInputs().rbImportFromFile.Checked = True Then
-
-            ' Input Json Stiffness Piles
-
-            Me.model.setPointStiffnessesFromJson(Me.getJsonFilePath())
-
-            Me.model.setPileObjsInit(Me.model.deserialize(Me.getJsonFilePath))
-
-        End If
-
-
-
-
-
+            this.model.initialize(uiApp, reuseRatingCalculator);
         }
 
     }
