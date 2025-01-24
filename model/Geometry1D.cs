@@ -17,7 +17,7 @@ namespace ReuseSchemeTool.model
         //Default
 
         /* METHODS */
-        protected void computeBarycenter()
+        public void computeBarycenter()
         {
             Double xtot = 0;
             Double ytot = 0;

@@ -16,6 +16,7 @@ namespace ReuseSchemeTool.model
         protected Double length;
         protected String uniqueId;
         protected Line geometry;
+        protected FrameType type;
 
         //CONSTRUCTORS
         //Default
@@ -38,6 +39,7 @@ namespace ReuseSchemeTool.model
         public void setLength(Double length) { this.length = length; }
         public void setUniqueId(String uniqueId) { this.uniqueId = uniqueId; }
         public void setGeometry(Line geometry) { this.geometry = geometry; }
+        public void setType(FrameType type) { this.type = type; }
 
         //Getters
         public Section getSection() { return section; }
@@ -45,6 +47,7 @@ namespace ReuseSchemeTool.model
         public double getLength() { return length; }
         public String getUniqueId() { return uniqueId; }
         public Line getGeometry() { return geometry; }
+        public FrameType getType() { return type; }
 
 
         // .ToString()

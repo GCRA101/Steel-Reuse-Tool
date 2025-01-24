@@ -82,8 +82,10 @@
     <Compile Include="model\DimensionalSurveyInfo.cs" />
     <Compile Include="model\ExistingSteelFrame.cs" />
     <Compile Include="model\Frame.cs" />
+    <Compile Include="model\FrameConverter.cs" />
     <Compile Include="model\FrameDecorator.cs" />
     <Compile Include="model\FrameInterface.cs" />
+    <Compile Include="model\FrameType.cs" />
     <Compile Include="model\Geometry.cs" />
     <Compile Include="model\Geometry1D.cs" />
     <Compile Include="model\GeometryInterface.cs" />

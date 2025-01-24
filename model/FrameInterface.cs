@@ -14,6 +14,7 @@ namespace ReuseSchemeTool.model
         void setLength(Double length);
         void setUniqueId(String uniqueId);
         void setGeometry(Line geometry);
+        void setType(FrameType type);
 
         // Getters
         Section getSection();
@@ -21,5 +22,6 @@ namespace ReuseSchemeTool.model
         Double getLength();
         String getUniqueId();
         Line getGeometry();
+        FrameType getType();
     }
 }
