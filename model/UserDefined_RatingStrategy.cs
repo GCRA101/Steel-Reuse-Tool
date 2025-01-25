@@ -38,7 +38,7 @@ namespace ReuseSchemeTool.model
 
             // Section Check
             foreach (String secType in allowedSectionTypes) {
-                if (frame.getSection().getSize().Contains(secType)) {
+                if (frame.getSection().getName().Contains(secType)) {
                     sectionCheck = true;
                     break; }}
 

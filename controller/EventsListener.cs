@@ -45,7 +45,7 @@ namespace ReuseSchemeTool.controller
 
             this.clbSectionTypes = this.view.inputsView.clbSectionTypes;
             clbSectionTypes.Click += clbClickHandler;
-            this.clbSteelGrades = this.view.inputsView.clbSectionTypes;
+            this.clbSteelGrades = this.view.inputsView.clbSteelGrades;
             clbSteelGrades.Click += clbClickHandler;
             this.trbMinLength = this.view.inputsView.trbMinLength;
             trbMinLength.Scroll += trbScrollHandler;

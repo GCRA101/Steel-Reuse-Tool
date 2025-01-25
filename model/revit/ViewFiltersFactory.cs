@@ -15,25 +15,25 @@ namespace ReuseSchemeTool.model.revit
 {
     public class ViewFiltersFactory
     {
-        
+
         /* ATTRIBUTES */
 
 
 
         /* CONSTRUCTOR */
-        public ViewFiltersFactory() 
+        public ViewFiltersFactory()
         {
-                        
-        
+
+
         }
 
 
         /* METHODS */
 
         //createNewFilters()
-        private void createNewFilter()
+        private void createNewFilter(Autodesk.Revit.DB.View view)
         {
-            Transaction revitTransaction = new Transaction(doc, "View Filters Factory");
+            Transaction revitTransaction = new Transaction(dbDoc, "View Filters Factory");
 
             try
             {
@@ -86,13 +86,8 @@ namespace ReuseSchemeTool.model.revit
                 colors = ColorsFactory.getInstance().create(ColorPalette.RANDOM, sectionNames.Count());
 
 
-                /*5. GET THE ACTIVE VIEW */
 
-                Autodesk.Revit.DB.View activeView;
-                activeView = doc.ActiveView;
-
-
-                /*6. CREATE NEW VIEW FILTERS IN ACTIVE VIEW*/
+                /*6. CREATE NEW VIEW FILTERS IN THE VIEW*/
 
                 //Utility List Variables Declaration
                 List<FilterRule> filterRules = new List<FilterRule>();
@@ -103,10 +98,8 @@ namespace ReuseSchemeTool.model.revit
                 revitTransaction.Start();
 
                 /* REMOVE ALL FILTERS CURRENTLY ASSIGNED TO THE VIEW */
-                activeView.GetFilters().ToList().ForEach(filter => activeView.RemoveFilter(filter));
+                view.GetFilters().ToList().ForEach(filter => view.RemoveFilter(filter));
 
-                //Delete all View Filters already assigned to the active view
-                //activeView.GetFilters().ToList().ForEach(elId => activeView.RemoveFilter(elId));
 
                 for (int i = 0; i < sectionNames.Count(); i++)
                 {
@@ -118,11 +111,11 @@ namespace ReuseSchemeTool.model.revit
                         filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(new ElementId(BuiltInParameter.ALL_MODEL_TYPE_NAME), sectionName, false));
                         elParamFilters.Add(new ElementParameterFilter(filterRules[i]));
                         filters[i].SetElementFilter(new LogicalAndFilter(elParamFilters));
-                        activeView.AddFilter(filters[i].Id);
+                        view.AddFilter(filters[i].Id);
                     }
                     else
                     {
-                        activeView.AddFilter(new FilteredElementCollector(doc).
+                        view.AddFilter(new FilteredElementCollector(doc).
                             OfClass(typeof(ParameterFilterElement)).
                             ToElements().
                             Where(elFilter => elFilter.Name == sectionName).
@@ -133,7 +126,7 @@ namespace ReuseSchemeTool.model.revit
 
                 // Get back the created View Filters
                 List<ElementId> viewFilterIds = new List<ElementId>();
-                viewFilterIds = (List<ElementId>)activeView.GetFilters();
+                viewFilterIds = (List<ElementId>)view.GetFilters();
 
                 // Get the element id of the solid fill pattern
                 FillPatternElement fillPattern = new FilteredElementCollector(doc)
@@ -145,7 +138,7 @@ namespace ReuseSchemeTool.model.revit
                 for (int i = 0; i < viewFilterIds.Count(); i++)
                 {
                     overrideGraphicSettings.Add(OverrideGraphicsFactory.getInstance().create(fillPattern.Id, colors[i]));
-                    activeView.SetFilterOverrides(viewFilterIds[i], overrideGraphicSettings[i]);
+                    view.SetFilterOverrides(viewFilterIds[i], overrideGraphicSettings[i]);
                 }
                 // Close and Dispose Transaction
                 revitTransaction.Commit();

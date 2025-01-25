@@ -11,15 +11,15 @@ namespace ReuseSchemeTool.model
     public class Section: IComparable
     {
         /* ATTRIBUTES */
-        private String size;
+        private String name;
         private Single area_mm2;
         private Single weight_kg_m;
 
         
         /* CONSTRUCTORS */
-        public Section(String size, Single area_mm2, Single weight_kg_m)
+        public Section(String name, Single area_mm2, Single weight_kg_m)
         {
-            this.size = size;
+            this.name = name;
             this.area_mm2=area_mm2;
             this.weight_kg_m = weight_kg_m;
         }
@@ -28,12 +28,12 @@ namespace ReuseSchemeTool.model
         /* METHODS */
 
         // Setters
-        public void setSize(String size) { this.size = size; }
+        public void setName(String name) { this.name = name; }
         public void setArea(Single area_mm2) { this.area_mm2= area_mm2; }
         public void setWeight(Single weight_kg_m) { this.weight_kg_m= weight_kg_m; }
 
         // Getters
-        public String getSize() { return size; }
+        public String getName() { return name; }
         public Single getArea() {  return area_mm2; }
         public Single getWeight() { return weight_kg_m; }
 
@@ -41,7 +41,7 @@ namespace ReuseSchemeTool.model
         // .ToString()
         public override string ToString()
         {
-            return this.size;
+            return this.name;
         }
 
         /* HASHCODE */
@@ -52,7 +52,7 @@ namespace ReuseSchemeTool.model
         // in whatever concrete implementation of the abstract data structure Hash Table.
         public override int GetHashCode()
         {
-            return this.size.GetHashCode() + (int)this.area_mm2;
+            return this.name.GetHashCode() + (int)this.area_mm2;
         }
 
         // COMPARETO
@@ -74,8 +74,8 @@ namespace ReuseSchemeTool.model
             // 4. Compare area
             else if (this.area_mm2 < section.area_mm2) return -1;
             else if (this.area_mm2 > section.area_mm2) return 1;
-            // 5. Compare size
-            return this.size.CompareTo(section.size);
+            // 5. Compare name
+            return this.name.CompareTo(section.name);
 
         }
 
@@ -91,7 +91,7 @@ namespace ReuseSchemeTool.model
             // 2. Downcast object to T data type
             Section section = (Section)o;
             // 3. Return equality only if both keys and color are equal
-            return this.size == section.size && 
+            return this.name == section.name && 
                 this.area_mm2 == section.area_mm2 && 
                 this.weight_kg_m == section.weight_kg_m;
         }

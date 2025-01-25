@@ -102,6 +102,9 @@ namespace ReuseSchemeTool.model
                 existingSteelFrames.Sort((x,y)=> x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
 
 
+                //Start New Transaction
+                revitTransaction.Start();
+
                 frameElements.ForEach(frameEl =>
                 {
                     String frameElId = frameEl.Id.ToString();

@@ -105,6 +105,9 @@
     <Compile Include="model\revit\ColorsFactory.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
     <Compile Include="model\revit\ViewFiltersFactory.cs" />
+    <Compile Include="model\revit\ViewsFactory.cs" />
+    <Compile Include="model\revit\ViewSheetBuilder.cs" />
+    <Compile Include="model\revit\ViewType.cs" />
     <Compile Include="model\RST_Model.cs" />
     <Compile Include="model\Section.cs" />
     <Compile Include="model\UserDefined_RatingStrategy.cs" />

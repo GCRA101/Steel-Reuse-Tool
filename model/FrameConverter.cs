@@ -14,7 +14,7 @@ namespace ReuseSchemeTool.model
     {
         /* ATTRIBUTES */
         private Autodesk.Revit.DB.Document dbDoc;
-        private String categoryName = "Structural Framing";
+        private List<String> categoryNames = new List<string> { "Structural Framing", "Structural Columns" };
 
         /* CONSTRUCTORS */
         public FrameConverter(Autodesk.Revit.DB.Document dbDoc)
@@ -44,7 +44,7 @@ namespace ReuseSchemeTool.model
 
         private Boolean checkObjType(Autodesk.Revit.DB.Element element)
         {
-            return element.Category.Name==this.categoryName;
+            return this.categoryNames.Contains(element.Category.Name);
         }
 
         private Section getProperty(Autodesk.Revit.DB.Element element)

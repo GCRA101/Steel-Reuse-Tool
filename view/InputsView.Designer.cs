@@ -151,6 +151,7 @@
             "S355",
             "S275",
             "S235",
+            "Steel",
             "UNKNOWN"});
             this.clbSteelGrades.Location = new System.Drawing.Point(200, 113);
             this.clbSteelGrades.Name = "clbSteelGrades";
@@ -181,17 +182,27 @@
             // 
             // trbMinWeight
             // 
+            this.trbMinWeight.LargeChange = 10;
             this.trbMinWeight.Location = new System.Drawing.Point(26, 409);
+            this.trbMinWeight.Maximum = 100;
+            this.trbMinWeight.Minimum = 10;
             this.trbMinWeight.Name = "trbMinWeight";
             this.trbMinWeight.Size = new System.Drawing.Size(257, 56);
+            this.trbMinWeight.SmallChange = 5;
             this.trbMinWeight.TabIndex = 41;
+            this.trbMinWeight.Value = 10;
             // 
             // trbMaxWeight
             // 
+            this.trbMaxWeight.LargeChange = 100;
             this.trbMaxWeight.Location = new System.Drawing.Point(26, 480);
+            this.trbMaxWeight.Maximum = 800;
+            this.trbMaxWeight.Minimum = 100;
             this.trbMaxWeight.Name = "trbMaxWeight";
             this.trbMaxWeight.Size = new System.Drawing.Size(257, 56);
+            this.trbMaxWeight.SmallChange = 25;
             this.trbMaxWeight.TabIndex = 42;
+            this.trbMaxWeight.Value = 100;
             // 
             // lblMinWeight
             // 

@@ -30,9 +30,10 @@ namespace ReuseSchemeTool.controller
 
         public RST_Controller(Autodesk.Revit.UI.UIApplication uiApp)
         {
+            //Store the Revit UI Application
+            this.uiApp = uiApp;
             //Instantiate the Model
             this.model = RST_Model.getInstance();
-            this.model.uiApp = uiApp;
             //Instantiate the View
             this.view = new RST_View(this.model, this);
             //Instantiate AudioManagers
@@ -65,7 +66,7 @@ namespace ReuseSchemeTool.controller
 
         public void run()
         {
-            throw new NotImplementedException();
+            this.model.runScheming();
         }
 
         public void serialize()
@@ -115,7 +116,7 @@ namespace ReuseSchemeTool.controller
 
             ReuseRatingCalculator reuseRatingCalculator = new ReuseRatingCalculator(udRatingStrategy);
 
-            this.model.initialize(uiApp, reuseRatingCalculator);
+            this.model.initialize(this.uiApp, reuseRatingCalculator);
         }
 
     }
