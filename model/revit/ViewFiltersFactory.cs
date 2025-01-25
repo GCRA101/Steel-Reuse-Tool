@@ -17,73 +17,78 @@ namespace ReuseSchemeTool.model.revit
     {
 
         /* ATTRIBUTES */
+        //Private instance - SINGLETON PATTERN
+        private static ViewFiltersFactory instance;
 
+        /* CONSTRUCTORS */
+        //Private Default Constructor - SINGLETON PATTERN
+        private ViewFiltersFactory() { }
 
+        /* METHODS */
 
-        /* CONSTRUCTOR */
-        public ViewFiltersFactory()
+        //getInstance Method - SINGLETON PATTERN
+        public static ViewFiltersFactory getInstance()
         {
-
-
+            if (instance == null)
+            { return new ViewFiltersFactory(); }
+            return instance;
         }
 
 
         /* METHODS */
 
         //createNewFilters()
-        private void createNewFilter(Autodesk.Revit.DB.View view)
+        private void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList, 
+                                     List<String> materialsList, string parameterName)
         {
-            Transaction revitTransaction = new Transaction(dbDoc, "View Filters Factory");
+            Transaction revitTransaction = new Transaction(view.Document, "View Filters Factory");
 
             try
             {
 
-                //1. GET CATEGORIES LIST
+                //1. GET CATEGORIES LIST IDS
+                List<ElementId> catIdsList = categoriesList
+                                            .Select(builtInCat => new ElementId(builtInCat))
+                                            .ToList();
 
-                List<BuiltInCategory> categoriesList = new List<BuiltInCategory> {
-                    BuiltInCategory.OST_StructuralColumns,
-                    BuiltInCategory.OST_StructuralFraming/*,
-                    BuiltInCategory.OST_StructuralFramingOther,
-                    BuiltInCategory.OST_StructuralFramingSystem*/};
-
-                List<ElementId> catIdsList = new List<ElementId>();
-
-                catIdsList = categoriesList.
-                                Select(builtInCat => new ElementId(builtInCat)).
-                                ToList();
+                ElementMulticategoryFilter elMultiCatFilter = new ElementMulticategoryFilter(categoriesList);
 
 
                 //2. GET MATERIALS LIST
 
-                ElementMulticategoryFilter elMultiCatFilter = new ElementMulticategoryFilter(categoriesList);
-
-                List<ElementId> selectedMaterialIds = new List<ElementId>();
-
-                selectedMaterialIds = new FilteredElementCollector(doc).
+                List<ElementId> selectedMaterialIds = new FilteredElementCollector(view.Document).
                                         OfClass(typeof(Material)).
-                                        Where(mat => mat.Name.Contains("Steel")).
+                                        Where(mat => materialsList.Contains(mat.Name)).
                                         Select(mat => mat.Id).
                                         ToList();
 
                 //3. GET FRAME SECTION NAMES
 
-                List<String> sectionNames = new List<String>();
 
-                sectionNames = new FilteredElementCollector(doc).
-                                    OfClass(typeof(FamilyInstance)).
-                                    WherePasses(elMultiCatFilter).
-                                    Where(el => el.GetMaterialIds(false).Intersect(selectedMaterialIds).Count() != 0).
-                                    Select(el => el.Name).
-                                    ToHashSet().
-                                    ToList();
+                Parameter parameter =new FilteredElementCollector(view.Document)
+                                        .OfClass(typeof(FamilyInstance))
+                                        .WherePasses(elMultiCatFilter)
+                                        .First()
+                                        .LookupParameter(parameterName);
+                                        
 
-                sectionNames.Sort();
+                List<String> parameterValues = new List<String>();
+
+                parameterValues = new FilteredElementCollector(view.Document).
+                                        OfClass(typeof(FamilyInstance)).
+                                        WherePasses(elMultiCatFilter).
+                                        Where(el => el.GetMaterialIds(false).Intersect(selectedMaterialIds).Count() != 0).
+                                        Select(el => el.LookupParameter(parameterName).AsString()).
+                                        ToHashSet().
+                                        ToList();
+
+                parameterValues.Sort();
 
 
                 /*4.CREATE COLORS PALETTE FOR VIEW FILTERS */
 
                 List<Autodesk.Revit.DB.Color> colors = new List<Autodesk.Revit.DB.Color>();
-                colors = ColorsFactory.getInstance().create(ColorPalette.RANDOM, sectionNames.Count());
+                colors = ColorsFactory.getInstance().create(ColorPalette.RANDOM, parameterValues.Count());
 
 
 
@@ -101,24 +106,24 @@ namespace ReuseSchemeTool.model.revit
                 view.GetFilters().ToList().ForEach(filter => view.RemoveFilter(filter));
 
 
-                for (int i = 0; i < sectionNames.Count(); i++)
+                for (int i = 0; i < parameterValues.Count(); i++)
                 {
                     List<ElementFilter> elParamFilters = new List<ElementFilter>();
-                    String sectionName = sectionNames[i];
-                    if (ParameterFilterElement.IsNameUnique(doc, sectionName))
+                    String paramValue = parameterValues[i];
+                    if (ParameterFilterElement.IsNameUnique(view.Document, paramValue))
                     {
-                        filters.Add(ParameterFilterElement.Create(doc, sectionName, catIdsList));
-                        filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(new ElementId(BuiltInParameter.ALL_MODEL_TYPE_NAME), sectionName, false));
+                        filters.Add(ParameterFilterElement.Create(view.Document, paramValue, catIdsList));
+                        filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(parameter.Id, paramValue, false));
                         elParamFilters.Add(new ElementParameterFilter(filterRules[i]));
                         filters[i].SetElementFilter(new LogicalAndFilter(elParamFilters));
                         view.AddFilter(filters[i].Id);
                     }
                     else
                     {
-                        view.AddFilter(new FilteredElementCollector(doc).
+                        view.AddFilter(new FilteredElementCollector(view.Document).
                             OfClass(typeof(ParameterFilterElement)).
                             ToElements().
-                            Where(elFilter => elFilter.Name == sectionName).
+                            Where(elFilter => elFilter.Name == paramValue).
                             Select(elFilter => elFilter.Id).
                             First());
                     }
@@ -129,7 +134,7 @@ namespace ReuseSchemeTool.model.revit
                 viewFilterIds = (List<ElementId>)view.GetFilters();
 
                 // Get the element id of the solid fill pattern
-                FillPatternElement fillPattern = new FilteredElementCollector(doc)
+                FillPatternElement fillPattern = new FilteredElementCollector(view.Document)
                     .OfClass(typeof(FillPatternElement))
                     .Cast<FillPatternElement>()
                     .FirstOrDefault(pattern => pattern.Name.Contains("Solid fill"));
@@ -165,5 +170,4 @@ namespace ReuseSchemeTool.model.revit
     }
 
 
-}
 }
