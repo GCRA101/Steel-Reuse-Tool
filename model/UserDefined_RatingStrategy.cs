@@ -38,26 +38,28 @@ namespace ReuseSchemeTool.model
 
             // Section Check
             foreach (String secType in allowedSectionTypes) {
-                if (frame.getSection().getName().Contains(secType)) {
+                if ((frame.getSection()!=null) && (frame.getSection().getName().Contains(secType))) {
                     sectionCheck = true;
                     break; }}
 
             // Material Check
             foreach (String mat in allowedMaterials) {
-                if (frame.getMaterial().Contains(mat)) {
+                if ((frame.getMaterial()!=null) && (frame.getMaterial().Contains(mat))) {
                     materialCheck = true;
                     break;}
             }
 
             // Length Check
-            if ((frame.getLength() >= this.lengthRange[0]) &&
+            if ((frame.getLength()!=null) &&
+                (frame.getLength() >= this.lengthRange[0]) &&
                 (frame.getLength() <= this.lengthRange[1]))
             {
                 lengthCheck = true;
             }
 
             // Weight Check
-            if ((frame.getSection().getWeight() >= this.weightRange[0]) &&
+            if ((frame.getSection()!=null) &&
+                (frame.getSection().getWeight() >= this.weightRange[0]) &&
                 (frame.getSection().getWeight() <= this.weightRange[1]))
             {
                 weightCheck = true;

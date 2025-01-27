@@ -38,7 +38,7 @@ namespace ReuseSchemeTool.model.revit
         /* METHODS */
 
         //createNewFilters()
-        private void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList, 
+        public void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList, 
                                      List<String> materialsList, string parameterName)
         {
             Transaction revitTransaction = new Transaction(view.Document, "View Filters Factory");

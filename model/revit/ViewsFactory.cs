@@ -29,23 +29,23 @@ namespace ReuseSchemeTool.model.revit
         }
 
         public Autodesk.Revit.DB.View create(Autodesk.Revit.DB.Document dbDoc, 
-            ViewType viewType, String name)
+            RevitViewType viewType, String name)
         {
             this.dbDoc= dbDoc;
 
             switch (viewType)
             {
-                case (ViewType.THREE_D):
+                case (RevitViewType.THREE_D):
                     return this.createView3D(name);
-                case (ViewType.PLAN):
+                case (RevitViewType.PLAN):
                     return this.createViewPlan(name);
-                case (ViewType.DRAFTING):
+                case (RevitViewType.DRAFTING):
                     return this.createViewDrafting(name);
-                case (ViewType.SECTION):
+                case (RevitViewType.SECTION):
                     return this.createViewSection(name);
-                case (ViewType.SHEET):
+                case (RevitViewType.SHEET):
                     return this.createViewSheet(name);
-                case (ViewType.TABLE):
+                case (RevitViewType.TABLE):
                     return this.createTableView(name);
                 default:
                     break;

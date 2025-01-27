@@ -1,7 +1,9 @@
-﻿using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
+using ReuseSchemeTool.model.revit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +91,7 @@ namespace ReuseSchemeTool.model
 
                 // FilteredElementCollector
                 FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
-                List<Element> frameElements = elemCollector.WherePasses(filterStrFrames).ToList();
+                List<Element> frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
 
                 /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
                 steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -113,8 +115,12 @@ namespace ReuseSchemeTool.model
                                                  .BinarySearch(frameElId);
                     ReuseRating reuseRating = existingSteelFrames[index].getReuseRating();
 
-                    frameEl.LookupParameter("").Set(reuseRating.ToString());
+                    frameEl.LookupParameter("BHE_Survey Information").Set(reuseRating.ToString());
                 });
+
+                // Close and Dispose Transaction
+                revitTransaction.Commit();
+                revitTransaction.Dispose();
 
             } catch (Exception ex) {
 
@@ -127,6 +133,46 @@ namespace ReuseSchemeTool.model
                 revitTransaction.Dispose();
             }
 
+
+        }
+
+
+        public void buildRevitViews()
+        {
+            Transaction revitTransaction = new Transaction(dbDoc, "Create Views");
+
+            try
+            {
+                revitTransaction.Start();
+
+                View view=ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme");
+
+                List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
+                    { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming,
+                      BuiltInCategory.OST_StructuralFramingOther};
+                List<String> materialsList = new List<String>() { "Steel" };
+                ViewFiltersFactory.getInstance().createNewFilter(view, categoriesList, materialsList, "BHE_Survey Information");
+
+
+
+                ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc));
+                ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
+                ViewSheetBuilder.buildViewPort(view,new XYZ(0,0,0));
+
+
+            }
+            catch (Exception ex)
+            {
+
+                if (revitTransaction != null) { revitTransaction.RollBack(); }
+
+                TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                // Close and Dispose Transaction
+                revitTransaction.Commit();
+                revitTransaction.Dispose();
+
+            }
 
         }
 

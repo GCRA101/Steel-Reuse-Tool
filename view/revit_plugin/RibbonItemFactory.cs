@@ -64,8 +64,6 @@ namespace ReuseSchemeTool.view.revit_plugin
 
             PushButton pushButton = (PushButton)tabPanel.AddItem(pushButtonData);
 
-
-
             pushButton.Image = BitmapImageFactory.getInstance().create(imagePath);
             pushButton.LargeImage = BitmapImageFactory.getInstance().create(largeImagePath);
             pushButton.ToolTipImage = BitmapImageFactory.getInstance().create(toolTipImagePath);

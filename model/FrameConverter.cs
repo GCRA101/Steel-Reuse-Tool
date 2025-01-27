@@ -65,18 +65,48 @@ namespace ReuseSchemeTool.model
 
         private String getMaterial(Autodesk.Revit.DB.Element element)
         {
-            Parameter materialParam = element.LookupParameter("Material");
+            Parameter materialParam = element.LookupParameter("BHE_Material");
             return materialParam.AsValueString();
         }
 
         private Line getGeometry(Autodesk.Revit.DB.Element element)
         {
-            XYZ startRvtPP=null, endRvtPP = null;
-            // Get the location curve of the element
-            LocationCurve locCurve = element.Location as LocationCurve;
-            if (locCurve != null) {
-                startRvtPP = locCurve.Curve.GetEndPoint(0);
-                endRvtPP = locCurve.Curve.GetEndPoint(1);}
+            //XYZ startRvtPP = null, endRvtPP = null;
+            //// Get the location curve of the element
+            //LocationCurve locCurve = element.Location as LocationCurve;
+            //if (locCurve != null)
+            //{
+            //    startRvtPP = locCurve.Curve.GetEndPoint(0);
+            //    endRvtPP = locCurve.Curve.GetEndPoint(1);
+            //}
+
+            //Point startPoint = new Point(startRvtPP.X, startRvtPP.Y, startRvtPP.Z);
+            //Point endPoint = new Point(endRvtPP.X, endRvtPP.Y, endRvtPP.Z);
+
+            Options options = new Options();
+            options.ComputeReferences = true;
+            options.IncludeNonVisibleObjects = true;
+
+
+            XYZ startRvtPP = null;
+            XYZ endRvtPP=null;
+
+            FamilyInstance frame = element as FamilyInstance;
+            if (frame != null)
+            {
+                GeometryElement geometryElement = frame.get_Geometry(options);
+                foreach (GeometryObject geometryObject in geometryElement)
+                {
+                    Curve curve = geometryObject as Curve;
+                    if (curve != null)
+                    {
+                        startRvtPP = curve.GetEndPoint(0);
+                        endRvtPP = curve.GetEndPoint(1);
+                    }
+                }
+
+            }
+
 
             Point startPoint = new Point(startRvtPP.X, startRvtPP.Y, startRvtPP.Z);
             Point endPoint = new Point(endRvtPP.X, endRvtPP.Y, endRvtPP.Z);

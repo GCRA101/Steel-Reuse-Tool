@@ -39,16 +39,19 @@ namespace ReuseSchemeTool.view.revit_plugin
         {
             try
             {
-                //1. Initialize Controller
+                // Initialize Controller
                 RST_Controller controller = new RST_Controller(commandData.Application);
                 controller.initialize();
-                //2. Success
+                // Success
                 return Result.Succeeded;
             }
             catch (Exception e)
             {
+                message = e.Message;
                 return Result.Failed;
             }
         }
+
     }
 }
+
