@@ -1,6 +1,8 @@
 ﻿using Autodesk.Revit.DB.Structure;
+using Autodesk.Revit.UI;
 using ReuseSchemeTool.model;
 using ReuseSchemeTool.view;
+using ReuseSchemeTool.view.revit_plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +36,7 @@ namespace ReuseSchemeTool.controller
         public void initializeAboutBox()
         {
             this.aboutBoxBtnOk = this.view.aboutBox.btnOK;
-            aboutBoxBtnOk.Click += new EventHandler(aboutBoxBtnOk_Click);
+            //aboutBoxBtnOk.Click += new EventHandler(aboutBoxBtnOk_Click);
         }
 
         public void initializeInputsView()
@@ -57,7 +59,7 @@ namespace ReuseSchemeTool.controller
             trbMaxWeight.Scroll += trbScrollHandler;
 
             this.btnRun = this.view.inputsView.btnRun;
-            btnRun.Click += btnRunClickHandler;
+            //btnRun.Click += btnRunClickHandler;
         }
 
 

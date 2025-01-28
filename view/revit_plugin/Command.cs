@@ -23,6 +23,7 @@ using System.Runtime.CompilerServices;
 using Autodesk.Revit.Creation;
 using System.Security.Cryptography;
 using ReuseSchemeTool.controller;
+using ReuseSchemeTool.model;
 
 
 namespace ReuseSchemeTool.view.revit_plugin
@@ -37,16 +38,68 @@ namespace ReuseSchemeTool.view.revit_plugin
         // Execute Method from IExternalCommand Interface
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+
+            // Initialize Controller
+            RST_Controller controller = new RST_Controller(commandData.Application);
+
+            Transaction revitTransaction = new Transaction(commandData.Application.ActiveUIDocument.Document, "Reuse Rating");
+
             try
             {
-                // Initialize Controller
-                RST_Controller controller = new RST_Controller(commandData.Application);
-                controller.initialize();
+                //controller.initialize();
+
+                //Show the SplashScreen
+                controller.view.createSplashScreen();
+                //Show the AboutBox
+                controller.view.createAboutBox();
+                //Activate the EventsListener of the AboutBox
+                controller.eventsListener.initializeAboutBox();
+
+                if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
+                    controller.soundManager.play(Sound.CLICKBUTTON);
+                    controller.view.createInputsView();
+                    controller.eventsListener.initializeInputsView();
+                }
+
+                if (controller.view.inputsView.ShowDialog() == DialogResult.OK)
+                {
+
+                    revitTransaction.Start();
+
+                    controller.processInputData();
+                    controller.run();
+                    controller.model.UpdateReuseRatings();
+                    controller.model.buildRevitViews();
+                    controller.terminate();
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+
+                }
+
                 // Success
                 return Result.Succeeded;
             }
+
+            catch (MissingInputsException ex1) {
+                 controller.missingInputsHandler.execute(ex1);
+                 return Result.Failed;
+
+            }
             catch (Exception e)
             {
+                 if (revitTransaction != null) {
+
+                    revitTransaction.RollBack();
+
+                    TaskDialog.Show("ERROR MESSAGES", e.Message);
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                 }
+
                 message = e.Message;
                 return Result.Failed;
             }

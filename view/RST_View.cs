@@ -55,8 +55,8 @@ namespace ReuseSchemeTool.view
             this.aboutBox = new AboutBox(this.model);
             this.model.registerObserver(this.aboutBox);
             this.model.notifyObservers();
-            this.aboutBox.Show();
-            this.aboutBox.Refresh();
+            //this.aboutBox.Show();
+            //this.aboutBox.Refresh();
         }
 
         public void createInputsView()
@@ -67,7 +67,7 @@ namespace ReuseSchemeTool.view
             this.model.removeObserver(this.aboutBox);
             this.model.registerObserver(this.inputsView);
 
-            this.inputsView.Show();
+            //this.inputsView.Show();
             this.aboutBox.Close();
         }
     }

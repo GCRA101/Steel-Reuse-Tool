@@ -40,7 +40,7 @@
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tlpAboutBox
+            // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.91803F));
@@ -54,7 +54,7 @@
             this.tableLayoutPanel.Controls.Add(this.txtDescription, 0, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel.Name = "tlpAboutBox";
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 6;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
@@ -109,19 +109,20 @@
             this.lblCompanyName.Text = "Company Name";
             this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // plAppLogo
+            // panelImage
             // 
-            this.panelImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("plAppLogo.BackgroundImage")));
+            this.panelImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelImage.BackgroundImage")));
             this.panelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelImage.Location = new System.Drawing.Point(3, 3);
-            this.panelImage.Name = "plAppLogo";
+            this.panelImage.Name = "panelImage";
             this.tableLayoutPanel.SetRowSpan(this.panelImage, 4);
             this.panelImage.Size = new System.Drawing.Size(206, 195);
             this.panelImage.TabIndex = 4;
             // 
             // btnOK
             // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnOK.Location = new System.Drawing.Point(501, 407);
             this.btnOK.Name = "btnOK";
@@ -130,12 +131,12 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
-            // rtbAbout
+            // txtDescription
             // 
             this.tableLayoutPanel.SetColumnSpan(this.txtDescription, 2);
             this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescription.Location = new System.Drawing.Point(3, 204);
-            this.txtDescription.Name = "rtbAbout";
+            this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(604, 197);
             this.txtDescription.TabIndex = 6;
             this.txtDescription.Text = "";

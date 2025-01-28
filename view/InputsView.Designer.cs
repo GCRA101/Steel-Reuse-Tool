@@ -111,6 +111,7 @@
             // 
             // btnRun
             // 
+            this.btnRun.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRun.Location = new System.Drawing.Point(125, 545);
             this.btnRun.Margin = new System.Windows.Forms.Padding(4);
