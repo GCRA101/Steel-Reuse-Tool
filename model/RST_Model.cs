@@ -176,7 +176,10 @@ namespace ReuseSchemeTool.model
 
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc));
                 ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
-                ViewSheetBuilder.buildViewPort(view, new XYZ(0, 0, 0));
+
+                ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
+                ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
+                ViewSheetBuilder.buildViewPort(view,location, size);
 
                 if (revitTransaction != null)
                 {

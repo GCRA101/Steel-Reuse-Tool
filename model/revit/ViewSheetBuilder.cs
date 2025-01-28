@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,10 +37,19 @@ namespace ReuseSchemeTool.model.revit
             viewSheet.ConvertToRealSheet(titleBlockId);
         }
 
-        public static void buildViewPort(View view,XYZ locationPoint)
+        public static void buildViewPort(View view, ViewportLocationOnSheet location, ViewportSizeOnSheet size)
         {
             if (viewSheet == null) { return; }
-            Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, locationPoint);
+
+            int deltaUNum=Enum.GetValues(typeof(SheetColumn)).Length;
+            int deltaVNum = Enum.GetValues(typeof(SheetRow)).Length;
+
+            double x = viewSheet.Outline.Max.U / deltaUNum * ((int)location.column+1);
+            double y = viewSheet.Outline.Max.V / deltaVNum * ((int)location.row+1);
+
+            XYZ point = new XYZ(x, y, 0);
+
+            Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, point);
         }
 
         
