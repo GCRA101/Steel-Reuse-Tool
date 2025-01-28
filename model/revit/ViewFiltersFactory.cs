@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace ReuseSchemeTool.model.revit
 {
@@ -38,10 +39,11 @@ namespace ReuseSchemeTool.model.revit
         /* METHODS */
 
         //createNewFilters()
-        public void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList, 
+        public void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList,
                                      List<String> materialsList, string parameterName)
         {
-            Transaction revitTransaction = new Transaction(view.Document, "View Filters Factory");
+
+            Transaction revitTransaction = null;
 
             try
             {
@@ -65,12 +67,12 @@ namespace ReuseSchemeTool.model.revit
                 //3. GET FRAME SECTION NAMES
 
 
-                Parameter parameter =new FilteredElementCollector(view.Document)
+                Parameter parameter = new FilteredElementCollector(view.Document)
                                         .OfClass(typeof(FamilyInstance))
                                         .WherePasses(elMultiCatFilter)
                                         .First()
                                         .LookupParameter(parameterName);
-                                        
+
 
                 List<String> parameterValues = new List<String>();
 
@@ -100,7 +102,9 @@ namespace ReuseSchemeTool.model.revit
                 List<ParameterFilterElement> filters = new List<ParameterFilterElement>();
 
                 //Start New Transaction
-                revitTransaction.Start();
+                if (!view.Document.IsModifiable) {
+                    revitTransaction=new Transaction(view.Document, "View Filters Factory");
+                    revitTransaction.Start(); }
 
                 /* REMOVE ALL FILTERS CURRENTLY ASSIGNED TO THE VIEW */
                 view.GetFilters().ToList().ForEach(filter => view.RemoveFilter(filter));
@@ -145,9 +149,12 @@ namespace ReuseSchemeTool.model.revit
                     overrideGraphicSettings.Add(OverrideGraphicsFactory.getInstance().create(fillPattern.Id, colors[i]));
                     view.SetFilterOverrides(viewFilterIds[i], overrideGraphicSettings[i]);
                 }
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+
+                if (revitTransaction!=null) { 
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
 
             }
             catch (Exception ex)
@@ -156,18 +163,19 @@ namespace ReuseSchemeTool.model.revit
                 if (revitTransaction != null)
                 {
                     revitTransaction.RollBack();
+
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
                 }
 
-                TaskDialog.Show("ERROR MESSAGES", ex.Message);
-
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+                MessageBox.Show(ex.Message);
             }
 
         }
 
     }
-
 
 }

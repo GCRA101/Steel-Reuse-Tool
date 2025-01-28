@@ -21,6 +21,7 @@ namespace ReuseSchemeTool.model
         private static RST_Model instance;
         private List<Observer> observers;
         private JSONSerializer<List<FrameDecorator>> jsonSerializer;
+        private List<Element> frameElements;
         private List<Frame> steelFrames;
         private List<ExistingSteelFrame> existingSteelFrames;
         private List<ProposedSteelFrame> proposedSteelFrames;
@@ -71,41 +72,50 @@ namespace ReuseSchemeTool.model
         public void runScheming()
         {
 
-            Transaction revitTransaction = new Transaction(dbDoc, "Reuse Rating");
+            /* 1. BUILD REVIT COLLECTOR FILTERS */
+
+            // StructuralType Filters
+            ElementStructuralTypeFilter filterBeams = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Beam);
+            ElementStructuralTypeFilter filterColumns = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Column);
+            ElementStructuralTypeFilter filterBraces = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Brace);
+            // List of Filters
+            List<ElementFilter> filtersList = new List<ElementFilter>() { filterBeams, filterColumns, filterBraces };
+            // Logical Or Filter
+            LogicalOrFilter filterStrFrames = new LogicalOrFilter(filtersList);
+
+            /* 2. EXTRACT REVIT STRUCTURAL FRAMES*/
+
+            // FilteredElementCollector
+            FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
+            frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
+
+            /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
+            steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
+            existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
+
+            /* 4. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
+            existingSteelFrames.ForEach(esframe => this.reuseRatingCalculator.calculateRating(esframe));
+
+            existingSteelFrames.Sort((x, y) => x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
+
+
+
+        }
+
+
+        public void UpdateReuseRatings()
+        {
+            Transaction revitTransaction = null;
 
             try
             {
 
-                /* 1. BUILD REVIT COLLECTOR FILTERS */
-
-                // StructuralType Filters
-                ElementStructuralTypeFilter filterBeams = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Beam);
-                ElementStructuralTypeFilter filterColumns = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Column);
-                ElementStructuralTypeFilter filterBraces = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Brace);
-                // List of Filters
-                List<ElementFilter> filtersList = new List<ElementFilter>() { filterBeams, filterColumns, filterBraces };
-                // Logical Or Filter
-                LogicalOrFilter filterStrFrames = new LogicalOrFilter(filtersList);
-
-                /* 2. EXTRACT REVIT STRUCTURAL FRAMES*/
-
-                // FilteredElementCollector
-                FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
-                List<Element> frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
-
-                /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
-                steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
-                existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
-
-                /* 4. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
-                existingSteelFrames.ForEach(esframe => this.reuseRatingCalculator.calculateRating(esframe));
-                
-
-                existingSteelFrames.Sort((x,y)=> x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
-
-
                 //Start New Transaction
-                revitTransaction.Start();
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction = new Transaction(dbDoc, "Reuse Rating");
+                    revitTransaction.Start();
+                }
 
                 frameElements.ForEach(frameEl =>
                 {
@@ -118,19 +128,24 @@ namespace ReuseSchemeTool.model
                     frameEl.LookupParameter("BHE_Survey Information").Set(reuseRating.ToString());
                 });
 
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+                if (revitTransaction != null) { 
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
 
             } catch (Exception ex) {
 
-                if (revitTransaction != null) { revitTransaction.RollBack();}
+                if (revitTransaction != null) { 
+                    
+                    revitTransaction.RollBack();
 
-                TaskDialog.Show("ERROR MESSAGES", ex.Message);
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
 
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
             }
 
 
@@ -139,13 +154,19 @@ namespace ReuseSchemeTool.model
 
         public void buildRevitViews()
         {
-            Transaction revitTransaction = new Transaction(dbDoc, "Create Views");
+            Transaction revitTransaction = null;
 
             try
             {
-                revitTransaction.Start();
 
-                View view=ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme");
+                //Start New Transaction
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction = new Transaction(dbDoc, "Reuse Rating");
+                    revitTransaction.Start();
+                }
+
+                View view = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme");
 
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming,
@@ -153,25 +174,30 @@ namespace ReuseSchemeTool.model
                 List<String> materialsList = new List<String>() { "Steel" };
                 ViewFiltersFactory.getInstance().createNewFilter(view, categoriesList, materialsList, "BHE_Survey Information");
 
-
-
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc));
                 ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
-                ViewSheetBuilder.buildViewPort(view,new XYZ(0,0,0));
+                ViewSheetBuilder.buildViewPort(view, new XYZ(0, 0, 0));
 
+                if (revitTransaction != null)
+                {
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
 
             }
             catch (Exception ex)
             {
+                if (revitTransaction != null)
+                {
+                    revitTransaction.RollBack();
 
-                if (revitTransaction != null) { revitTransaction.RollBack(); }
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
 
-                TaskDialog.Show("ERROR MESSAGES", ex.Message);
-
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
-
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
             }
 
         }

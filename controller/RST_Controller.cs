@@ -77,8 +77,8 @@ namespace ReuseSchemeTool.controller
         public void terminate()
         {
             //Close and dispose the form
-            //this.view.getInputsView.close();
-            //this.view.getInputsView.dispose();
+            this.view.inputsView.Close();
+            this.view.inputsView.Dispose();
 
         }
 

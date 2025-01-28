@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace ReuseSchemeTool.model.revit
 {
@@ -66,34 +67,43 @@ namespace ReuseSchemeTool.model.revit
 
             if (viewFamilyType3D != null)
             {
-                Transaction revitTransaction = new Transaction(dbDoc, "Create 3D View");
+                Transaction revitTransaction = null;
 
                 try
                 {
                     //Start New Transaction
-                    revitTransaction.Start();
-  
+                    if (!dbDoc.IsModifiable)
+                    {
+                        revitTransaction = new Transaction(dbDoc, "Create 3D View");
+                        revitTransaction.Start();
+                    }
+
                     // Create the new 3D view
                     new3DView = View3D.CreatePerspective(dbDoc, viewFamilyType3D.Id);
                     new3DView.Name = name;
 
                     /* ************* ADD FURTHER PROPERTIES FOR THE VIEW !!!! ******* */
 
-                    // Close and Dispose Transaction
-                    revitTransaction.Commit();
-                    revitTransaction.Dispose();
+                    if (revitTransaction != null)
+                    {
+                        // Close and Dispose Transaction
+                        revitTransaction.Commit();
+                        revitTransaction.Dispose();
+                    }
                 }
                 catch (Exception ex)
                 {
+                    if (revitTransaction != null) { 
+                        
+                        revitTransaction.RollBack(); 
 
-                    if (revitTransaction != null) {revitTransaction.RollBack();}
+                        TaskDialog.Show("ERROR MESSAGES", ex.Message);
 
-                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
-
-                    // Close and Dispose Transaction
-                    revitTransaction.Commit();
-                    revitTransaction.Dispose();
-                }  
+                        // Close and Dispose Transaction
+                        revitTransaction.Commit();
+                        revitTransaction.Dispose();
+                    }
+                }
             }
             return new3DView;
         }
@@ -122,34 +132,43 @@ namespace ReuseSchemeTool.model.revit
 
             ViewSheet placeholder = null;
 
-            Transaction revitTransaction = new Transaction(dbDoc, "Create ViewSheet");
+            Transaction revitTransaction = null;
 
             try
             {
                 //Start New Transaction
-                revitTransaction.Start(); 
-
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction=new Transaction(dbDoc, "Create ViewSheet");
+                    revitTransaction.Start();
+                }
+                
                 // Create ViewSheet PlaceHolder
-                placeholder =ViewSheet.CreatePlaceholder(dbDoc);
+                placeholder = ViewSheet.CreatePlaceholder(dbDoc);
 
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+                if (revitTransaction != null) { 
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
             }
             catch (Exception ex)
             {
+                if (revitTransaction != null) {
 
-                if (revitTransaction != null) { revitTransaction.RollBack(); }
+                    revitTransaction.RollBack();
+                
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
 
-                TaskDialog.Show("ERROR MESSAGES", ex.Message);
-
-                // Close and Dispose Transaction
-                revitTransaction.Commit();
-                revitTransaction.Dispose();
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+                MessageBox.Show(ex.Message);
             }
-
             return placeholder;
         }
+
 
         private Autodesk.Revit.DB.TableView createTableView(String name)
         {
