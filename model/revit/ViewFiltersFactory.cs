@@ -58,11 +58,12 @@ namespace ReuseSchemeTool.model.revit
 
                 //2. GET MATERIALS LIST
 
-                List<ElementId> selectedMaterialIds = new FilteredElementCollector(view.Document).
-                                        OfClass(typeof(Material)).
-                                        Where(mat => materialsList.Contains(mat.Name)).
-                                        Select(mat => mat.Id).
-                                        ToList();
+                //List<ElementId> selectedMaterialIds = new FilteredElementCollector(view.Document).
+                //                        OfClass(typeof(Material)).
+                //                        Where(mat => materialsList.Contains(mat.Name)).
+                //                        Select(mat => mat.Id).
+                //                        ToList();
+
 
                 //3. GET FRAME SECTION NAMES
 
@@ -79,7 +80,8 @@ namespace ReuseSchemeTool.model.revit
                 parameterValues = new FilteredElementCollector(view.Document).
                                         OfClass(typeof(FamilyInstance)).
                                         WherePasses(elMultiCatFilter).
-                                        Where(el => el.GetMaterialIds(false).Intersect(selectedMaterialIds).Count() != 0).
+                                        //Where(el => el.GetMaterialIds(false).Intersect(selectedMaterialIds).Count() != 0).
+                                        Where(el => materialsList.Contains(el.LookupParameter("BHE_Material").AsString())).
                                         Select(el => el.LookupParameter(parameterName).AsString()).
                                         ToHashSet().
                                         ToList();
