@@ -169,8 +169,7 @@ namespace ReuseSchemeTool.model
                 View view = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme");
 
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
-                    { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming,
-                      BuiltInCategory.OST_StructuralFramingOther};
+                    { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
                 ViewFiltersFactory.getInstance().createNewFilter(view, categoriesList, materialsList, "BHE_Survey Information");
 
