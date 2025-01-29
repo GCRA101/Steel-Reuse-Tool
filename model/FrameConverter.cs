@@ -58,7 +58,7 @@ namespace ReuseSchemeTool.model
 
             Single weight_kg_m=0;
             Parameter secWeightParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
-            if (secWeightParam != null) weight_kg_m= (Single)secWeightParam.AsDouble();
+            if (secWeightParam != null) weight_kg_m= (Single)(secWeightParam.AsDouble()/ 9.80665);
 
             return new Section(name, area_mm2, weight_kg_m);
         }
