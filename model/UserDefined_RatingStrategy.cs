@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,8 +52,8 @@ namespace ReuseSchemeTool.model
 
             // Length Check
             if ((frame.getLength()!=null) &&
-                (frame.getLength() >= this.lengthRange[0]) &&
-                (frame.getLength() <= this.lengthRange[1]))
+                (frame.getLength() >= UnitUtils.ConvertToInternalUnits(this.lengthRange[0], UnitTypeId.Meters)) &&
+                (frame.getLength() <= UnitUtils.ConvertToInternalUnits(this.lengthRange[1], UnitTypeId.Meters)))
             {
                 lengthCheck = true;
             }
@@ -64,7 +65,6 @@ namespace ReuseSchemeTool.model
             {
                 weightCheck = true;
             }
-
 
             // 2. ASSIGN REUSE RATING
 
