@@ -103,8 +103,11 @@
     <Compile Include="model\ReuseRatingStrategy.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
+    <Compile Include="model\revit\ViewDraftingBuilder.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
+    <Compile Include="model\revit\PieSliceData.cs" />
     <Compile Include="model\revit\SheetColumn.cs" />
+    <Compile Include="model\revit\ViewDraftingsFactory.cs" />
     <Compile Include="model\revit\ViewFiltersFactory.cs" />
     <Compile Include="model\revit\ViewportLocationOnSheet.cs" />
     <Compile Include="model\revit\ViewsFactory.cs" />
@@ -159,6 +162,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="view\InputsView.resx">
       <DependentUpon>InputsView.cs</DependentUpon>

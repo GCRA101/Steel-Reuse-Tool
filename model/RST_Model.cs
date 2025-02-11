@@ -30,6 +30,7 @@ namespace ReuseSchemeTool.model
         public Autodesk.Revit.DB.Document dbDoc;
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
+        public Stack<View> revitViews = new Stack<View>();
 
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
@@ -166,19 +167,74 @@ namespace ReuseSchemeTool.model
                     revitTransaction.Start();
                 }
 
-                View view = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme");
+                View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View",100);
 
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewFilter(view, categoriesList, materialsList, "BHE_Survey Information");
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information");
 
-                ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc));
-                ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
+                revitViews.Push(ThreeDView);
 
-                ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
-                ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
-                ViewSheetBuilder.buildViewPort(view,location, size);
+                Dictionary<string, Color> viewFiltersData= ThreeDView.GetFilters().ToDictionary(elId => dbDoc.GetElement(elId).Name, elId => ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor);
+                
+                ViewDrafting legendView= (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Legend", 20);
+                ViewDraftingsFactory.getInstance().createLegend(legendView, "Legend", viewFiltersData.Keys.ToList(), viewFiltersData.Values.ToList());
+
+                revitViews.Push(legendView);
+
+
+                ViewDrafting pieChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart", 20);
+
+                FilteredElementCollector elmsCollector = null;
+                ElementFilter elemFilter = null;
+                IList<Element> filteredElements = null;
+
+                List<PieSliceData> pieSlicesData= ThreeDView.GetFilters().Select(elId =>
+                {
+                    string name = dbDoc.GetElement(elId).Name;
+
+                    elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
+                    // Step 4: Apply the Filter to the Collector
+                    elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
+                    filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
+                    long value = filteredElements.Count();
+
+                    Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
+
+                    return new PieSliceData(name, value, color);
+
+                }).ToList();
+
+                ViewDraftingsFactory.getInstance().createPieChart(pieChartView, "Pie Chart", pieSlicesData);
+
+                revitViews.Push(pieChartView);
+
+
+                Element filter = dbDoc.GetElement(ThreeDView.GetFilters().FirstOrDefault(elId => dbDoc.GetElement(elId).Name == "MUST_HAVE"));
+
+                elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
+                // Step 4: Apply the Filter to the Collector
+                elemFilter = ((ParameterFilterElement)filter).GetElementFilter();
+                filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
+
+                Dictionary<string, List<double>> stocksData = filteredElements
+                    .GroupBy(el => el.Name)
+                    .ToDictionary(grp => grp.Key, grp => grp.ToList().Select(el=>el.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble()).ToList());
+
+                ViewDrafting stockChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Stock Chart", 20);
+
+                ViewDraftingsFactory.getInstance().createStockChart(stockChartView, "Stock Chart",stocksData);
+
+                revitViews.Push(stockChartView);
+
+                //ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
+                //ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
+
+                //ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
+                //ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
+                //ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
+
 
                 if (revitTransaction != null)
                 {

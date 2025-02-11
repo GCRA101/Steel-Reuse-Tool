@@ -209,23 +209,23 @@
             // 
             this.lblMinWeight.AutoSize = true;
             this.lblMinWeight.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinWeight.Location = new System.Drawing.Point(92, 389);
+            this.lblMinWeight.Location = new System.Drawing.Point(83, 389);
             this.lblMinWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinWeight.Name = "lblMinWeight";
-            this.lblMinWeight.Size = new System.Drawing.Size(146, 17);
+            this.lblMinWeight.Size = new System.Drawing.Size(162, 17);
             this.lblMinWeight.TabIndex = 43;
-            this.lblMinWeight.Text = "MINIMUM WEIGHT [kg]";
+            this.lblMinWeight.Text = "MINIMUM WEIGHT [kg/m]";
             // 
             // lblMaxWeight
             // 
             this.lblMaxWeight.AutoSize = true;
             this.lblMaxWeight.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaxWeight.Location = new System.Drawing.Point(92, 460);
+            this.lblMaxWeight.Location = new System.Drawing.Point(83, 460);
             this.lblMaxWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaxWeight.Name = "lblMaxWeight";
-            this.lblMaxWeight.Size = new System.Drawing.Size(149, 17);
+            this.lblMaxWeight.Size = new System.Drawing.Size(165, 17);
             this.lblMaxWeight.TabIndex = 44;
-            this.lblMaxWeight.Text = "MAXIMUM WEIGHT [kg]";
+            this.lblMaxWeight.Text = "MAXIMUM WEIGHT [kg/m]";
             // 
             // lblDescription
             // 

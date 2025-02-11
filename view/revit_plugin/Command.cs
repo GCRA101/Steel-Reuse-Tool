@@ -70,12 +70,17 @@ namespace ReuseSchemeTool.view.revit_plugin
                     controller.run();
                     controller.model.UpdateReuseRatings();
                     controller.model.buildRevitViews();
-                    controller.terminate();
 
                     // Close and Dispose Transaction
                     revitTransaction.Commit();
                     revitTransaction.Dispose();
 
+                    while (controller.model.revitViews.Count > 0 )
+                    {
+                        commandData.Application.ActiveUIDocument.ActiveView = controller.model.revitViews.Pop();
+                    }
+
+                    controller.terminate();
                 }
 
                 // Success

@@ -30,20 +30,20 @@ namespace ReuseSchemeTool.model.revit
         }
 
         public Autodesk.Revit.DB.View create(Autodesk.Revit.DB.Document dbDoc, 
-            RevitViewType viewType, String name)
+            RevitViewType viewType, String name, int scale)
         {
             this.dbDoc= dbDoc;
 
             switch (viewType)
             {
                 case (RevitViewType.THREE_D):
-                    return this.createView3D(name);
+                    return this.createView3D(name, scale);
                 case (RevitViewType.PLAN):
-                    return this.createViewPlan(name);
+                    return this.createViewPlan(name, scale);
                 case (RevitViewType.DRAFTING):
-                    return this.createViewDrafting(name);
+                    return this.createViewDrafting(name, scale);
                 case (RevitViewType.SECTION):
-                    return this.createViewSection(name);
+                    return this.createViewSection(name, scale);
                 case (RevitViewType.SHEET):
                     return this.createViewSheet(name);
                 case (RevitViewType.TABLE):
@@ -55,7 +55,7 @@ namespace ReuseSchemeTool.model.revit
             return null;
         }
 
-        private Autodesk.Revit.DB.View3D createView3D(String name)
+        private Autodesk.Revit.DB.View3D createView3D(String name, int scale)
         {
             // Find the ViewFamilyType for a 3D view
             ViewFamilyType viewFamilyType3D = new FilteredElementCollector(this.dbDoc)
@@ -79,8 +79,13 @@ namespace ReuseSchemeTool.model.revit
                     }
 
                     // Create the new 3D view
-                    new3DView = View3D.CreatePerspective(dbDoc, viewFamilyType3D.Id);
+                    new3DView = View3D.CreateIsometric(dbDoc, viewFamilyType3D.Id);
                     new3DView.Name = name;
+                    new3DView.Scale = scale;
+                    new3DView.AreAnnotationCategoriesHidden = true;
+                    // Set the view to shaded and hidden edges
+                    new3DView.DisplayStyle = DisplayStyle.Shading;
+
 
                     /* ************* ADD FURTHER PROPERTIES FOR THE VIEW !!!! ******* */
 
@@ -109,19 +114,71 @@ namespace ReuseSchemeTool.model.revit
         }
 
 
-        private Autodesk.Revit.DB.ViewPlan createViewPlan(String name)
+        private Autodesk.Revit.DB.ViewPlan createViewPlan(String name, int scale)
         {
             /* ************* ADD CODE HERE !!!! ******* */
             return null;
         }
 
-        private Autodesk.Revit.DB.ViewDrafting createViewDrafting(String name)
+        private Autodesk.Revit.DB.ViewDrafting createViewDrafting(String viewName, int scale)
         {
-            /* ************* ADD CODE HERE !!!! ******* */
-            return null;
+
+            // Find the ViewFamilyType for a Drafting View
+            ViewFamilyType viewFamilyTypeDrafting = new FilteredElementCollector(this.dbDoc)
+                        .OfClass(typeof(ViewFamilyType))
+                        .Cast<ViewFamilyType>()
+                        .FirstOrDefault(vft => vft.ViewFamily == ViewFamily.Drafting);
+
+            ViewDrafting newDraftingView = null;
+
+
+            if (viewFamilyTypeDrafting != null)
+            {
+                Transaction revitTransaction = null;
+
+                try
+                {
+                    //Start New Transaction
+                    if (!dbDoc.IsModifiable)
+                    {
+                        revitTransaction = new Transaction(dbDoc, "Create View Drafting");
+                        revitTransaction.Start();
+                    }
+
+                    // Create the new 3D view
+                    newDraftingView = ViewDrafting.Create(dbDoc, viewFamilyTypeDrafting.Id);
+                    newDraftingView.Name = viewName;
+                    newDraftingView.Scale = scale;
+
+
+                    /* ************* ADD FURTHER PROPERTIES FOR THE VIEW !!!! ******* */
+
+                    if (revitTransaction != null)
+                    {
+                        // Close and Dispose Transaction
+                        revitTransaction.Commit();
+                        revitTransaction.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (revitTransaction != null)
+                    {
+
+                        revitTransaction.RollBack();
+
+                        TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                        // Close and Dispose Transaction
+                        revitTransaction.Commit();
+                        revitTransaction.Dispose();
+                    }
+                }
+            }
+            return newDraftingView;
         }
 
-        private Autodesk.Revit.DB.ViewSection createViewSection(String name)
+        private Autodesk.Revit.DB.ViewSection createViewSection(String name, int scale)
         {
             /* ************* ADD CODE HERE !!!! ******* */
             return null;
