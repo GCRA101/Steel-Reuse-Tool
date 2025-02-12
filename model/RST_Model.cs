@@ -172,7 +172,7 @@ namespace ReuseSchemeTool.model
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information");
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information",ColorPalette.TRAFFICLIGHTS);
 
                 revitViews.Push(ThreeDView);
 

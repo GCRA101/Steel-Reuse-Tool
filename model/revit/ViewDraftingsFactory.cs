@@ -13,6 +13,7 @@ namespace ReuseSchemeTool.model.revit
         /* ATTRIBUTES */
         //Private instance - SINGLETON PATTERN
         private static ViewDraftingsFactory instance;
+        private ViewDraftingBuilder builder;
 
         /* CONSTRUCTORS */
         //Private Default Constructor - SINGLETON PATTERN
@@ -31,7 +32,7 @@ namespace ReuseSchemeTool.model.revit
 
         public ViewDrafting createLegend(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<string> itemNames, List<Color> itemColors)
         {
-            ViewDraftingBuilder builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
+            builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
             
             TextNoteType titleNoteType =builder.createTextNoteType("Legend_Title", "Segoe UI", 10, true);
             TextNoteType itemNoteType = builder.createTextNoteType("Legend_Item", "Segoe UI", 5, false);
@@ -49,7 +50,7 @@ namespace ReuseSchemeTool.model.revit
 
         public ViewDrafting createPieChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<PieSliceData> pieSlicesData)
         {
-            ViewDraftingBuilder builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
+            builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
             TextNoteType titleNoteType = builder.createTextNoteType("PieChart_Title", "Segoe UI", 10, true);
             TextNoteType itemNoteType = builder.createTextNoteType("PieChart_Item", "Segoe UI", 5, false);
@@ -70,7 +71,7 @@ namespace ReuseSchemeTool.model.revit
 
         public ViewDrafting createBarChart(Autodesk.Revit.DB.ViewDrafting viewDrafting)
         {
-            ViewDraftingBuilder builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
+            builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
 
             return builder.getViewDrafting();
@@ -78,7 +79,7 @@ namespace ReuseSchemeTool.model.revit
 
         public ViewDrafting createStockChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, Dictionary<string,List<double>> stocksData)
         {
-            ViewDraftingBuilder builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
+            builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
             TextNoteType titleNoteType = builder.createTextNoteType("StockChart_Title", "Segoe UI", 10, true);
             TextNoteType itemNoteType = builder.createTextNoteType("StockChart_Item", "Segoe UI", 5, false);

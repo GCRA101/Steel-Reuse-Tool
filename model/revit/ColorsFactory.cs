@@ -32,6 +32,7 @@ namespace ReuseSchemeTool.model.revit
             {
                 case ColorPalette.RAINBOW: return this.rainbowColors(colorsNum);
                 case ColorPalette.RANDOM: return this.randomColors(colorsNum);
+                case ColorPalette.TRAFFICLIGHTS: return this.trafficLightColors(colorsNum);
                 default: return null;
             }
         }
@@ -66,6 +67,47 @@ namespace ReuseSchemeTool.model.revit
                 byte green = (byte)random.Next(0, 256);
                 byte blue = (byte)random.Next(0, 256);
                 colors.Add(new Autodesk.Revit.DB.Color(red, green, blue));
+            }
+
+            return colors;
+        }
+
+        /*Private trafficLightColors Method
+          Private as it doesn't need to be visible to the client
+          Create a list of Revit DB color objects in a random type pattern*/
+        private List<Autodesk.Revit.DB.Color> trafficLightColors(int colorsNum)
+        {
+            List<Autodesk.Revit.DB.Color> colorsRange = new List<Autodesk.Revit.DB.Color>();
+            List<Autodesk.Revit.DB.Color> colors = new List<Autodesk.Revit.DB.Color>();
+
+            long steps = Math.Max(100, colorsNum*2);
+            long halfSteps = steps / 2;
+
+            // Green to Orange
+            for (long i = 0; i < halfSteps; i++)
+            {
+                double t = (double)i / (halfSteps - 1);
+                byte r = (byte)(255 * t);
+                byte g = 255;
+                byte b = 0;
+                colorsRange.Add(new Autodesk.Revit.DB.Color(r, g, b));
+            }
+
+            // Orange to Red
+            for (long i = halfSteps; i < steps; i++)
+            {
+                double t = (double)(i - halfSteps) / (halfSteps - 1);
+                byte r = 255;
+                byte g = (byte)(255 * (1 - t));
+                byte b = 0;
+                colorsRange.Add(new Autodesk.Revit.DB.Color(r, g, b));
+            }
+
+            int step =(int)Math.Round((double)colorsRange.Count / colorsNum);
+
+            for (int i = 0; i < colorsRange.Count; i += step)
+            {
+                colors.Add(colorsRange[i]);
             }
 
             return colors;

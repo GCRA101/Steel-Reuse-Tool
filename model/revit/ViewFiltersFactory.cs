@@ -40,7 +40,7 @@ namespace ReuseSchemeTool.model.revit
 
         //createNewFilters()
         public void createNewFilter(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList,
-                                     List<String> materialsList, string parameterName)
+                                     List<String> materialsList, string parameterName, ColorPalette colorPalette)
         {
 
             Transaction revitTransaction = null;
@@ -92,7 +92,7 @@ namespace ReuseSchemeTool.model.revit
                 /*4.CREATE COLORS PALETTE FOR VIEW FILTERS */
 
                 List<Autodesk.Revit.DB.Color> colors = new List<Autodesk.Revit.DB.Color>();
-                colors = ColorsFactory.getInstance().create(ColorPalette.RANDOM, parameterValues.Count());
+                colors = ColorsFactory.getInstance().create(colorPalette, parameterValues.Count());
 
 
 

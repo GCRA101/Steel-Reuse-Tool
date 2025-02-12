@@ -6,7 +6,7 @@ namespace ReuseSchemeTool.model.revit
 {
     public enum ColorPalette
     {
-        RAINBOW, RANDOM, LINEAR, SINUSOIDAL
+        RAINBOW, RANDOM, LINEAR, SINUSOIDAL, TRAFFICLIGHTS
     }
 
 
