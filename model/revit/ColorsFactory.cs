@@ -103,7 +103,7 @@ namespace ReuseSchemeTool.model.revit
                 colorsRange.Add(new Autodesk.Revit.DB.Color(r, g, b));
             }
 
-            int step =(int)Math.Round((double)colorsRange.Count / colorsNum);
+            int step =(int)Math.Round((double)colorsRange.Count /(colorsNum-1))-1;
 
             for (int i = 0; i < colorsRange.Count; i += step)
             {

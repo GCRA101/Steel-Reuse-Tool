@@ -220,7 +220,7 @@ namespace ReuseSchemeTool.model
 
                 Dictionary<string, List<double>> stocksData = filteredElements
                     .GroupBy(el => el.Name)
-                    .ToDictionary(grp => grp.Key, grp => grp.ToList().Select(el=>el.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble()).ToList());
+                    .ToDictionary(grp => grp.Key, grp => grp.ToList().Select(el=> UnitUtils.ConvertFromInternalUnits(el.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble(), UnitTypeId.Millimeters)).ToList());
 
                 ViewDrafting stockChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Stock Chart", 20);
 

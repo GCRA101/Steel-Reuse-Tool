@@ -103,6 +103,7 @@
     <Compile Include="model\ReuseRatingStrategy.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
+    <Compile Include="model\revit\LineStyle.cs" />
     <Compile Include="model\revit\ViewDraftingBuilder.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
     <Compile Include="model\revit\PieSliceData.cs" />

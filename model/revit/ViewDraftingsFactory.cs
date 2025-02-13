@@ -86,7 +86,7 @@ namespace ReuseSchemeTool.model.revit
 
             builder.createTextNote(titleNoteType, new XYZ(0, 400, 0), title.ToUpper());
             builder.createLine(new XYZ(0, 200, 0), new XYZ(6000, 200, 0));
-            builder.createStockChart(new XYZ(0, -200, 0), itemNoteType,1000, 100, stocksData);
+            builder.createStockChart(new XYZ(0, -200, 0), itemNoteType, 15000, 1000, 100,250, stocksData);
 
             return builder.getViewDrafting();
         }

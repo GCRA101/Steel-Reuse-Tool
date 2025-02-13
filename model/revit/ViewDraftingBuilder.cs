@@ -15,7 +15,7 @@ namespace ReuseSchemeTool.model.revit
 
         /* ATTRIBUTES */
         private Autodesk.Revit.DB.Document dbDoc;
-        private Autodesk.Revit.DB.ViewDrafting viewDrafting=null;
+        private Autodesk.Revit.DB.ViewDrafting viewDrafting = null;
         private FilledRegionType solidFilledRegionType;
 
 
@@ -27,7 +27,7 @@ namespace ReuseSchemeTool.model.revit
             this.solidFilledRegionType = getFilledRegionType();
         }
 
-        public ViewDraftingBuilder(Document dbDoc, ViewDrafting viewDrafting): this(dbDoc)
+        public ViewDraftingBuilder(Document dbDoc, ViewDrafting viewDrafting) : this(dbDoc)
         {
             this.viewDrafting = viewDrafting;
         }
@@ -53,15 +53,15 @@ namespace ReuseSchemeTool.model.revit
             return output;
         }
 
-        public Autodesk.Revit.DB.Line createLine(XYZ startPoint, XYZ endPoint)
+        public Autodesk.Revit.DB.Line createLine(XYZ startPoint, XYZ endPoint, GraphicsStyle lineStyle=null)
         {
             if (viewDrafting == null) return null;
 
-            startPoint=convertPointToInternalUnits(startPoint);
+            startPoint = convertPointToInternalUnits(startPoint);
             endPoint = convertPointToInternalUnits(endPoint);
 
             Transaction revitTransaction = null;
-            Autodesk.Revit.DB.Line line=null;
+            Autodesk.Revit.DB.Line line = null;
 
             try
             {
@@ -75,6 +75,8 @@ namespace ReuseSchemeTool.model.revit
                 line = Autodesk.Revit.DB.Line.CreateBound(startPoint, endPoint);
 
                 DetailCurve detailCurve = dbDoc.Create.NewDetailCurve(viewDrafting, line);
+
+                if (lineStyle!=null) detailCurve.LineStyle = lineStyle;
 
                 if (revitTransaction != null)
                 {
@@ -669,14 +671,14 @@ namespace ReuseSchemeTool.model.revit
             return filledRegion;
         }
 
-        public Dictionary<string,List<FilledRegion>> createStockChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, 
-                                                   Single vSpacing, Single hSpacing, Dictionary<string,List<double>> stocksData)
+        public Dictionary<string,List<Autodesk.Revit.DB.Line>> createStockChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, Single chartWidth, 
+                                                   Single vSpacing, Single hSpacing, Single hStockMax, Dictionary<string,List<double>> stocksData)
         {
             if (viewDrafting == null) return null;
 
             Transaction revitTransaction = null;
 
-            Dictionary<string, List<FilledRegion>> filledRegionsDict = new Dictionary<string, List<FilledRegion>>();
+            Dictionary<string, List<Autodesk.Revit.DB.Line>> linesDict = new Dictionary<string, List<Autodesk.Revit.DB.Line>>();
 
             try
             {
@@ -690,27 +692,46 @@ namespace ReuseSchemeTool.model.revit
 
                 stocksData.Values.ToList().ForEach(list=>list.Sort());
 
-                String label;
-                XYZ chartRefPoint;
-                XYZ rectRefPoint;
+                String key, label;
+                double stockRefX;
+                XYZ chartRefPoint = new XYZ(topLeftCornerPoint.X, topLeftCornerPoint.Y, topLeftCornerPoint.Z);
+                XYZ lineStartPoint, lineEndPoint;
+                List<double> values;
 
                 for (int i = 0; i < stocksData.Count; i++) 
                 {
-                    label = stocksData.Keys.ToList()[i].ToString() + " - " + stocksData.Values.Count() + " NO.";
-                    chartRefPoint =  new XYZ(topLeftCornerPoint.X, topLeftCornerPoint.Y - vSpacing*(i+1), topLeftCornerPoint.Z);
+                    
+                    key = stocksData.Keys.ToList()[i];
+                    stocksData.TryGetValue(key, out values);
+                    label = key + " - " + values.Count() + " NO.";
+                    chartRefPoint =  new XYZ(chartRefPoint.X, chartRefPoint.Y - vSpacing, chartRefPoint.Z);
                     TextNote labelTextNote = this.createTextNote(textNoteType, chartRefPoint, label);
 
-                    List<double> values;
-                    stocksData.TryGetValue(stocksData.Keys.ToList()[i], out values);
+                    List<Autodesk.Revit.DB.Line> lines = new List<Autodesk.Revit.DB.Line>();
+                    LineStyle lineStyle = new LineStyle("ReuseStocksLineStyle", 10, new Color(230, 50, 135));
+                    GraphicsStyle graphicsStyle = lineStyle.getGraphicsStyle(dbDoc);
 
-                    List<FilledRegion> filledRegions = new List<FilledRegion>();
+                    double stockScaleRatio=hStockMax / values.Max();
+                    double delta;
+                    int k=0;
 
                     for (int j = 0; j < values.Count; j++)
                     {
-                        rectRefPoint= new XYZ(chartRefPoint.X+ labelTextNote.Width+hSpacing*(j+1), chartRefPoint.Y, chartRefPoint.Z);
-                        filledRegions.Add(this.createRectangle(rectRefPoint, 10, values[j], new Color(255, 0, 0))); 
+                        stockRefX= chartRefPoint.X + 2000 + hSpacing * k;
+                        
+                        if (stockRefX > chartWidth)
+                        {
+                            chartRefPoint = new XYZ(chartRefPoint.X, chartRefPoint.Y - 600, chartRefPoint.Z);
+                            k = 0;
+                        }
+                        
+                        lineStartPoint = new XYZ(chartRefPoint.X+2000+hSpacing*k, chartRefPoint.Y, chartRefPoint.Z);
+                        lineEndPoint = new XYZ(lineStartPoint.X, lineStartPoint.Y + values[j]* 2*stockScaleRatio, lineStartPoint.Z);
+                        lines.Add(this.createLine(lineStartPoint,lineEndPoint, graphicsStyle));
+
+                        k += 1;
                     }
-                    filledRegionsDict.Add(label, filledRegions);
+                    linesDict.Add(label, lines);
                 }
 
                 if (revitTransaction != null)
@@ -735,7 +756,7 @@ namespace ReuseSchemeTool.model.revit
                 }
             }
 
-            return filledRegionsDict;
+            return linesDict;
         }
 
     }
