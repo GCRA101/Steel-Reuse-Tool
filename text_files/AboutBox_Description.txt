@@ -7,5 +7,9 @@ ALGORITHM
 ***********************************
 
 LIMITATIONS
-***********************************
-***********************************
+
+
+2. Naming Conventions for Revit Parameters
+- Whatever family/element doesn't abide by the following conventions, the corresponding parameter values won't be extracted from the model by the tool and won't be taken into account in the computations
+- Weight -> "Nominal Weight"
+- Length -> "Length"

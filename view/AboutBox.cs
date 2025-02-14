@@ -1,4 +1,5 @@
-﻿using ReuseSchemeTool.model;
+﻿using ReuseSchemeTool.controller;
+using ReuseSchemeTool.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +47,7 @@ namespace ReuseSchemeTool.view
             //Company Name info
             this.lblCompanyName.Text = this.model.getModelOwner();
             //Description
-            //this.rtbAbout.Text = File.ReadAllText();
+            this.txtDescription.Text = ControllerFileManager.getDocText(Document.APP_DESCRIPTION);
         }
 
     }

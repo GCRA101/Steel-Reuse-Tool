@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace ReuseSchemeTool.controller
 {
-    public class ControllerFileManager
+    public static class ControllerFileManager
     {
 
         // METHODS
-        public string getFilePath(OpenFileDialog ofd, String dialogTitle, String filter)
+        public static string getFilePath(OpenFileDialog ofd, String dialogTitle, String filter)
         {
             //Initialize the fileName string variable
             string fileName = null;
@@ -37,7 +37,7 @@ namespace ReuseSchemeTool.controller
 
         }
 
-        public string getDocText(Document doc)
+        public static string getDocText(Document doc)
         {
             // Get the File Path of the input Document class instance
             string resourceName = FilePathRetriever.getPath(doc);

@@ -17,7 +17,7 @@ namespace ReuseSchemeTool.controller
             switch (doc)
             {
                 case Document.APP_DESCRIPTION:
-                    return "ReuseSchemeTool.AppLongDescription.txt";
+                    return "ReuseSchemeTool.text_files.AboutBox_Description.txt";
                 default:
                     return null;
             }
