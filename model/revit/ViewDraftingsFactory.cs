@@ -48,7 +48,7 @@ namespace ReuseSchemeTool.model.revit
         }
 
 
-        public ViewDrafting createPieChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<PieSliceData> pieSlicesData)
+        public ViewDrafting createPieChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<PieSliceData> pieSlicesData, string units)
         {
             builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
@@ -62,7 +62,7 @@ namespace ReuseSchemeTool.model.revit
             for (int i = 0; i<pieSlicesData.Count();i++) 
             {
                 FilledRegion circle = builder.createCircle(new XYZ(3000, -500 - i * 400, 0), 100, pieSlicesData[i].getColor());
-                builder.createTextNote(itemNoteType, new XYZ(3200, -500 - i * 400, 0), pieSlicesData[i].getName() + " - [" + pieSlicesData[i].getValue().ToString() + " items]");
+                builder.createTextNote(itemNoteType, new XYZ(3200, -500 - i * 400, 0), pieSlicesData[i].getName() + " - [" + pieSlicesData[i].getValue().ToString() + " " + units + "]");
             }
 
 

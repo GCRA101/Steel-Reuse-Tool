@@ -58,7 +58,8 @@ namespace ReuseSchemeTool.model
                 lengthCheck = true;
             }
 
-            // Weight Check
+            //
+            // Check
             if ((frame.getSection()!=null) &&
                 (frame.getSection().getWeight() >= this.weightRange[0]) &&
                 (frame.getSection().getWeight() <= this.weightRange[1]))

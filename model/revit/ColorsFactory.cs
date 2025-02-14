@@ -82,7 +82,6 @@ namespace ReuseSchemeTool.model.revit
 
             long steps = Math.Max(100, colorsNum*2);
             long halfSteps = steps / 2;
-
             // Green to Orange
             for (long i = 0; i < halfSteps; i++)
             {

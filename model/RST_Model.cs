@@ -3,6 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
+using Newtonsoft.Json.Linq;
 using ReuseSchemeTool.model.revit;
 using System;
 using System.Collections.Generic;
@@ -167,30 +168,30 @@ namespace ReuseSchemeTool.model
                     revitTransaction.Start();
                 }
 
-                View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View",100);
+                View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View", 100);
 
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information",ColorPalette.TRAFFICLIGHTS);
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", ColorPalette.TRAFFICLIGHTS);
 
                 revitViews.Push(ThreeDView);
 
-                Dictionary<string, Color> viewFiltersData= ThreeDView.GetFilters().ToDictionary(elId => dbDoc.GetElement(elId).Name, elId => ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor);
-                
-                ViewDrafting legendView= (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Legend", 20);
+                Dictionary<string, Color> viewFiltersData = ThreeDView.GetFilters().ToDictionary(elId => dbDoc.GetElement(elId).Name, elId => ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor);
+
+                ViewDrafting legendView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Legend", 20);
                 ViewDraftingsFactory.getInstance().createLegend(legendView, "Legend", viewFiltersData.Keys.ToList(), viewFiltersData.Values.ToList());
 
                 revitViews.Push(legendView);
 
 
-                ViewDrafting pieChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart", 20);
+                ViewDrafting pcItemsView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Item Quantities", 20);
 
                 FilteredElementCollector elmsCollector = null;
                 ElementFilter elemFilter = null;
                 IList<Element> filteredElements = null;
 
-                List<PieSliceData> pieSlicesData= ThreeDView.GetFilters().Select(elId =>
+                List<PieSliceData> pieSlicesData = ThreeDView.GetFilters().Select(elId =>
                 {
                     string name = dbDoc.GetElement(elId).Name;
 
@@ -206,9 +207,52 @@ namespace ReuseSchemeTool.model
 
                 }).ToList();
 
-                ViewDraftingsFactory.getInstance().createPieChart(pieChartView, "Pie Chart", pieSlicesData);
+                ViewDraftingsFactory.getInstance().createPieChart(pcItemsView, "Pie Chart - Item Quantities", pieSlicesData, "items");
 
-                revitViews.Push(pieChartView);
+                revitViews.Push(pcItemsView);
+
+
+
+                ViewDrafting pcMatView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Material Quantities", 20);
+
+                pieSlicesData = ThreeDView.GetFilters().Select(elId =>
+                {
+                    string name = dbDoc.GetElement(elId).Name;
+
+                    elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
+                    // Step 4: Apply the Filter to the Collector
+                    elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
+                    filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
+                    
+                    double value = filteredElements.Sum(el => {
+                        
+                        Parameter lengthParam = el.LookupParameter("Length");
+                        Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
+                        
+                        if (lengthParam != null && weightParam != null)
+                        {
+                            double length_m = UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(), UnitTypeId.Meters);
+                            double weight_kg_m = UnitUtils.ConvertFromInternalUnits(((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight").AsDouble() / 9.80665, UnitTypeId.Tonnes);
+                            return Math.Round(length_m * weight_kg_m,0);
+                        }
+                        // *********************************************************************************************************************
+                        // ADD A WARNING FOR THE USER HIGHLIGHTING WHICH REVIT ELEMENTS HAVE ONE OF THE TWO PARAMETERS ABOVE =NULL !!! *********
+                        // *********************************************************************************************************************
+
+                        return 0.0;
+
+                        });
+
+                    Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
+
+                    return new PieSliceData(name, value, color);
+
+                }).ToList();
+
+                ViewDraftingsFactory.getInstance().createPieChart(pcMatView, "Pie Chart - Material Quantities", pieSlicesData, "tonnes");
+
+                revitViews.Push(pcMatView);
+
 
 
                 Element filter = dbDoc.GetElement(ThreeDView.GetFilters().FirstOrDefault(elId => dbDoc.GetElement(elId).Name == "MUST_HAVE"));
@@ -218,9 +262,12 @@ namespace ReuseSchemeTool.model
                 elemFilter = ((ParameterFilterElement)filter).GetElementFilter();
                 filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
 
+                filteredElements.ToList().Sort((el0, el1) => ((FamilyInstance)el1).Symbol.LookupParameter("Nominal Weight").AsDouble().CompareTo(((FamilyInstance)el0).Symbol.LookupParameter("Nominal Weight").AsDouble()));
+
                 Dictionary<string, List<double>> stocksData = filteredElements
                     .GroupBy(el => el.Name)
-                    .ToDictionary(grp => grp.Key, grp => grp.ToList().Select(el=> UnitUtils.ConvertFromInternalUnits(el.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble(), UnitTypeId.Millimeters)).ToList());
+                    .ToDictionary(grp => grp.Key, grp => grp.ToList().Select(el => UnitUtils.ConvertFromInternalUnits(el.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble(), UnitTypeId.Millimeters)).ToList());
+
 
                 ViewDrafting stockChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Stock Chart", 20);
 
@@ -228,12 +275,12 @@ namespace ReuseSchemeTool.model
 
                 revitViews.Push(stockChartView);
 
-                //ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
-                //ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
+                ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
+                ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
 
-                //ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
-                //ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
-                //ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
+                ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
+                ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
+                ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
 
 
                 if (revitTransaction != null)
