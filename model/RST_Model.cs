@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
+using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ReuseSchemeTool.model
 {
@@ -32,6 +34,7 @@ namespace ReuseSchemeTool.model
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
         public Stack<View> revitViews = new Stack<View>();
+        public string jsonFilesFolderPath;
 
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
@@ -80,6 +83,7 @@ namespace ReuseSchemeTool.model
             ElementStructuralTypeFilter filterBeams = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Beam);
             ElementStructuralTypeFilter filterColumns = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Column);
             ElementStructuralTypeFilter filterBraces = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Brace);
+
             // List of Filters
             List<ElementFilter> filtersList = new List<ElementFilter>() { filterBeams, filterColumns, filterBraces };
             // Logical Or Filter
@@ -90,6 +94,7 @@ namespace ReuseSchemeTool.model
             // FilteredElementCollector
             FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
             frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
+            frameElements.Select(el => el.LookupParameter("BHE_Reuse Strategy") != null);
 
             /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -276,8 +281,8 @@ namespace ReuseSchemeTool.model
                 revitViews.Push(stockChartView);
 
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
-                ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
-
+                //ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
+                ViewSheetBuilder.buildTitleBlock("Standard_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
@@ -313,6 +318,7 @@ namespace ReuseSchemeTool.model
             if (uiApp == null) throw new MissingInputsException("Revit UI Application is missing/not valid.");
             this.uiApp = uiApp;
         }
+
 
         // METHODS
 
