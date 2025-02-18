@@ -54,7 +54,7 @@ namespace ReuseSchemeTool.model
             
             Single area_mm2=0;
             Parameter secAreaParam=((FamilyInstance)element).Symbol.LookupParameter("Section Area");
-            if (secAreaParam != null) area_mm2 = (Single)secAreaParam.AsDouble();
+            if (secAreaParam != null) area_mm2 = (Single)UnitUtils.ConvertFromInternalUnits(secAreaParam.AsDouble(),UnitTypeId.SquareMillimeters);
 
             Single weight_kg_m=0;
             Parameter secWeightParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
