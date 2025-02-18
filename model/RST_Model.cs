@@ -8,12 +8,14 @@ using Newtonsoft.Json.Linq;
 using ReuseSchemeTool.model.revit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Shapes;
 
 namespace ReuseSchemeTool.model
 {
@@ -34,7 +36,8 @@ namespace ReuseSchemeTool.model
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
         public Stack<View> revitViews = new Stack<View>();
-        public string jsonFilesFolderPath;
+        private string outputsFolderPath;
+        private string jsonFilesFolderPath;
 
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
@@ -72,6 +75,11 @@ namespace ReuseSchemeTool.model
             this.dbDoc = uiDoc.Document;
             this.reuseRatingCalculator= reuseRatingCalculator;
             frameConverter = new FrameConverter(dbDoc);
+
+            string revitModelPath = uiApp.ActiveUIDocument.Document.PathName;
+            this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Ouputs");
+            this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
+
         }
 
         public void runScheming()
@@ -105,7 +113,7 @@ namespace ReuseSchemeTool.model
 
             existingSteelFrames.Sort((x, y) => x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
 
-
+            this.serialize(existingSteelFrames);
 
         }
 
@@ -317,6 +325,26 @@ namespace ReuseSchemeTool.model
         {
             if (uiApp == null) throw new MissingInputsException("Revit UI Application is missing/not valid.");
             this.uiApp = uiApp;
+        }
+
+
+
+        public void serialize<T>(List<T> frames) where T : FrameDecorator
+        {
+            // SERIALIZE OUTPUTS IN A JSON FILE
+            //1. Sort the Objects based on a user-defined Comparator
+            List<FrameDecorator> frameDecorators=frames.Cast<FrameDecorator>().ToList();
+            //2. Build the Json File Name
+            string jsonFilePath = FileManager.setDatedFilePath(this.jsonFilesFolderPath, "ExistingFramesToReuse.json");
+            //3. Serialize the list of Frame Decorators
+            this.jsonSerializer.serialize(frameDecorators, jsonFilePath);
+
+        }
+
+        public List<FrameDecorator> deserialize(string jsonFilePath)
+        {
+            // DESERIALIZE JSON FILE IN A LIST OF PILEOBJECTS
+            return this.jsonSerializer.deserialize(jsonFilePath);
         }
 
 
