@@ -127,7 +127,25 @@ namespace ReuseSchemeTool.model.revit
 
         }
 
-        
+
+        public static void placeImageOnSheet(Document dbDoc, string imagePath, XYZ position)
+        {
+
+            // Load the image into the document
+            ImageTypeOptions imageTypeOptions = new ImageTypeOptions(imagePath,false,ImageTypeSource.Import);
+
+            ImageType imageType = ImageType.Create(dbDoc, imageTypeOptions);
+
+            ImagePlacementOptions imagePlacementOptions = new ImagePlacementOptions();
+            imagePlacementOptions.Location = position;
+
+            // Create an instance of the image on the sheet
+            ImageInstance imageInstance = ImageInstance.Create(dbDoc, viewSheet, imageType.Id, imagePlacementOptions);
+
+        }
+
+
+
         private static Element searchTitleBlockByName(string titleBlockTypeName)
         {
             return new FilteredElementCollector(viewSheet.Document)

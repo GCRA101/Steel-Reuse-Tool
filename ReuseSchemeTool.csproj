@@ -81,6 +81,7 @@
     <Compile Include="model\data_structures\RBTree.cs" />
     <Compile Include="model\DimensionalSurveyInfo.cs" />
     <Compile Include="model\ExistingSteelFrame.cs" />
+    <Compile Include="model\FileManager.cs" />
     <Compile Include="model\Frame.cs" />
     <Compile Include="model\FrameConverter.cs" />
     <Compile Include="model\FrameDecorator.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="model\ReuseRatingStrategy.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
+    <Compile Include="model\revit\FileManager.cs" />
     <Compile Include="model\revit\LineStyle.cs" />
     <Compile Include="model\revit\ViewDraftingBuilder.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
