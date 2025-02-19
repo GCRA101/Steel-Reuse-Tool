@@ -43,9 +43,13 @@ namespace ReuseSchemeTool.model.revit
             viewSheet.ConvertToRealSheet(titleBlockId);
         }
 
-        public static void buildViewPort(Autodesk.Revit.DB.View view, ViewportLocationOnSheet location, ViewportSizeOnSheet size)
+        public static void buildViewPort(Autodesk.Revit.DB.View view, ViewportLocationOnSheet location, ViewportSizeOnSheet size, Boolean duplicateView=true)
         {
             if (viewSheet == null) { return; }
+
+
+            view = (Autodesk.Revit.DB.View)view.Document.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate));
+
 
             int deltaUNum = Enum.GetValues(typeof(SheetColumn)).Length;
             int deltaVNum = Enum.GetValues(typeof(SheetRow)).Length;
