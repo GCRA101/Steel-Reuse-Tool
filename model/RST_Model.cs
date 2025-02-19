@@ -38,6 +38,7 @@ namespace ReuseSchemeTool.model
         public Stack<View> revitViews = new Stack<View>();
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
+        private List<string> folderPaths;
 
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
@@ -76,10 +77,26 @@ namespace ReuseSchemeTool.model
             this.reuseRatingCalculator= reuseRatingCalculator;
             frameConverter = new FrameConverter(dbDoc);
 
-            string revitModelPath = uiApp.ActiveUIDocument.Document.PathName;
+            initializeOutputFolders();
+
+        }
+
+        private void initializeOutputFolders()
+        {
+            // LOCATION OF REVITMODELPATH TO BE REVIEWED !!!!!!!!!!! ******
+            string revitModelPath = "c:\\Users\\galbieri\\Buro Happold\\Design & Technology - R&D Wishlist\\00728_STR Steel Re-use\\03_Reference Revit Model\\JIM-BHC-S4-04-002-100-ZZ-M3-ST-000001_rvt.rvt";
             this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Ouputs");
             this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
 
+            folderPaths = new List<string>() { this.jsonFilesFolderPath };
+
+            foreach (string folder in folderPaths) 
+            { 
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+            }
         }
 
         public void runScheming()
@@ -102,7 +119,7 @@ namespace ReuseSchemeTool.model
             // FilteredElementCollector
             FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
             frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
-            frameElements.Select(el => el.LookupParameter("BHE_Reuse Strategy") != null);
+            frameElements.Select(el => el.LookupParameter("BHE_Reuse Strategy").AsString()!="");
 
             /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -118,7 +135,7 @@ namespace ReuseSchemeTool.model
         }
 
 
-        public void UpdateReuseRatings()
+        public void updateReuseRatings()
         {
             Transaction revitTransaction = null;
 
@@ -338,7 +355,6 @@ namespace ReuseSchemeTool.model
             string jsonFilePath = FileManager.setDatedFilePath(this.jsonFilesFolderPath, "ExistingFramesToReuse.json");
             //3. Serialize the list of Frame Decorators
             this.jsonSerializer.serialize(frameDecorators, jsonFilePath);
-
         }
 
         public List<FrameDecorator> deserialize(string jsonFilePath)
