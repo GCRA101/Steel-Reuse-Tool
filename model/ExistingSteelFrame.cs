@@ -13,6 +13,7 @@ namespace ReuseSchemeTool.model
         private ConditionSurveyInfo conditionInfo;
         private DimensionalSurveyInfo dimensionInfo;
         private ReuseRating reuseRating;
+        private string reuseStrategy;
 
 
         /* CONSTRUCTORS */
@@ -35,11 +36,13 @@ namespace ReuseSchemeTool.model
         public void setConditionInfo(ConditionSurveyInfo conditionInfo) { this.conditionInfo = conditionInfo; } 
         public void setDimensionInfo(DimensionalSurveyInfo dimensionInfo) { this.dimensionInfo = dimensionInfo; }       
         public void setReuseRating(ReuseRating reuseRating) { this.reuseRating = reuseRating; }
+        public void setReuseStrategy(string reuseStrategy) { this.reuseStrategy = reuseStrategy; }
 
         // Getters
         public ConditionSurveyInfo getConditionInfo() { return this.conditionInfo; }
         public DimensionalSurveyInfo getDimensionInfo() { return this.dimensionInfo; }
         public ReuseRating getReuseRating() { return this.reuseRating; }
+        public string getReuseStrategy() { return this.reuseStrategy; }
 
 
 
