@@ -12,6 +12,7 @@ namespace ReuseSchemeTool.model
         /* ATTRIBUTES */
         private ConditionSurveyInfo conditionInfo;
         private DimensionalSurveyInfo dimensionInfo;
+        private Double endCutOffLength;
         private ReuseRating reuseRating;
         private string reuseStrategy;
 
@@ -22,25 +23,28 @@ namespace ReuseSchemeTool.model
         public ExistingSteelFrame(Frame frame) : base(frame) { }
 
         // Overloaded 02
-        public ExistingSteelFrame(Frame frame, ConditionSurveyInfo conditionSurveyInfo, DimensionalSurveyInfo dimensionalSurveyInfo): this(frame)
+        public ExistingSteelFrame(Frame frame, ConditionSurveyInfo conditionSurveyInfo, DimensionalSurveyInfo dimensionalSurveyInfo, Double endCutOffLength=0.0): this(frame)
         {
             this.conditionInfo = conditionSurveyInfo;
             this.dimensionInfo = dimensionalSurveyInfo;
+            this.endCutOffLength = endCutOffLength;
         }
 
 
         /* METHODS */
 
-
         // Setters
         public void setConditionInfo(ConditionSurveyInfo conditionInfo) { this.conditionInfo = conditionInfo; } 
-        public void setDimensionInfo(DimensionalSurveyInfo dimensionInfo) { this.dimensionInfo = dimensionInfo; }       
+        public void setDimensionInfo(DimensionalSurveyInfo dimensionInfo) { this.dimensionInfo = dimensionInfo; }   
+        public void setCutOffLength(Double endCutOffLength) { this.endCutOffLength= endCutOffLength; }
         public void setReuseRating(ReuseRating reuseRating) { this.reuseRating = reuseRating; }
         public void setReuseStrategy(string reuseStrategy) { this.reuseStrategy = reuseStrategy; }
 
         // Getters
         public ConditionSurveyInfo getConditionInfo() { return this.conditionInfo; }
         public DimensionalSurveyInfo getDimensionInfo() { return this.dimensionInfo; }
+        public Double getEndCutOffLength() { return this.endCutOffLength; }
+        public Double getCutLength() { return this.getLength()-this.endCutOffLength; }
         public ReuseRating getReuseRating() { return this.reuseRating; }
         public string getReuseStrategy() { return this.reuseStrategy; }
 

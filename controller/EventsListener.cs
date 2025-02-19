@@ -22,7 +22,7 @@ namespace ReuseSchemeTool.controller
         private Button aboutBoxBtnOk;
 
         private CheckedListBox clbSectionTypes, clbSteelGrades;
-        private TrackBar trbMinLength, trbMaxLength, trbMinWeight, trbMaxWeight;
+        private TrackBar trbMinLength, trbMaxLength, trbCutOff, trbMinWeight, trbMaxWeight;
         private Button btnRun;
 
         //CONSTRUCTORS
@@ -53,6 +53,8 @@ namespace ReuseSchemeTool.controller
             trbMinLength.Scroll += trbScrollHandler;
             this.trbMaxLength = this.view.inputsView.trbMaxLength;
             trbMaxLength.Scroll += trbScrollHandler;
+            this.trbCutOff = this.view.inputsView.trbCutOff;
+            trbCutOff.Scroll += trbScrollHandler;
             this.trbMinWeight = this.view.inputsView.trbMinWeight;
             trbMinWeight.Scroll += trbScrollHandler;
             this.trbMaxWeight = this.view.inputsView.trbMaxWeight;
@@ -86,6 +88,7 @@ namespace ReuseSchemeTool.controller
 
             if (sender== trbMinLength) {this.view.inputsView.lblMinLengthValue.Text = trbMinLength.Value.ToString();}
             if (sender == trbMaxLength) { this.view.inputsView.lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
+            if (sender == trbCutOff) { this.view.inputsView.lblCutOffValue.Text = ((trbCutOff.Value)/10).ToString(); }
             if (sender == trbMinWeight) { this.view.inputsView.lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
             if (sender == trbMaxWeight) { this.view.inputsView.lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
         }

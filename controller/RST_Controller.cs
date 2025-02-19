@@ -105,6 +105,9 @@ namespace ReuseSchemeTool.controller
                 Single.Parse(this.view.inputsView.lblMaxLengthValue.Text)
             };
 
+            // END CUT-OFF LENGTH
+            Single endCutOffLength = Single.Parse(this.view.inputsView.lblCutOffValue.Text);
+
             // MAX/MIN WEIGHTS
             Single[] weightsRange = {
                 Single.Parse(this.view.inputsView.lblMinWeightValue.Text),
@@ -112,7 +115,7 @@ namespace ReuseSchemeTool.controller
             };
 
             UserDefined_RatingStrategy udRatingStrategy = 
-                new UserDefined_RatingStrategy(selSectionTypes, selSteelGrades, lengthsRange, weightsRange);
+                new UserDefined_RatingStrategy(selSectionTypes, selSteelGrades, lengthsRange, weightsRange, endCutOffLength);
 
             ReuseRatingCalculator reuseRatingCalculator = new ReuseRatingCalculator(udRatingStrategy);
 

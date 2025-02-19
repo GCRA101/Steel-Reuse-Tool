@@ -14,17 +14,19 @@ namespace ReuseSchemeTool.model
         List<String> allowedMaterials;
         Single[] lengthRange;
         Single[] weightRange;
+        Single endCutOffLength;
 
 
         /* CONSTRUCTORS */
         // Overloaded
         public UserDefined_RatingStrategy(List<String> allowedSectionTypes, 
-            List<String> allowedMaterials, Single[] lengthRange, Single[] weightRange)
+            List<String> allowedMaterials, Single[] lengthRange, Single[] weightRange, Single endCutOffLength)
         {
             this.allowedSectionTypes = allowedSectionTypes;
             this.allowedMaterials = allowedMaterials;
             this.lengthRange = lengthRange;
             this.weightRange = weightRange;
+            this.endCutOffLength = endCutOffLength;
         }
 
 
@@ -51,9 +53,9 @@ namespace ReuseSchemeTool.model
             }
 
             // Length Check
-            if ((frame.getLength()!=null) &&
-                (frame.getLength() >= UnitUtils.ConvertToInternalUnits(this.lengthRange[0], UnitTypeId.Meters)) &&
-                (frame.getLength() <= UnitUtils.ConvertToInternalUnits(this.lengthRange[1], UnitTypeId.Meters)))
+            if ((frame.getCutLength()!=null) &&
+                (frame.getCutLength() >= UnitUtils.ConvertToInternalUnits(this.lengthRange[0], UnitTypeId.Meters)) &&
+                (frame.getCutLength() <= UnitUtils.ConvertToInternalUnits(this.lengthRange[1], UnitTypeId.Meters)))
             {
                 lengthCheck = true;
             }
