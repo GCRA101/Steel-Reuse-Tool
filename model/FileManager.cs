@@ -12,16 +12,31 @@ namespace ReuseSchemeTool.model
     {
 
     //METHODS
-    public static string setDatedFolderPath(string folderPath, string subFolderName)
+        public static string setDatedFolderPath(string folderPath, string subFolderName)
+            {
+                DateTime dateObj = DateTime.Now;
+                string datedFolderPath = "";
+
+                //Add current time and date in front of subfolder name
+                datedFolderPath = folderPath + "\\" + dateObj.Year.ToString() + dateObj.Month.ToString("D2") +
+                    dateObj.Day.ToString("D2") + dateObj.Hour.ToString() + dateObj.Minute.ToString() + "_" + subFolderName;
+
+                return datedFolderPath;
+            }
+
+        public static string setDatedFilePath(string folderPath, string fileName)
         {
             DateTime dateObj = DateTime.Now;
-            string datedFolderPath = "";
+            string datedFilePath = "";
 
-            //Add current time and date in front of subfolder name
-            datedFolderPath = folderPath + "\\" + dateObj.Year.ToString() + dateObj.Month.ToString("D2") +
-                dateObj.Day.ToString("D2") + dateObj.Hour.ToString() + dateObj.Minute.ToString() + "_" + subFolderName;
+            // If the input directory doesn't exist, create one.
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
-            return datedFolderPath;
+            // Add current time and date in front of the fileName.
+            datedFilePath = folderPath + "\\" + dateObj.Year.ToString() + dateObj.Month.ToString("D2") +
+                dateObj.Day.ToString("D2") + dateObj.Hour.ToString() + dateObj.Minute.ToString() + "_" + fileName;
+
+            return datedFilePath;
         }
 
 
