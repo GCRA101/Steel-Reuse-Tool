@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class ExistingSteelFrame : FrameDecorator
+    public class ExistingSteelFrame : SteelFrame
     {
         /* ATTRIBUTES */
         private ConditionSurveyInfo conditionInfo;
