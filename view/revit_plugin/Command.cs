@@ -68,7 +68,7 @@ namespace ReuseSchemeTool.view.revit_plugin
 
                     controller.processInputData();
                     controller.run();
-                    controller.model.UpdateReuseRatings();
+                    controller.model.updateReuseRatings();
                     controller.model.buildRevitViews();
 
                     // Close and Dispose Transaction

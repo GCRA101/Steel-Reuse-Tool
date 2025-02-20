@@ -10,11 +10,11 @@ namespace ReuseSchemeTool.model
     public class UserDefined_RatingStrategy: ReuseRatingStrategy
     {
         /* ATTRIBUTES */
-        List<String> allowedSectionTypes;
-        List<String> allowedMaterials;
-        Single[] lengthRange;
-        Single[] weightRange;
-        Single endCutOffLength;
+        public List<String> allowedSectionTypes;
+        public List<String> allowedMaterials;
+        public Single[] lengthRange;
+        public Single[] weightRange;
+        public Single endCutOffLength;
 
 
         /* CONSTRUCTORS */
