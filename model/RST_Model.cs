@@ -4,6 +4,7 @@ using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json.Linq;
 using ReuseSchemeTool.model.revit;
 using System;
@@ -38,8 +39,11 @@ namespace ReuseSchemeTool.model
         public Stack<View> revitViews = new Stack<View>();
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
+        private string excelFilesFolderPath;
         private List<string> folderPaths;
 
+
+        private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.excelFiles.Database_Graphs.xlsm";
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
         private const string MODEL_VERSION = "Version: " + "1.0.0";
@@ -87,8 +91,9 @@ namespace ReuseSchemeTool.model
             string revitModelPath = "c:\\Users\\galbieri\\Buro Happold\\Design & Technology - R&D Wishlist\\00728_STR Steel Re-use\\03_Reference Revit Model\\JIM-BHC-S4-04-002-100-ZZ-M3-ST-000001_rvt.rvt";
             this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Ouputs");
             this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
+            this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
 
-            folderPaths = new List<string>() { this.jsonFilesFolderPath };
+            folderPaths = new List<string>() { this.jsonFilesFolderPath, this.excelFilesFolderPath };
 
             foreach (string folder in folderPaths) 
             { 
@@ -119,7 +124,7 @@ namespace ReuseSchemeTool.model
             // FilteredElementCollector
             FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
             frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
-            frameElements.Select(el => el.LookupParameter("BHE_Reuse Strategy").AsString()!="");
+            frameElements.Select(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()));
 
             /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -132,8 +137,16 @@ namespace ReuseSchemeTool.model
 
             this.serialize(existingSteelFrames);
 
-        }
+            ExcelDataManager excelDataManager = new ExcelDataManager(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
+            excelDataManager.initialize();
 
+            string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
+            excelDataManager.write(new string[] {endCutOffLength}, "Steel Reuse Dashboard", new string[] { "elCutOffLength" });
+            excelDataManager.write(existingSteelFrames, "Inputs", "A2");
+            excelDataManager.refreshWorkbook();
+            excelDataManager.dispose();
+            
+        }
 
         public void updateReuseRatings()
         {
@@ -256,8 +269,8 @@ namespace ReuseSchemeTool.model
                     
                     double value = filteredElements.Sum(el => {
                         
-                        Parameter lengthParam = el.LookupParameter("Length");
-                        Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
+                        Autodesk.Revit.DB.Parameter lengthParam = el.LookupParameter("Length");
+                        Autodesk.Revit.DB.Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
                         
                         if (lengthParam != null && weightParam != null)
                         {
