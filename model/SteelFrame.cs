@@ -20,7 +20,6 @@ namespace ReuseSchemeTool.model
 
 
         // METHODS
-
         private void acquireSectionType()
         {
 

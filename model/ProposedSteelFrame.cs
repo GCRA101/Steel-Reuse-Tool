@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class ProposedSteelFrame: FrameDecorator
+    public class ProposedSteelFrame: SteelFrame
     {
         /* ATTRIBUTES */
 
