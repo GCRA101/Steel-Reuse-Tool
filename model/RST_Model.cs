@@ -140,7 +140,7 @@ namespace ReuseSchemeTool.model
             this.serialize(existingSteelFrames);
 
             ExcelDataManager excelDataManager = new ExcelDataManager(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
-            excelDataManager.initialize(true);
+            excelDataManager.initialize();
 
             string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
             excelDataManager.write(new string[] {endCutOffLength}, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
