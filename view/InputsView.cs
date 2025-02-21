@@ -35,7 +35,7 @@ namespace ReuseSchemeTool.view
         {
             this.lblMinLengthValue.Text=this.trbMinLength.Value.ToString();
             this.lblMaxLengthValue.Text = this.trbMaxLength.Value.ToString();
-            this.lblCutOffValue.Text = (this.trbCutOff.Value/10.0).ToString();
+            this.lblCutOffValue.Text = Math.Round((this.trbCutOff.Value/10.0),1).ToString();
             this.lblMinWeightValue.Text = this.trbMinWeight.Value.ToString();
             this.lblMaxWeightValue.Text = this.trbMaxWeight.Value.ToString();
 

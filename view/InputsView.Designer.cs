@@ -324,7 +324,6 @@
             this.trbCutOff.Name = "trbCutOff";
             this.trbCutOff.Size = new System.Drawing.Size(193, 45);
             this.trbCutOff.TabIndex = 54;
-            this.trbCutOff.Value = 1;
             // 
             // InputsView
             // 

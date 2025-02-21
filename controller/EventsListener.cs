@@ -88,7 +88,7 @@ namespace ReuseSchemeTool.controller
 
             if (sender== trbMinLength) {this.view.inputsView.lblMinLengthValue.Text = trbMinLength.Value.ToString();}
             if (sender == trbMaxLength) { this.view.inputsView.lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
-            if (sender == trbCutOff) { this.view.inputsView.lblCutOffValue.Text = ((trbCutOff.Value)/10).ToString(); }
+            if (sender == trbCutOff) { this.view.inputsView.lblCutOffValue.Text = Math.Round((trbCutOff.Value/10.0),1).ToString(); }
             if (sender == trbMinWeight) { this.view.inputsView.lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
             if (sender == trbMaxWeight) { this.view.inputsView.lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
         }
