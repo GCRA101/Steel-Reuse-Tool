@@ -85,20 +85,41 @@ public class ExcelDataManager
     private void activateWorksheet(string worksheetName)
     {
         // 1. OPEN/CREATE EXCEL WORKSHEET
-        if (ExcelWks == null)
+        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
         {
-            if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
-            {
-                ExcelWks = ExcelWkb.Worksheets[worksheetName];
-            }
-            else
-            {
-                ExcelWks = ExcelWkb.Worksheets.Add();
-                ExcelWks.Name = worksheetName;
-                ExcelWkb.Sheets["Sheet1"].Delete();
-            }
-            ExcelWks.Tab.ColorIndex = (XlColorIndex)6;
-            ExcelWks.Activate();
+            ExcelWks = ExcelWkb.Worksheets[worksheetName];
+        }
+        else
+        {
+            ExcelWks = ExcelWkb.Worksheets.Add();
+            ExcelWks.Name = worksheetName;
+        }
+        ExcelWks.Tab.ColorIndex = (XlColorIndex)6;
+        ExcelWks.Activate();
+
+    }
+
+    public void hideWorksheet(string worksheetName)
+    {
+        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
+        {
+            ExcelWkb.Worksheets[worksheetName].Visible=XlSheetVisibility.xlSheetHidden;
+        }
+
+    }
+
+    public void protectWorkbook(bool protect)
+    {
+        if (protect) ExcelWkb.Protect();
+        else ExcelWkb.Unprotect();
+    }
+
+    public void printWorkSheet(string worksheetName, string folderPath)
+    {
+        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
+        {
+            Worksheet wks = ExcelWkb.Worksheets[worksheetName];
+            wks.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, folderPath + "\\" + wks.Name + ".pdf"); 
         }
     }
 
@@ -120,32 +141,29 @@ public class ExcelDataManager
         this.activateWorksheet(worksheetName);
 
         // 2. POSITION ACTIVE CELL
-        if (ExcelWks.Range[startCellAddress] != null) ExcelWks.Range[startCellAddress].Activate();
-        else ExcelWks.Range["A1"].Activate();
+        if (ExcelWks.Range[startCellAddress] == null) return;
 
-        // 3. WRITE DATA IN THE WORKSHEET
-        for (int i = 0; i < data.Count; i++)
+
+        string[,] matrix=new string[data.Count,5];
+        ExistingSteelFrame existingFrame;
+
+        for (int i=0; i<data.Count; i++)
         {
-            if ((headerTitles!=null) && (i==0))
-            {
-                for (int j = 0; j < headerTitles.Length; j++)
-                {
-                    ExcelApp.ActiveCell.Offset[0,j].Value=headerTitles[j];
-                }
-                ExcelApp.ActiveCell.Offset[1, 0].Activate();
-                break;
-            }
-
-            ExistingSteelFrame existingFrame = data[i] as ExistingSteelFrame;
-
-            this.ExcelApp.ActiveCell.Value= existingFrame.getSectionType().ToString();
-            this.ExcelApp.ActiveCell.Offset[0,1].Value= existingFrame.getSection().getName();
-            this.ExcelApp.ActiveCell.Offset[0,2].Value = existingFrame.getSection().getArea();
-            this.ExcelApp.ActiveCell.Offset[0,3].Value = existingFrame.getLength();
-            this.ExcelApp.ActiveCell.Offset[0,4].Value = existingFrame.getReuseRating().ToString();
-
-            this.ExcelApp.ActiveCell.Offset[1,0].Activate();
+            existingFrame = data[i] as ExistingSteelFrame;
+            matrix[i,0]= existingFrame.getSectionType().ToString();
+            matrix[i,1] = existingFrame.getSection().getName();
+            matrix[i,2] = Math.Round(existingFrame.getSection().getArea(), 3).ToString();
+            matrix[i,3] = Math.Round(existingFrame.getLength(), 3).ToString();
+            matrix[i,4] = existingFrame.getReuseRating().ToString();
         }
+
+        Range topLeftCell = ExcelWks.Range[startCellAddress];
+        Range btmRightCell = ExcelWks.Range[startCellAddress].Offset[data.Count()-1, 4];
+        Range outputsRange = ExcelApp.Range[topLeftCell, btmRightCell];
+
+        outputsRange.Value = matrix;
+
+        this.ExcelApp.ActiveCell.CurrentRegion.EntireColumn.AutoFit();
     }
 
 
