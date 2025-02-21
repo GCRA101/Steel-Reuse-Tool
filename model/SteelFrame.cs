@@ -27,7 +27,7 @@ namespace ReuseSchemeTool.model
             Dictionary<string, SteelSectionType> ssTypeNames = new Dictionary<string, SteelSectionType>();
             foreach (var sstype in sstypes) ssTypeNames.Add(sstype.ToString(),(SteelSectionType)sstype);
 
-            string sectionTypeName = this.frame.getSection().getName().ToUpper().Split('X')[0];
+            string sectionTypeName = new string(this.frame.getSection().getName().ToUpper().TakeWhile(ch => ((!char.IsDigit(ch)) && (!char.IsWhiteSpace(ch)))).ToArray());
             KeyValuePair<string,SteelSectionType> searchType =ssTypeNames.FirstOrDefault(ssTypeName => sectionTypeName == ssTypeName.Key);
 
             if ((searchType.Key!=null)&&(searchType.Value != null)) this.sectionType=searchType.Value;
