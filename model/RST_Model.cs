@@ -40,6 +40,7 @@ namespace ReuseSchemeTool.model
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
         private string excelFilesFolderPath;
+        private string pdfFilesFolderPath;
         private List<string> folderPaths;
 
 
@@ -92,8 +93,9 @@ namespace ReuseSchemeTool.model
             this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Ouputs");
             this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
             this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
+            this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
 
-            folderPaths = new List<string>() { this.jsonFilesFolderPath, this.excelFilesFolderPath };
+            folderPaths = new List<string>() { this.jsonFilesFolderPath, this.excelFilesFolderPath, this.pdfFilesFolderPath};
 
             foreach (string folder in folderPaths) 
             { 
@@ -138,12 +140,15 @@ namespace ReuseSchemeTool.model
             this.serialize(existingSteelFrames);
 
             ExcelDataManager excelDataManager = new ExcelDataManager(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
-            excelDataManager.initialize();
+            excelDataManager.initialize(true);
 
             string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
-            excelDataManager.write(new string[] {endCutOffLength}, "Steel Reuse Dashboard", new string[] { "elCutOffLength" });
-            excelDataManager.write(existingSteelFrames, "Inputs", "A2");
+            excelDataManager.write(new string[] {endCutOffLength}, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
+            excelDataManager.write(existingSteelFrames.Where(esf=>esf.getReuseRating()==ReuseRating.MUST_HAVE).ToList(), "Inputs", "A2");
             excelDataManager.refreshWorkbook();
+            excelDataManager.hideWorksheet("Inputs");
+            excelDataManager.printWorkSheet("Steel Reuse Dashboard", this.pdfFilesFolderPath);
+            excelDataManager.protectWorkbook(true);
             excelDataManager.dispose();
             
         }
