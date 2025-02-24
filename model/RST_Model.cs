@@ -126,7 +126,8 @@ namespace ReuseSchemeTool.model
             // FilteredElementCollector
             FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
             frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
-            frameElements.Select(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()));
+            frameElements.Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
+                         .Where(el=> el.LookupParameter("BHE_Reuse Strategy").AsString()=="TO RECYCLE");
 
             /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -384,11 +385,12 @@ namespace ReuseSchemeTool.model
 
         // METHODS
 
+        // Observer Pattern
         public void registerObserver(Observer o){this.observers.Add(o);}
         public void removeObserver(Observer o){this.observers.Remove(o);}
         public void notifyObservers(){this.observers.ForEach(o=>o.update());}
 
-
+        // Getters
         public string getModelName() { return MODEL_NAME; }
         public string getModelVersion() { return MODEL_VERSION; }
         public string getModelCopyRight() { return MODEL_COPYRIGHT; }

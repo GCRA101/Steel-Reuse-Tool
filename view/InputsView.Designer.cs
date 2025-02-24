@@ -237,10 +237,10 @@
             // lblDescription
             // 
             this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.Location = new System.Drawing.Point(22, 19);
+            this.lblDescription.Location = new System.Drawing.Point(22, 9);
             this.lblDescription.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(239, 57);
+            this.lblDescription.Size = new System.Drawing.Size(239, 53);
             this.lblDescription.TabIndex = 45;
             this.lblDescription.Text = "Select Section Type, Steel Grade as well as range of lengths and weights that are" +
     " acceptable for reuse purposes.";
