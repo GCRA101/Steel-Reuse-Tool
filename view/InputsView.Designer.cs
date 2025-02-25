@@ -353,6 +353,7 @@
             this.Controls.Add(this.prgbProgress);
             this.Controls.Add(this.clbSectionTypes);
             this.Controls.Add(this.trbCutOff);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InputsView";
             this.Text = "InputsView";
