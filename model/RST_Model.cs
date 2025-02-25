@@ -43,6 +43,7 @@ namespace ReuseSchemeTool.model
         private string pdfFilesFolderPath;
         private List<string> folderPaths;
 
+        private Autodesk.Revit.DB.Family titleBlockFamily;
 
         private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.excelFiles.Database_Graphs.xlsm";
 
@@ -53,14 +54,13 @@ namespace ReuseSchemeTool.model
         private const string MODEL_OWNER = "Buro Happold Ltd";
 
 
-
-
         // STATIC METHOD .getInstance()
         public static RST_Model getInstance()
         {
             if (instance==null) return new RST_Model();
             return instance;
         }
+
 
         // CONSTRUCTOR - Private
         private RST_Model() 
@@ -82,9 +82,12 @@ namespace ReuseSchemeTool.model
             this.reuseRatingCalculator= reuseRatingCalculator;
             frameConverter = new FrameConverter(dbDoc);
 
+            loadEmbeddedRevitFamilies();
+
             initializeOutputFolders();
 
         }
+
 
         private void initializeOutputFolders()
         {
@@ -106,9 +109,44 @@ namespace ReuseSchemeTool.model
             }
         }
 
+
+        private void loadEmbeddedRevitFamilies()
+        {
+            Transaction revitTransaction = null;
+
+            try
+            {
+                //Start New Transaction
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction = new Transaction(dbDoc, "Reuse Rating");
+                    revitTransaction.Start();
+                }
+
+                //Load Revit Families
+                this.dbDoc.LoadFamily("ReuseSchemeTool.model.revit_files.BHE_TitleBlocks_A0-A1-A2.rfa", out titleBlockFamily);
+                
+            }
+            catch (Exception ex)
+            {
+
+                if (revitTransaction != null)
+                {
+
+                    revitTransaction.RollBack();
+
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+            }
+        }
+
+
         public void runScheming()
         {
-
             /* 1. BUILD REVIT COLLECTOR FILTERS */
 
             // StructuralType Filters
@@ -125,9 +163,11 @@ namespace ReuseSchemeTool.model
 
             // FilteredElementCollector
             FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
-            frameElements = elemCollector.OfClass(typeof(FamilyInstance)).WherePasses(filterStrFrames).ToList();
-            frameElements.Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
-                         .Where(el=> el.LookupParameter("BHE_Reuse Strategy").AsString()=="TO RECYCLE");
+            frameElements = elemCollector.OfClass(typeof(FamilyInstance))
+                                .WherePasses(filterStrFrames)
+                                .Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
+                                .Where(el=> el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("TO RECYCLE"))
+                                .ToList();
 
             /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
@@ -330,6 +370,9 @@ namespace ReuseSchemeTool.model
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
+                ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
+
+                revitViews.Push(viewSheet);
 
 
                 if (revitTransaction != null)
