@@ -53,12 +53,25 @@ namespace ReuseSchemeTool.model
             String name= ((ElementType)dbDoc.GetElement(element.GetTypeId())).Name;
             
             Single area_mm2=0;
-            Parameter secAreaParam=((FamilyInstance)element).Symbol.LookupParameter("Section Area");
+            Parameter secAreaParam=null;
+
+            if (((FamilyInstance)element).Symbol.LookupParameter("Section Area") != null)
+                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("Section Area");
+            else if (((FamilyInstance)element).Symbol.LookupParameter("A") != null)
+                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("A");
+
             // Convert secAreaParam value from internal units (ft^2) to external units (mm^2)
             if (secAreaParam != null) area_mm2 = (Single)UnitUtils.ConvertFromInternalUnits(secAreaParam.AsDouble(),UnitTypeId.SquareMillimeters);
 
-            Single weight_kg_m=0;
-            Parameter secWeightParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
+
+            Single weight_kg_m = 0;
+            Parameter secWeightParam = null;
+
+            if (((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight") != null)
+                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
+            else if (((FamilyInstance)element).Symbol.LookupParameter("W") != null)
+                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("W");
+
             // Convert secWeightParam value from internal units (kgf/m) to external units (kg/m)
             if (secWeightParam != null) weight_kg_m= (Single)(secWeightParam.AsDouble()/ 9.80665);
 
