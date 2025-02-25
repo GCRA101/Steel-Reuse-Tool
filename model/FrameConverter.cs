@@ -68,9 +68,9 @@ namespace ReuseSchemeTool.model
             Parameter secWeightParam = null;
 
             if (((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight") != null)
-                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
+                secWeightParam = ((FamilyInstance)element).Symbol.LookupParameter("Nominal Weight");
             else if (((FamilyInstance)element).Symbol.LookupParameter("W") != null)
-                secAreaParam = ((FamilyInstance)element).Symbol.LookupParameter("W");
+                secWeightParam = ((FamilyInstance)element).Symbol.LookupParameter("W");
 
             // Convert secWeightParam value from internal units (kgf/m) to external units (kg/m)
             if (secWeightParam != null) weight_kg_m= (Single)(secWeightParam.AsDouble()/ 9.80665);
@@ -86,18 +86,6 @@ namespace ReuseSchemeTool.model
 
         private Line getGeometry(Autodesk.Revit.DB.Element element)
         {
-            //XYZ startRvtPP = null, endRvtPP = null;
-            //// Get the location curve of the element
-            //LocationCurve locCurve = element.Location as LocationCurve;
-            //if (locCurve != null)
-            //{
-            //    startRvtPP = locCurve.Curve.GetEndPoint(0);
-            //    endRvtPP = locCurve.Curve.GetEndPoint(1);
-            //}
-
-            //Point startPoint = new Point(startRvtPP.X, startRvtPP.Y, startRvtPP.Z);
-            //Point endPoint = new Point(endRvtPP.X, endRvtPP.Y, endRvtPP.Z);
-
             Options options = new Options();
             options.ComputeReferences = true;
             options.IncludeNonVisibleObjects = true;
