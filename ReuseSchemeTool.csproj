@@ -110,8 +110,9 @@
     <Compile Include="model\RevitConverterInterface.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
-    <Compile Include="model\revit\FileManager.cs" />
+    <Compile Include="model\revit\RevitFileManager.cs" />
     <Compile Include="model\revit\LineStyle.cs" />
+    <Compile Include="model\revit\RevitItemsCollector.cs" />
     <Compile Include="model\revit\ViewDraftingBuilder.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
     <Compile Include="model\revit\PieSliceData.cs" />
@@ -161,12 +162,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="excelFiles\Database_Graphs.xlsm" />
+    <EmbeddedResource Include="model\excel_files\Database_Graphs.xlsm" />
+    <EmbeddedResource Include="model\revit_files\Revit2020\BHE_TitleBlocks_A0-A1-A2.rfa" />
     <None Include="packages.config" />
     <None Include="ReuseSchemeTool.addin" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AppLongDescription.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -230,6 +231,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"

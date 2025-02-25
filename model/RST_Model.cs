@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace ReuseSchemeTool.model
 
         private Autodesk.Revit.DB.Family titleBlockFamily;
 
-        private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.excelFiles.Database_Graphs.xlsm";
+        private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.model.excel_files.Database_Graphs.xlsm";
 
         private const string MODEL_NAME = "Reuse Scheme Tool";
         private const string MODEL_VERSION = "Version: " + "1.0.0";
@@ -82,7 +83,7 @@ namespace ReuseSchemeTool.model
             this.reuseRatingCalculator= reuseRatingCalculator;
             frameConverter = new FrameConverter(dbDoc);
 
-            loadEmbeddedRevitFamilies();
+            RevitFileManager.loadEmbeddedRevitFamilies(dbDoc, "ReuseSchemeTool.model.revit_files.Revit2020");
 
             initializeOutputFolders();
 
@@ -105,41 +106,6 @@ namespace ReuseSchemeTool.model
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
-                }
-            }
-        }
-
-
-        private void loadEmbeddedRevitFamilies()
-        {
-            Transaction revitTransaction = null;
-
-            try
-            {
-                //Start New Transaction
-                if (!dbDoc.IsModifiable)
-                {
-                    revitTransaction = new Transaction(dbDoc, "Reuse Rating");
-                    revitTransaction.Start();
-                }
-
-                //Load Revit Families
-                this.dbDoc.LoadFamily("ReuseSchemeTool.model.revit_files.BHE_TitleBlocks_A0-A1-A2.rfa", out titleBlockFamily);
-                
-            }
-            catch (Exception ex)
-            {
-
-                if (revitTransaction != null)
-                {
-
-                    revitTransaction.RollBack();
-
-                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
-
-                    // Close and Dispose Transaction
-                    revitTransaction.Commit();
-                    revitTransaction.Dispose();
                 }
             }
         }
@@ -365,8 +331,7 @@ namespace ReuseSchemeTool.model
                 revitViews.Push(stockChartView);
 
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
-                //ViewSheetBuilder.buildTitleBlock("Project JIOM - HOI - A0 - Project North");
-                ViewSheetBuilder.buildTitleBlock("Standard_A1");
+                ViewSheetBuilder.buildTitleBlock("BHE_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
