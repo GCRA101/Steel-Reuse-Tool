@@ -13,7 +13,10 @@ namespace ReuseSchemeTool.model.revit
         protected Autodesk.Revit.DB.Document dbDoc;
 
         // CONSTRUCTORS
-        public RevitElemCollectorStrategy(Autodesk.Revit.DB.Document dbDoc) { }
+        public RevitElemCollectorStrategy(Autodesk.Revit.DB.Document dbDoc) 
+        {
+            this.dbDoc = dbDoc;
+        }
 
         // METHODS
         public abstract List<Element> collectElements();

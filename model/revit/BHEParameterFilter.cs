@@ -20,9 +20,11 @@ namespace ReuseSchemeTool.model.revit
 
         public override List<Element> collectElements()
         {
-            Document dbDoc = this.revitElementsCollector.getCollectorStrategy().getDBDocument();
+            Document dbDoc = this.getDBDoc();
 
-            return this.revitElementsCollector.collectElements().Where(el => el.LookupParameter(parameterName).AsString() == parameterValue).ToList();
+            return this.revitElementsCollector.collectElements()
+                .Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
+                .Where(el => el.LookupParameter(parameterName).AsString() == parameterValue).ToList();
 
         }
 

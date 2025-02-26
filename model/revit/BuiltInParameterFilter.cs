@@ -22,7 +22,7 @@ namespace ReuseSchemeTool.model.revit
 
         public override List<Element> collectElements()
         {
-            Document dbDoc = this.revitElementsCollector.getCollectorStrategy().getDBDocument();
+            Document dbDoc = this.getDBDoc();
 
             return this.revitElementsCollector
                             .collectElements()

@@ -19,7 +19,7 @@ namespace ReuseSchemeTool.model.revit
 
         public override List<Element> collectElements()
         {
-            Document dbDoc = this.revitElementsCollector.getCollectorStrategy().getDBDocument();
+            Document dbDoc = this.getDBDoc();
 
             Phase phase = new FilteredElementCollector(dbDoc).OfClass(typeof(Phase))
                                            .Cast<Phase>().FirstOrDefault(phs=> phs.Name.Contains(phasePattern));
