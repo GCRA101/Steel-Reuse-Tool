@@ -6,6 +6,7 @@ using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json.Linq;
+using ReuseSchemeTool.model;
 using ReuseSchemeTool.model.revit;
 using System;
 using System.Collections.Generic;
@@ -124,24 +125,19 @@ namespace ReuseSchemeTool.model
             existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
 
             /* 3. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
+            // Computation
             existingSteelFrames.ForEach(esframe => this.reuseRatingCalculator.calculateRating(esframe));
-
+            // Sorting data
             existingSteelFrames.Sort((x, y) => x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
 
+            /* 4. SERAILIZE FRAME OBJECT TO JSON */
             this.serialize(existingSteelFrames);
 
-            ExcelDataManager excelDataManager = new ExcelDataManager(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
-            excelDataManager.initialize();
-
-            string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
-            excelDataManager.write(new string[] {endCutOffLength}, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
-            excelDataManager.write(existingSteelFrames.Where(esf=>esf.getReuseRating()==ReuseRating.MUST_HAVE).ToList(), "Inputs", "A2");
-            excelDataManager.refreshWorkbook();
-            excelDataManager.hideWorksheet("Inputs");
-            excelDataManager.printWorkSheet("Steel Reuse Dashboard", this.pdfFilesFolderPath);
-            excelDataManager.protectWorkbook(true);
-            excelDataManager.dispose();
-            
+            /* 5. GENERATE OUTPUTS */
+            // Excel File
+            this.createExcelFile(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
+            // Revit View Sheet
+            this.buildRevitViews();
         }
 
         public void updateReuseRatings()
@@ -192,8 +188,7 @@ namespace ReuseSchemeTool.model
 
         }
 
-
-        public void buildRevitViews()
+public void buildRevitViews()
         {
             Transaction revitTransaction = null;
 
@@ -355,6 +350,21 @@ namespace ReuseSchemeTool.model
             this.uiApp = uiApp;
         }
 
+
+
+        public void createExcelFile(string embeddedFilePath, string outputsFolderPath)
+        {
+            ExcelDataManager excelDataManager = new ExcelDataManager(embeddedFilePath, outputsFolderPath);
+            excelDataManager.initialize();
+            string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
+            excelDataManager.write(new string[] { endCutOffLength }, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
+            excelDataManager.write(existingSteelFrames.Where(esf => esf.getReuseRating() == ReuseRating.MUST_HAVE).ToList(), "Inputs", "A2");
+            excelDataManager.refreshWorkbook();
+            excelDataManager.hideWorksheet("Inputs");
+            excelDataManager.printWorkSheet("Steel Reuse Dashboard", this.pdfFilesFolderPath);
+            excelDataManager.protectWorkbook(true);
+            excelDataManager.dispose();
+        }
 
 
         public void serialize<T>(List<T> frames) where T : FrameDecorator
