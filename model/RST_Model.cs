@@ -113,33 +113,17 @@ namespace ReuseSchemeTool.model
 
         public void runScheming()
         {
-            /* 1. BUILD REVIT COLLECTOR FILTERS */
+            /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
+            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            frameElements=revitFramesCollector.collectElements();
 
-            // StructuralType Filters
-            ElementStructuralTypeFilter filterBeams = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Beam);
-            ElementStructuralTypeFilter filterColumns = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Column);
-            ElementStructuralTypeFilter filterBraces = new ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType.Brace);
-
-            // List of Filters
-            List<ElementFilter> filtersList = new List<ElementFilter>() { filterBeams, filterColumns, filterBraces };
-            // Logical Or Filter
-            LogicalOrFilter filterStrFrames = new LogicalOrFilter(filtersList);
-
-            /* 2. EXTRACT REVIT STRUCTURAL FRAMES*/
-
-            // FilteredElementCollector
-            FilteredElementCollector elemCollector = new FilteredElementCollector(this.dbDoc);
-            frameElements = elemCollector.OfClass(typeof(FamilyInstance))
-                                .WherePasses(filterStrFrames)
-                                .Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
-                                .Where(el=> el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("TO RECYCLE"))
-                                .ToList();
-
-            /* 3. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
+            /* 2. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
             steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
             existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
 
-            /* 4. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
+            /* 3. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */
             existingSteelFrames.ForEach(esframe => this.reuseRatingCalculator.calculateRating(esframe));
 
             existingSteelFrames.Sort((x, y) => x.getFrame().getUniqueId().CompareTo(y.getFrame().getUniqueId()));
@@ -334,10 +318,10 @@ namespace ReuseSchemeTool.model
                 ViewSheetBuilder.buildTitleBlock("BHE_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
-                ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
-                ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
+                //ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
+                //ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
 
-                revitViews.Push(viewSheet);
+                //revitViews.Push(viewSheet);
 
 
                 if (revitTransaction != null)
