@@ -117,6 +117,7 @@ namespace ReuseSchemeTool.model
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
             revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
             revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
             frameElements=revitFramesCollector.collectElements();
 
@@ -136,8 +137,6 @@ namespace ReuseSchemeTool.model
             /* 5. GENERATE OUTPUTS */
             // Excel File
             this.createExcelFile(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath);
-            // Revit View Sheet
-            this.buildRevitViews();
         }
 
         public void updateReuseRatings()
@@ -204,10 +203,24 @@ public void buildRevitViews()
 
                 View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View", 100);
 
+                // Collect only the Existing Steel Frames
+                RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
+                revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
+                revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+                // Show only the Existing Steel Frames in the 3D View
+                ThreeDView.UnhideElements(revitFramesCollector.collectElements().Select(f => f.Id).ToList());
+                ThreeDView.IsolateElementsTemporary(revitFramesCollector.collectElements().Select(f => f.Id).ToList());
+
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
                 ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", ColorPalette.TRAFFICLIGHTS);
+
+                // Color all Elements with a semi-transparent grey color
+                OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
+                Color greyColor = new Color(128, 128, 128); // RGB values for grey
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "ALL OTHER FRAMES", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", greyColor, 75, true);
+
 
                 revitViews.Push(ThreeDView);
 
