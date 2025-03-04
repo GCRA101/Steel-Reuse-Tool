@@ -13,13 +13,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class SplashScreen : Form, model.Observer
+    public partial class Scheming_SplashScreen : Form, model.Observer
     {
         // ATTRIBUTES
         private RST_Model model;
 
         // CONSTRUCTOR
-        public SplashScreen(RST_Model model)
+        public Scheming_SplashScreen(RST_Model model)
         {
             // This call is required by the designer.
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace ReuseSchemeTool.view
         public void update()
         {
             //Application Name
-            this.lblApplicationName.Text = this.model.getModelName();
+            this.lblApplicationName.Text = this.model.getSchemeModelName();
             //Application Version
             this.lblVersion.Text = this.model.getModelVersion();
             //Copyright info
