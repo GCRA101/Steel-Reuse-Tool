@@ -27,7 +27,7 @@ namespace ReuseSchemeTool.model.revit
         }
 
         //create Method - FACTORY PATTERN
-        public OverrideGraphicSettings create(ElementId patternId, Autodesk.Revit.DB.Color color)
+        public OverrideGraphicSettings create(ElementId patternId, Autodesk.Revit.DB.Color color, int transparency=0)
         {
             //Create the OverrideGraphics by Properties
             OverrideGraphicSettings overrideGraphicsSettings = new OverrideGraphicSettings();
@@ -42,6 +42,7 @@ namespace ReuseSchemeTool.model.revit
             overrideGraphicsSettings.SetSurfaceBackgroundPatternColor(color);
             overrideGraphicsSettings.SetSurfaceForegroundPatternId(patternId);
             overrideGraphicsSettings.SetSurfaceForegroundPatternColor(color);
+            overrideGraphicsSettings.SetSurfaceTransparency(transparency);
 
             return overrideGraphicsSettings;
         }
