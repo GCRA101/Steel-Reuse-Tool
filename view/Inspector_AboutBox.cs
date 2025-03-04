@@ -13,12 +13,12 @@ using System.Windows.Forms;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class AboutBox : Form, model.Observer
+    public partial class Inspector_AboutBox : Form, model.Observer
     {
         //ATTRIBUTES
         private RST_Model model;
 
-        public AboutBox(RST_Model model)
+        public Inspector_AboutBox(RST_Model model)
         {
             // This call is required by the designer.
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace ReuseSchemeTool.view
         public void update()
         {
             //Application Name
-            this.lblProductName.Text = this.model.getModelName();
+            this.lblProductName.Text = this.model.getInspectorModelName();
             //Application Version
             this.lblVersion.Text = this.model.getModelVersion();
             //Copyright info
