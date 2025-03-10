@@ -57,11 +57,11 @@ namespace ReuseSchemeTool.view.revit_plugin
 
                 //4. Create RibbonItems (PushButtons)
                 // Inspector Tool
-                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Inspector\n Tool", inspector_imagePath,
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Inspector\n Tool", inspector_imagePath,
                                                        inspector_largeImagePath, inspector_toolTipImagePath, inspector_toolTipText, inspector_longDescription, 
                                                        assemblyFullPath, inspector_className);
                 // Scheming Tool
-                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", scheming_imagePath,
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Scheme\n Tool", scheming_imagePath,
                                                        scheming_largeImagePath, scheming_toolTipImagePath, scheming_toolTipText, scheming_longDescription,
                                                        assemblyFullPath, scheming_className);
 
