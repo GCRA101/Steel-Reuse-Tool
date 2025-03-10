@@ -85,9 +85,16 @@ namespace ReuseSchemeTool.controller
 
         public void terminate(Tool tool)
         {
-            //Close and dispose the form
-            this.view.inputsView.Close();
-            this.view.inputsView.Dispose();
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    break;
+                case Tool.SCHEME:
+                    //Close and dispose the form
+                    this.view.inputsView.Close();
+                    this.view.inputsView.Dispose();
+                    break;
+            }
 
         }
 
