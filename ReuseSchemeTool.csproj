@@ -223,7 +223,7 @@
     <EmbeddedResource Include="text_files\AboutBox_Description.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="text_files\AppLongDescription.txt" />
+    <EmbeddedResource Include="text_files\InspectorTool_LongDescription.txt" />
     <EmbeddedResource Include="sounds\ENDRUN.wav" />
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +262,9 @@
     <EmbeddedResource Include="images\SchemingTool_AppLogo.png" />
     <EmbeddedResource Include="images\SchemingTool_AppLogo16x16.png" />
     <EmbeddedResource Include="images\SchemingTool_AppLogo32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="text_files\SchemingTool_LongDescription.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
