@@ -31,7 +31,7 @@ namespace ReuseSchemeTool.view.revit_plugin
     /* COMMAND CLASS ************************************************************ */
 
     [Transaction(TransactionMode.Manual)]
-    public class CommandInspectorTool : IExternalCommand
+    public class CommandSchemeTool : IExternalCommand
     {
         /*IMPLEMENTED METHODS*/
 
@@ -49,9 +49,9 @@ namespace ReuseSchemeTool.view.revit_plugin
                 //controller.initialize();
 
                 //Show the SplashScreen
-                controller.view.createSplashScreen();
+                controller.view.createSplashScreen(Tool.SCHEME);
                 //Show the AboutBox
-                controller.view.createAboutBox();
+                controller.view.createAboutBox(Tool.SCHEME);
                 //Activate the EventsListener of the AboutBox
                 controller.eventsListener.initializeAboutBox();
 
@@ -67,7 +67,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                     revitTransaction.Start();
 
                     controller.processInputData();
-                    controller.run();
+                    controller.run(Tool.SCHEME);
                     controller.model.updateReuseRatings();
                     controller.model.buildRevitViews();
 
@@ -80,7 +80,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                         commandData.Application.ActiveUIDocument.ActiveView = controller.model.revitViews.Pop();
                     }
 
-                    controller.terminate();
+                    controller.terminate(Tool.SCHEME);
                 }
 
                 // Success

@@ -111,8 +111,8 @@
     <Compile Include="model\revit\BuiltInParameterFilter.cs" />
     <Compile Include="model\revit\CollectorFilterDecorator.cs" />
     <Compile Include="model\revit\PhaseCreatedFilter.cs" />
-    <Compile Include="model\revit\RevitElemCollectorInterface.cs" />
     <Compile Include="model\revit\RevitConverterInterface.cs" />
+    <Compile Include="model\revit\RevitElemCollectorInterface.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
     <Compile Include="model\revit\RevitElemCollectorStrategy.cs" />
@@ -137,6 +137,7 @@
     <Compile Include="model\SheetRow.cs" />
     <Compile Include="model\SteelFrame.cs" />
     <Compile Include="model\SteelSectionType.cs" />
+    <Compile Include="model\Tool.cs" />
     <Compile Include="model\UserDefined_RatingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -144,30 +145,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="view\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="view\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="view\InputsView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="view\InputsView.Designer.cs">
-      <DependentUpon>InputsView.cs</DependentUpon>
-    </Compile>
     <Compile Include="view\revit_plugin\BitmapImageFactory.cs" />
-    <Compile Include="view\revit_plugin\Command.cs" />
+    <Compile Include="view\revit_plugin\CommandInspectorTool.cs" />
+    <Compile Include="view\revit_plugin\CommandSchemeTool.cs" />
     <Compile Include="view\revit_plugin\RibbonItemFactory.cs" />
     <Compile Include="view\revit_plugin\RibbonTabPanelFactory.cs" />
     <Compile Include="view\revit_plugin\RibbonUI.cs" />
     <Compile Include="view\RST_View.cs" />
-    <Compile Include="view\SplashScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="view\SplashScreen.Designer.cs">
-      <DependentUpon>SplashScreen.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="model\excel_files\Database_Graphs.xlsm" />
@@ -179,16 +163,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="view\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="view\InputsView.resx">
-      <DependentUpon>InputsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="view\SplashScreen.resx">
-      <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -205,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="text_files\AppLongDescription.txt" />
-    <EmbeddedResource Include="images\AppLogo.png" />
-    <EmbeddedResource Include="images\AppLogo16x16.png" />
-    <EmbeddedResource Include="images\AppLogo32x32.png" />
     <EmbeddedResource Include="sounds\ENDRUN.wav" />
   </ItemGroup>
   <ItemGroup>
@@ -239,7 +210,14 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="images\InspectorTool_AppLogo.png" />
+    <EmbeddedResource Include="images\InspectorTool_AppLogo16x16.png" />
+    <EmbeddedResource Include="images\InspectorTool_AppLogo32x32.png" />
+    <EmbeddedResource Include="images\SchemingTool_AppLogo.png" />
+    <EmbeddedResource Include="images\SchemingTool_AppLogo16x16.png" />
+    <EmbeddedResource Include="images\SchemingTool_AppLogo32x32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"

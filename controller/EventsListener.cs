@@ -102,8 +102,8 @@ namespace ReuseSchemeTool.controller
             try
             {
                 this.controller.processInputData();
-                this.controller.run();
-                this.controller.terminate();
+                this.controller.run(Tool.SCHEME);
+                this.controller.terminate(Tool.SCHEME);
             }
             catch (MissingInputsException ex1) 
             {

@@ -49,7 +49,8 @@ namespace ReuseSchemeTool.model
 
         private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.model.excel_files.Database_Graphs.xlsm";
 
-        private const string MODEL_NAME = "Reuse Scheme Tool";
+        private const string MODEL_INSPECTOR_NAME = "Reuse Inspector Tool";
+        private const string MODEL_SCHEMING_NAME = "Reuse Scheme Tool";
         private const string MODEL_VERSION = "Version: " + "1.0.0";
         private const string MODEL_COPYRIGHT = "Copyright @ Buro Happold Ltd Inc.2024";
         private const string MODEL_AUTHOR = "Giorgio Carlo Roberto Albieri";
@@ -406,7 +407,20 @@ public void buildRevitViews()
         public void notifyObservers(){this.observers.ForEach(o=>o.update());}
 
         // Getters
-        public string getModelName() { return MODEL_NAME; }
+        public string getModelName(Tool tool)
+        {
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    return MODEL_INSPECTOR_NAME;
+                    break;
+                case Tool.SCHEME:
+                    return MODEL_SCHEMING_NAME;
+                    break;
+            }
+
+            return null;
+        }
         public string getModelVersion() { return MODEL_VERSION; }
         public string getModelCopyRight() { return MODEL_COPYRIGHT; }
         public string getModelAuthor() { return MODEL_AUTHOR; }

@@ -37,9 +37,18 @@ namespace ReuseSchemeTool.view
 	    //METHODS
 
 	    //CREATION of the VIEWS
-        public void createSplashScreen()
+        public void createSplashScreen(Tool tool)
         {
-            this.splashScreen = new SplashScreen(this.model);
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    this.splashScreen = new Inspector_SplashScreen(this.model);
+                    break;
+                case Tool.SCHEME:
+                    this.splashScreen = new Scheming_SplashScreen(this.model);
+                    break;
+            }
+
             this.controller.soundManager.play(Sound.SPLASHSCREEN);
             this.model.registerObserver(this.splashScreen);
             System.Threading.Thread.Sleep(1000);
@@ -48,11 +57,22 @@ namespace ReuseSchemeTool.view
             System.Threading.Thread.Sleep(5000);
             this.model.removeObserver(this.splashScreen);
             this.splashScreen.Close();
+
+
         }
         
-        public void createAboutBox()
+        public void createAboutBox(Tool tool)
         {
-            this.aboutBox = new AboutBox(this.model);
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    this.aboutBox = new Inspector_AboutBox(this.model);
+                    break;
+                case Tool.SCHEME:
+                    this.aboutBox = new Scheming_AboutBox(this.model);
+                    break;
+            }
+
             this.model.registerObserver(this.aboutBox);
             this.model.notifyObservers();
             //this.aboutBox.Show();

@@ -36,18 +36,35 @@ namespace ReuseSchemeTool.view.revit_plugin
                 //2. Create new RibbonTab Panel
                 ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName);
                 //3. Buildup Inputs for RibbonItemFactory
-                String imagePath = "ReuseSchemeTool.images.AppLogo16x16.png";
-                String largeImagePath = "ReuseSchemeTool.images.AppLogo32x32.png";
-                String toolTipImagePath = "ReuseSchemeTool.images.AppLogo.png";
-                String toolTipText = "Reuse Scheme Tool";
-                String longDescriptionFilePath = "ReuseSchemeTool.text_files.AppLongDescription.txt";
-                String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
+                // Inspector Tool
+                String inspector_imagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo16x16.png";
+                String inspector_largeImagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo32x32.png";
+                String inspector_toolTipImagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo.png";
+                String inspector_toolTipText = "Reuse Inspector Tool";
+                String inspector_longDescriptionFilePath = "ReuseSchemeTool.text_files.InspectorTool_LongDescription.txt";
+                String inspector_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(inspector_longDescriptionFilePath)).ReadToEnd();
+                String inspector_className = "ReuseSchemeTool.view.revit_plugin.CommandInspectorTool";
+                // Scheming Tool
+                String scheming_imagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo16x16.png";
+                String scheming_largeImagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo32x32.png";
+                String scheming_toolTipImagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo.png";
+                String scheming_toolTipText = "Reuse Inspector Tool";
+                String scheming_longDescriptionFilePath = "ReuseSchemeTool.text_files.SchemingTool_LongDescription.txt";
+                String scheming_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(scheming_longDescriptionFilePath)).ReadToEnd();
+                String scheming_className = "ReuseSchemeTool.view.revit_plugin.CommandSchemeTool";
+
                 String assemblyFullPath = Assembly.GetExecutingAssembly().Location;
-                String className = "ReuseSchemeTool.view.revit_plugin.Command";
-                //4. Create RibbonItem (PushButton)
-                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", imagePath,
-                                                       largeImagePath, toolTipImagePath, toolTipText, longDescription, assemblyFullPath,
-                                                       className);
+
+                //4. Create RibbonItems (PushButtons)
+                // Inspector Tool
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", inspector_imagePath,
+                                                       inspector_largeImagePath, inspector_toolTipImagePath, inspector_toolTipText, inspector_longDescription, 
+                                                       assemblyFullPath, inspector_className);
+                // Scheming Tool
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Reuse Scheme\n Tool", scheming_imagePath,
+                                                       scheming_largeImagePath, scheming_toolTipImagePath, scheming_toolTipText, scheming_longDescription,
+                                                       assemblyFullPath, scheming_className);
+
                 return Result.Succeeded;
             }
             catch (Exception e)

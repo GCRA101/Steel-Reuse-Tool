@@ -54,19 +54,28 @@ namespace ReuseSchemeTool.controller
             throw new NotImplementedException();
         }
 
-        public void initialize()
+        public void initialize(Tool tool)
         {
             //Show the SplashScreen
-            this.view.createSplashScreen();
+            this.view.createSplashScreen(tool);
             //Show the AboutBox
-            this.view.createAboutBox();
+            this.view.createAboutBox(tool);
             //Activate the EventsListener of the AboutBox
             this.eventsListener.initializeAboutBox();
         }
 
-        public void run()
+        public void run(Tool tool)
         {
-            this.model.runScheming();
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    this.model.runScheming();
+                    break;
+                case Tool.SCHEME:
+                    this.model.runScheming();
+                    break;
+            }
+            
         }
 
         public void serialize()
@@ -74,7 +83,7 @@ namespace ReuseSchemeTool.controller
             throw new NotImplementedException();
         }
 
-        public void terminate()
+        public void terminate(Tool tool)
         {
             //Close and dispose the form
             this.view.inputsView.Close();
