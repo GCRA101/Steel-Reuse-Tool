@@ -69,7 +69,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                         commandData.Application.ActiveUIDocument.ActiveView = controller.model.revitViews.Pop();
                     }
 
-                    controller.terminate(Tool.SCHEME);
+                    controller.terminate(Tool.INSPECTOR);
                 }
 
                 // Success

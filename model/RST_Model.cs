@@ -397,15 +397,14 @@ public void buildRevitViews()
         {
 
             ExcelDataManager excelDataManager = new ExcelDataManager(embeddedFilePath, outputsFolderPath);
+            excelDataManager.initialize();
 
             switch (tool)
             {
                 case (Tool.INSPECTOR):
-                    excelDataManager.initialize(true);
                     excelDataManager.write(existingSteelFrames, "Inputs", "A2");
                     break;
                 case (Tool.SCHEME):
-                    excelDataManager.initialize();
                     string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
                     excelDataManager.write(new string[] { endCutOffLength }, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
                     excelDataManager.write(existingSteelFrames.Where(esf => esf.getReuseRating() == ReuseRating.MUST_HAVE).ToList(), "Inputs", "A2");
@@ -415,9 +414,18 @@ public void buildRevitViews()
             excelDataManager.refreshWorkbook();
             excelDataManager.hideWorksheet("Inputs");
             excelDataManager.printWorkSheet("Steel Reuse Dashboard", this.pdfFilesFolderPath);
-            excelDataManager.protectWorkbook(true);
 
-            if (tool==Tool.SCHEME) excelDataManager.dispose();
+            if (tool==Tool.INSPECTOR)
+            {
+                excelDataManager.setTopMost();
+                excelDataManager.visible(true);
+            }
+                
+            if (tool == Tool.SCHEME)
+            {
+                excelDataManager.protectWorkbook(true);
+                excelDataManager.dispose();
+            }
 
         }
 
