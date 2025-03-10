@@ -61,7 +61,7 @@ namespace ReuseSchemeTool.controller
             //Show the AboutBox
             this.view.createAboutBox(tool);
             //Activate the EventsListener of the AboutBox
-            this.eventsListener.initializeAboutBox();
+            this.eventsListener.initializeAboutBox(tool);
         }
 
         public void run(Tool tool)

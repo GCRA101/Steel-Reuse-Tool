@@ -53,7 +53,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 //Show the AboutBox
                 controller.view.createAboutBox(Tool.INSPECTOR);
                 //Activate the EventsListener of the AboutBox
-                controller.eventsListener.initializeAboutBox();
+                controller.eventsListener.initializeAboutBox(Tool.INSPECTOR);
 
                 if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
                     controller.soundManager.play(Sound.CLICKBUTTON);

@@ -22,8 +22,8 @@ namespace ReuseSchemeTool.view
         public RST_Model model { set; get; }
         public RST_Controller controller { set; get; }
         //Main windows of the View
-        public SplashScreen splashScreen { set; get; }
-        public AboutBox aboutBox { set; get; }
+        public System.Windows.Forms.Form splashScreen { set; get; }
+        public System.Windows.Forms.Form aboutBox { set; get; }
         public InputsView inputsView { set; get; }
 
         //CONSTRUCTORS
@@ -50,12 +50,12 @@ namespace ReuseSchemeTool.view
             }
 
             this.controller.soundManager.play(Sound.SPLASHSCREEN);
-            this.model.registerObserver(this.splashScreen);
+            this.model.registerObserver((Observer)this.splashScreen);
             System.Threading.Thread.Sleep(1000);
             this.splashScreen.Show();
             this.splashScreen.Refresh();
             System.Threading.Thread.Sleep(5000);
-            this.model.removeObserver(this.splashScreen);
+            this.model.removeObserver((Observer)this.splashScreen);
             this.splashScreen.Close();
 
 
@@ -73,7 +73,7 @@ namespace ReuseSchemeTool.view
                     break;
             }
 
-            this.model.registerObserver(this.aboutBox);
+            this.model.registerObserver((Observer)this.aboutBox);
             this.model.notifyObservers();
             //this.aboutBox.Show();
             //this.aboutBox.Refresh();
@@ -84,7 +84,7 @@ namespace ReuseSchemeTool.view
             this.inputsView = new InputsView(this.model, this.controller);
             this.inputsView.initialise();
 
-            this.model.removeObserver(this.aboutBox);
+            this.model.removeObserver((Observer)this.aboutBox);
             this.model.registerObserver(this.inputsView);
 
             //this.inputsView.Show();

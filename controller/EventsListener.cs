@@ -33,9 +33,18 @@ namespace ReuseSchemeTool.controller
             this.view = view;
         }
 
-        public void initializeAboutBox()
+        public void initializeAboutBox(Tool tool)
         {
-            this.aboutBoxBtnOk = this.view.aboutBox.btnOK;
+            switch (tool)
+            {
+                case (Tool.INSPECTOR):
+                    this.aboutBoxBtnOk = ((Inspector_AboutBox)this.view.aboutBox).btnOK;
+                    break;
+                case (Tool.SCHEME):
+                    this.aboutBoxBtnOk = ((Scheming_AboutBox)this.view.aboutBox).btnOK;
+                    break;
+            }
+            
             //aboutBoxBtnOk.Click += new EventHandler(aboutBoxBtnOk_Click);
         }
 

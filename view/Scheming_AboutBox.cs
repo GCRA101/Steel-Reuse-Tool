@@ -39,7 +39,7 @@ namespace ReuseSchemeTool.view
         public void update()
         {
             //Application Name
-            this.lblProductName.Text = this.model.getSchemeModelName();
+            this.lblProductName.Text = this.model.getModelName(Tool.SCHEME);
             //Application Version
             this.lblVersion.Text = this.model.getModelVersion();
             //Copyright info

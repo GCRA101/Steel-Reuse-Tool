@@ -113,6 +113,23 @@ namespace ReuseSchemeTool.model
         }
 
 
+        public void runInspector()
+        {
+            /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
+            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            frameElements = revitFramesCollector.collectElements();
+
+
+
+
+
+
+        }
+
+
         public void runScheming()
         {
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
