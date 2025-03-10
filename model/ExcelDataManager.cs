@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Microsoft.Office.Interop.Excel;
 using ReuseSchemeTool.model;
@@ -10,7 +12,7 @@ using ReuseSchemeTool.model;
 public class ExcelDataManager
 {
     // ATTRIBUTES
-    private Application ExcelApp;
+    private Microsoft.Office.Interop.Excel.Application ExcelApp;
     private Workbook ExcelWkb;
     private Worksheet ExcelWks;
 
@@ -67,7 +69,7 @@ public class ExcelDataManager
     public void initialize(bool excelAppVisible = false)
     {
         // 1. INITIALIZE EXCEL APPLICATION
-        ExcelApp = new Application();
+        ExcelApp = new Microsoft.Office.Interop.Excel.Application();
         ExcelApp.Visible = excelAppVisible;
 
         // 2. OPEN/CREATE EXCEL WORKBOOK
@@ -251,4 +253,39 @@ public class ExcelDataManager
     {
         this.ExcelWkb.RefreshAll();
     }
+
+    public void visible(bool visible)
+    {
+        this.ExcelApp.Visible = visible;
+    }
+
+
+
+    // Import the SetWindowPos function from the user32.dll
+    [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+    private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+    private const uint SWP_NOSIZE = 0x0001;
+    private const uint SWP_NOMOVE = 0x0002;
+    private const uint SWP_SHOWWINDOW = 0x0040;
+
+    public void setTopMost()
+    {
+        // Get the handle of the Excel window
+        IntPtr excelHandle = new IntPtr(this.ExcelApp.Hwnd);
+        // Dimensions
+        int screenWidth = Screen.GetBounds(Cursor.Position).Width;
+        int screenHeight = Screen.GetBounds(Cursor.Position).Height;
+        int width = screenWidth / 4 * 3;
+        int height = screenHeight / 4 * 3;
+        // Coordinates
+        int x = 0;
+        int y = 0;
+        
+        // Set the Excel window to be topmost
+        SetWindowPos(excelHandle, HWND_TOPMOST, x, y, width, height, SWP_NOSIZE | SWP_NOMOVE | SWP_SHOWWINDOW);
+
+    }
+
 }
