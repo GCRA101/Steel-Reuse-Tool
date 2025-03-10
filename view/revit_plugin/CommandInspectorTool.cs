@@ -48,28 +48,17 @@ namespace ReuseSchemeTool.view.revit_plugin
             {
                 //controller.initialize();
 
-                //Show the SplashScreen
-                controller.view.createSplashScreen(Tool.INSPECTOR);
-                //Show the AboutBox
-                controller.view.createAboutBox(Tool.INSPECTOR);
-                //Activate the EventsListener of the AboutBox
-                controller.eventsListener.initializeAboutBox(Tool.INSPECTOR);
+                //Show the SplashScreen and the AboutBox
+                controller.initialize(Tool.INSPECTOR);
 
                 if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
                     controller.soundManager.play(Sound.CLICKBUTTON);
-                    controller.view.createInputsView();
-                    controller.eventsListener.initializeInputsView();
-                }
-
-                if (controller.view.inputsView.ShowDialog() == DialogResult.OK)
-                {
 
                     revitTransaction.Start();
 
-                    controller.processInputData();
-                    controller.run(Tool.SCHEME);
-                    controller.model.updateReuseRatings();
-                    controller.model.buildRevitViews();
+                    controller.model.initialize(commandData.Application);
+                    controller.run(Tool.INSPECTOR);
+                    
 
                     // Close and Dispose Transaction
                     revitTransaction.Commit();

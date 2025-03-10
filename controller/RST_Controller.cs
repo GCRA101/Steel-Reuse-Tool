@@ -69,7 +69,7 @@ namespace ReuseSchemeTool.controller
             switch (tool)
             {
                 case Tool.INSPECTOR:
-                    this.model.runScheming();
+                    this.model.runInspection();
                     break;
                 case Tool.SCHEME:
                     this.model.runScheming();

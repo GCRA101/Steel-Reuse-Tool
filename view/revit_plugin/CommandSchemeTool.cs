@@ -48,12 +48,8 @@ namespace ReuseSchemeTool.view.revit_plugin
             {
                 //controller.initialize();
 
-                //Show the SplashScreen
-                controller.view.createSplashScreen(Tool.SCHEME);
-                //Show the AboutBox
-                controller.view.createAboutBox(Tool.SCHEME);
-                //Activate the EventsListener of the AboutBox
-                controller.eventsListener.initializeAboutBox(Tool.SCHEME);
+                //Show the SplashScreen and the AboutBox
+                controller.initialize(Tool.SCHEME);
 
                 if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
                     controller.soundManager.play(Sound.CLICKBUTTON);
