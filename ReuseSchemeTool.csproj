@@ -151,17 +151,17 @@
     <Compile Include="view\InputsView.Designer.cs">
       <DependentUpon>InputsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Inspector_AboutBox.cs">
+    <Compile Include="view\InspectorTool_AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Inspector_AboutBox.Designer.cs">
-      <DependentUpon>Inspector_AboutBox.cs</DependentUpon>
+    <Compile Include="view\InspectorTool_AboutBox.Designer.cs">
+      <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Inspector_SplashScreen.cs">
+    <Compile Include="view\InspectorTool_SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Inspector_SplashScreen.Designer.cs">
-      <DependentUpon>Inspector_SplashScreen.cs</DependentUpon>
+    <Compile Include="view\InspectorTool_SplashScreen.Designer.cs">
+      <DependentUpon>InspectorTool_SplashScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="view\revit_plugin\BitmapImageFactory.cs" />
     <Compile Include="view\revit_plugin\CommandInspectorTool.cs" />
@@ -170,17 +170,17 @@
     <Compile Include="view\revit_plugin\RibbonTabPanelFactory.cs" />
     <Compile Include="view\revit_plugin\RibbonUI.cs" />
     <Compile Include="view\RST_View.cs" />
-    <Compile Include="view\Scheming_AboutBox.cs">
+    <Compile Include="view\SchemingTool_AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Scheming_AboutBox.Designer.cs">
-      <DependentUpon>Scheming_AboutBox.cs</DependentUpon>
+    <Compile Include="view\SchemingTool_AboutBox.Designer.cs">
+      <DependentUpon>SchemingTool_AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Scheming_SplashScreen.cs">
+    <Compile Include="view\SchemingTool_SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Scheming_SplashScreen.Designer.cs">
-      <DependentUpon>Scheming_SplashScreen.cs</DependentUpon>
+    <Compile Include="view\SchemingTool_SplashScreen.Designer.cs">
+      <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -189,17 +189,17 @@
     <EmbeddedResource Include="view\InputsView.resx">
       <DependentUpon>InputsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Inspector_AboutBox.resx">
-      <DependentUpon>Inspector_AboutBox.cs</DependentUpon>
+    <EmbeddedResource Include="view\InspectorTool_AboutBox.resx">
+      <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Inspector_SplashScreen.resx">
-      <DependentUpon>Inspector_SplashScreen.cs</DependentUpon>
+    <EmbeddedResource Include="view\InspectorTool_SplashScreen.resx">
+      <DependentUpon>InspectorTool_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Scheming_AboutBox.resx">
-      <DependentUpon>Scheming_AboutBox.cs</DependentUpon>
+    <EmbeddedResource Include="view\SchemingTool_AboutBox.resx">
+      <DependentUpon>SchemingTool_AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Scheming_SplashScreen.resx">
-      <DependentUpon>Scheming_SplashScreen.cs</DependentUpon>
+    <EmbeddedResource Include="view\SchemingTool_SplashScreen.resx">
+      <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="ReuseSchemeTool.addin" />

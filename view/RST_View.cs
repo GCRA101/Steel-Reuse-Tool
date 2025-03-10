@@ -42,10 +42,10 @@ namespace ReuseSchemeTool.view
             switch (tool)
             {
                 case Tool.INSPECTOR:
-                    this.splashScreen = new Inspector_SplashScreen(this.model);
+                    this.splashScreen = new InspectorTool_SplashScreen(this.model);
                     break;
                 case Tool.SCHEME:
-                    this.splashScreen = new Scheming_SplashScreen(this.model);
+                    this.splashScreen = new SchemingTool_SplashScreen(this.model);
                     break;
             }
 
@@ -66,10 +66,10 @@ namespace ReuseSchemeTool.view
             switch (tool)
             {
                 case Tool.INSPECTOR:
-                    this.aboutBox = new Inspector_AboutBox(this.model);
+                    this.aboutBox = new InspectorTool_AboutBox(this.model);
                     break;
                 case Tool.SCHEME:
-                    this.aboutBox = new Scheming_AboutBox(this.model);
+                    this.aboutBox = new SchemingTool_AboutBox(this.model);
                     break;
             }
 

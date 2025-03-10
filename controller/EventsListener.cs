@@ -38,10 +38,10 @@ namespace ReuseSchemeTool.controller
             switch (tool)
             {
                 case (Tool.INSPECTOR):
-                    this.aboutBoxBtnOk = ((Inspector_AboutBox)this.view.aboutBox).btnOK;
+                    this.aboutBoxBtnOk = ((InspectorTool_AboutBox)this.view.aboutBox).btnOK;
                     break;
                 case (Tool.SCHEME):
-                    this.aboutBoxBtnOk = ((Scheming_AboutBox)this.view.aboutBox).btnOK;
+                    this.aboutBoxBtnOk = ((SchemingTool_AboutBox)this.view.aboutBox).btnOK;
                     break;
             }
             

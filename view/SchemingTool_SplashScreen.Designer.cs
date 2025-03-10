@@ -1,6 +1,6 @@
 ﻿namespace ReuseSchemeTool.view
 {
-    partial class Scheming_SplashScreen 
+    partial class SchemingTool_SplashScreen 
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Scheming_SplashScreen));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SchemingTool_SplashScreen));
             this.tlpLogo = new System.Windows.Forms.TableLayoutPanel();
             this.tlpTitle = new System.Windows.Forms.TableLayoutPanel();
             this.lblApplicationName = new System.Windows.Forms.Label();
