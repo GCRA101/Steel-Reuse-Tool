@@ -134,7 +134,7 @@
     <Compile Include="model\revit\ViewportSizeOnSheet.cs" />
     <Compile Include="model\RST_Model.cs" />
     <Compile Include="model\Section.cs" />
-    <Compile Include="model\SheetRow.cs" />
+    <Compile Include="model\revit\SheetRow.cs" />
     <Compile Include="model\SteelFrame.cs" />
     <Compile Include="model\SteelSectionType.cs" />
     <Compile Include="model\Tool.cs" />

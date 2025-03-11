@@ -34,14 +34,14 @@ namespace ReuseSchemeTool.model.revit
         {
             builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
             
-            TextNoteType titleNoteType =builder.createTextNoteType("Legend_Title", "Segoe UI", 10, true);
-            TextNoteType itemNoteType = builder.createTextNoteType("Legend_Item", "Segoe UI", 5, false);
+            TextNoteType titleNoteType =builder.createTextNoteType("Legend_Title", "Segoe UI", 5, true);
+            TextNoteType itemNoteType = builder.createTextNoteType("Legend_Item", "Segoe UI", 4, false);
             builder.createTextNote(titleNoteType,new XYZ(0,400,0),title.ToUpper());
             builder.createLine(new XYZ(0, 200, 0), new XYZ(3000, 200, 0));
 
             for (int i = 0; i < itemNames.Count; i++) {
-                builder.createRectangle(new XYZ(0, 0-i*600, 0),300,300, itemColors[i]);
-                builder.createTextNote(itemNoteType, new XYZ(400, -300/2 - i * 600, 0), itemNames[i]);
+                builder.createRectangle(new XYZ(0, 0-i*300, 0),200,200, itemColors[i]);
+                builder.createTextNote(itemNoteType, new XYZ(300, -300/2 - i * 300, 0), itemNames[i]);
             }
 
             return builder.getViewDrafting();
@@ -52,17 +52,17 @@ namespace ReuseSchemeTool.model.revit
         {
             builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
-            TextNoteType titleNoteType = builder.createTextNoteType("PieChart_Title", "Segoe UI", 10, true);
-            TextNoteType itemNoteType = builder.createTextNoteType("PieChart_Item", "Segoe UI", 5, false);
+            TextNoteType titleNoteType = builder.createTextNoteType("PieChart_Title", "Segoe UI", 5, true);
+            TextNoteType itemNoteType = builder.createTextNoteType("PieChart_Item", "Segoe UI", 4, false);
             
             builder.createTextNote(titleNoteType, new XYZ(0, 400, 0), title.ToUpper());
-            builder.createLine(new XYZ(0, 200, 0), new XYZ(6000, 200, 0));
-            builder.createPieChart(new XYZ(1000, -1400, 0), 1000, pieSlicesData);
+            builder.createLine(new XYZ(0, 200, 0), new XYZ(4000, 200, 0));
+            builder.createPieChart(new XYZ(800, -800, 0), 800, pieSlicesData);
 
             for (int i = 0; i<pieSlicesData.Count();i++) 
             {
-                FilledRegion circle = builder.createCircle(new XYZ(3000, -500 - i * 400, 0), 100, pieSlicesData[i].getColor());
-                builder.createTextNote(itemNoteType, new XYZ(3200, -500 - i * 400, 0), pieSlicesData[i].getName() + " - [" + pieSlicesData[i].getValue().ToString() + " " + units + "]");
+                FilledRegion circle = builder.createCircle(new XYZ(2000, -500 - i * 240, 0), 80, pieSlicesData[i].getColor());
+                builder.createTextNote(itemNoteType, new XYZ(2200, -500 - i * 240, 0), pieSlicesData[i].getName() + " - [" + pieSlicesData[i].getValue().ToString() + " " + units + "]");
             }
 
 
@@ -81,12 +81,12 @@ namespace ReuseSchemeTool.model.revit
         {
             builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
-            TextNoteType titleNoteType = builder.createTextNoteType("StockChart_Title", "Segoe UI", 10, true);
-            TextNoteType itemNoteType = builder.createTextNoteType("StockChart_Item", "Segoe UI", 5, false);
+            TextNoteType titleNoteType = builder.createTextNoteType("StockChart_Title", "Segoe UI", 5, true);
+            TextNoteType itemNoteType = builder.createTextNoteType("StockChart_Item", "Segoe UI", 2, false);
 
             builder.createTextNote(titleNoteType, new XYZ(0, 400, 0), title.ToUpper());
-            builder.createLine(new XYZ(0, 200, 0), new XYZ(6000, 200, 0));
-            builder.createStockChart(new XYZ(0, -200, 0), itemNoteType, 15000, 1000, 100,250, stocksData);
+            builder.createLine(new XYZ(0, 200, 0), new XYZ(4000, 200, 0));
+            builder.createStockChart(new XYZ(0, -50, 0), itemNoteType, 4000,3000, 200, 20, 80, stocksData);
 
             return builder.getViewDrafting();
         }

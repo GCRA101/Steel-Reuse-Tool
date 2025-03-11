@@ -433,15 +433,15 @@ namespace ReuseSchemeTool.model.revit
                         .FirstElement() as TextNoteType;
 
                     textNoteType = (TextNoteType)textNoteType.Duplicate(typeName);
-
-                    // Set the properties of the new TextNoteType
-                    textNoteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set(fontName);
-                    textNoteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(UnitUtils.ConvertToInternalUnits(fontSize_mm, UnitTypeId.Millimeters));
-                    if (bold == true) textNoteType.get_Parameter(BuiltInParameter.TEXT_STYLE_BOLD).Set(1);
-                    else textNoteType.get_Parameter(BuiltInParameter.TEXT_STYLE_BOLD).Set(0);
-                    textNoteType.get_Parameter(BuiltInParameter.LEADER_OFFSET_SHEET).Set(0);
-
                 }
+
+                // Set the properties of the new TextNoteType
+                textNoteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set(fontName);
+                textNoteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(UnitUtils.ConvertToInternalUnits(fontSize_mm, UnitTypeId.Millimeters));
+                if (bold == true) textNoteType.get_Parameter(BuiltInParameter.TEXT_STYLE_BOLD).Set(1);
+                else textNoteType.get_Parameter(BuiltInParameter.TEXT_STYLE_BOLD).Set(0);
+                textNoteType.get_Parameter(BuiltInParameter.LEADER_OFFSET_SHEET).Set(0);
+
 
 
                 if (revitTransaction != null)
@@ -672,7 +672,7 @@ namespace ReuseSchemeTool.model.revit
         }
 
         public Dictionary<string,List<Autodesk.Revit.DB.Line>> createStockChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, Single chartWidth, 
-                                                   Single vSpacing, Single hSpacing, Single hStockMax, Dictionary<string,List<double>> stocksData)
+                                                   Single stockWidth, Single vSpacing, Single hSpacing, Single hStockMax, Dictionary<string,List<double>> stocksData)
         {
             if (viewDrafting == null) return null;
 
@@ -717,15 +717,15 @@ namespace ReuseSchemeTool.model.revit
 
                     for (int j = 0; j < values.Count; j++)
                     {
-                        stockRefX= chartRefPoint.X + 2000 + hSpacing * k;
+                        stockRefX= chartRefPoint.X + (chartWidth - stockWidth) + hSpacing * k;
                         
                         if (stockRefX > chartWidth)
                         {
-                            chartRefPoint = new XYZ(chartRefPoint.X, chartRefPoint.Y - 600, chartRefPoint.Z);
+                            chartRefPoint = new XYZ(chartRefPoint.X, chartRefPoint.Y - hStockMax*2.5, chartRefPoint.Z);
                             k = 0;
                         }
                         
-                        lineStartPoint = new XYZ(chartRefPoint.X+2000+hSpacing*k, chartRefPoint.Y, chartRefPoint.Z);
+                        lineStartPoint = new XYZ(chartRefPoint.X+(chartWidth-stockWidth)+hSpacing*k, chartRefPoint.Y, chartRefPoint.Z);
                         lineEndPoint = new XYZ(lineStartPoint.X, lineStartPoint.Y + values[j]* 2*stockScaleRatio, lineStartPoint.Z);
                         lines.Add(this.createLine(lineStartPoint,lineEndPoint, graphicsStyle));
 

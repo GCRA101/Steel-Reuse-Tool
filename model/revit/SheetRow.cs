@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReuseSchemeTool.model
+namespace ReuseSchemeTool.model.revit
 {
     public enum SheetRow
     {
-        R00, R01, R02, R03, R04, R05, R06, R07, R08, R09, R10, R11
+        R00, R01, R02, R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20
     }
 }

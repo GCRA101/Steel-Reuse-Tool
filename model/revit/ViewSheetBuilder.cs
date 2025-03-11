@@ -47,8 +47,7 @@ namespace ReuseSchemeTool.model.revit
         {
             if (viewSheet == null) { return; }
 
-
-            view = (Autodesk.Revit.DB.View)view.Document.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate));
+            if (duplicateView) view = (Autodesk.Revit.DB.View)view.Document.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate));
 
 
             int deltaUNum = Enum.GetValues(typeof(SheetColumn)).Length;
@@ -71,11 +70,8 @@ namespace ReuseSchemeTool.model.revit
             double viewportOffsetY_ft = sheetHeight_ft / deltaVNum * ((int)location.row);
 
             // Calculate the center point of the viewport
-            XYZ viewportCenter = new XYZ(viewSheet.Outline.Min.U + viewportOffsetX_ft + viewportWidth_ft / 2,
-                                         viewSheet.Outline.Max.V - viewportOffsetY_ft - viewportHeight_ft / 2,0);
-
-            // Create the viewport
-            Viewport viewport = Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, viewportCenter);
+            XYZ viewportCenter = new XYZ(viewSheet.Outline.Min.U + viewportOffsetX_ft,
+                                         viewSheet.Outline.Max.V - viewportOffsetY_ft,0);
 
             // Adjust the scale of the 3D view to fit the model
             BoundingBoxXYZ boundingBox = view.get_BoundingBox(null);
@@ -88,46 +84,69 @@ namespace ReuseSchemeTool.model.revit
 
             view.Scale = (int)(1 / scale);
 
+            // Create the viewport
+            Viewport viewport = Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, viewportCenter);
 
-            //// Adjust the crop box of the view
-            //BoundingBoxXYZ cropBox = view.CropBox;
+            double viewportWidth = viewport.GetBoxOutline().MaximumPoint.X - viewport.GetBoxOutline().MinimumPoint.X;
+            double viewportHeight = viewport.GetBoxOutline().MaximumPoint.Y - viewport.GetBoxOutline().MinimumPoint.Y;
 
-            //double cropBoxWidth_ft = cropBox.Max.X - cropBox.Min.X;
-            //double cropBoxHeight_ft = cropBox.Max.Y - cropBox.Min.Y;
+            XYZ centrePoint = viewport.GetBoxCenter();
+            viewportWidth = viewport.GetBoxOutline().MaximumPoint.X - viewport.GetBoxOutline().MinimumPoint.X;
+            viewportHeight = viewport.GetBoxOutline().MaximumPoint.Y - viewport.GetBoxOutline().MinimumPoint.Y;
 
-            //// Convert from feet to millimeters
-            //double cropBoxWidth_mm = UnitUtils.ConvertFromInternalUnits(cropBoxWidth_ft, UnitTypeId.Millimeters);
-            //double cropBoxHeight_mm = UnitUtils.ConvertFromInternalUnits(cropBoxHeight_ft, UnitTypeId.Millimeters);
+            XYZ newCenterPoint = new XYZ(viewSheet.Outline.Min.U + viewportOffsetX_ft + viewportWidth / 2,
+                    viewSheet.Outline.Max.V - viewportOffsetY_ft - viewportHeight / 2, 0);
 
-            //double deltaX = (((int)size.width) * ((outlineWidth_ft / deltaUNum)/cropBoxWidth_ft) * cropBoxWidth_ft - cropBoxWidth_ft)/ 2;
-            //double deltaY = (((int)size.height) * ((outlineHeight_ft / deltaVNum)/cropBoxHeight_ft) * cropBoxHeight_ft - cropBoxHeight_ft )/ 2;
+            viewport.SetBoxCenter(newCenterPoint);
 
-            //cropBox.Max = new XYZ(cropBox.Max.X + deltaX, cropBox.Max.Y + deltaY, cropBox.Max.Z); // Increase size
-            //cropBox.Min = new XYZ(cropBox.Min.X - deltaX, cropBox.Min.Y - deltaY, cropBox.Min.Z); // Decrease size
-            
-            //view.CropBox = cropBox;
+        }
+
+        public static void buildViewPort(Autodesk.Revit.DB.View view, ViewportLocationOnSheet location, Boolean duplicateView = true)
+        {
+            if (viewSheet == null) { return; }
+
+            if (duplicateView) view = (Autodesk.Revit.DB.View)view.Document.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate));
+
+            int deltaUNum = Enum.GetValues(typeof(SheetColumn)).Length;
+            int deltaVNum = Enum.GetValues(typeof(SheetRow)).Length;
+
+            // VIEWSHEET OUTLINE DIMENSIONS
+
+            // Calculate the width and height in feet
+            double sheetWidth_ft = viewSheet.Outline.Max.U - viewSheet.Outline.Min.U;
+            double sheetHeight_ft = viewSheet.Outline.Max.V - viewSheet.Outline.Min.V;
+
+            double viewportWidth_ft, viewportHeight_ft;
+
+            double viewportOffsetX_ft = sheetWidth_ft / deltaUNum * ((int)location.column);
+            double viewportOffsetY_ft = sheetHeight_ft / deltaVNum * ((int)location.row);
+
+            // Calculate the center point of the viewport
+            XYZ viewportCenter = new XYZ(viewSheet.Outline.Min.U + viewportOffsetX_ft,
+                                         viewSheet.Outline.Max.V - viewportOffsetY_ft, 0);
+
+            // Create the viewport
+            Viewport viewport = Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, viewportCenter);
+
+            XYZ centrePoint = viewport.GetBoxCenter();
+            double viewportWidth=viewport.GetBoxOutline().MaximumPoint.X - viewport.GetBoxOutline().MinimumPoint.X;
+            double viewportHeight = viewport.GetBoxOutline().MaximumPoint.Y - viewport.GetBoxOutline().MinimumPoint.Y;
+
+            XYZ newCenterPoint = new XYZ(centrePoint.X + viewportWidth / 2, centrePoint.Y - viewportHeight / 2, centrePoint.Z);
+
+            viewport.SetBoxCenter(newCenterPoint);
+
+        }
 
 
+        public static void buildViewPort(Autodesk.Revit.DB.View view, XYZ centrePoint, Boolean duplicateView = true)
+        {
+            if (viewSheet == null) { return; }
 
-            ////double x = viewSheet.Outline.Max.U-(viewSheet.Outline.Max.U / deltaUNum * ((int)location.column+1));
-            //double x = viewSheet.Outline.Max.U / deltaUNum * ((int)location.column);
-            //double y = viewSheet.Outline.Max.V-(viewSheet.Outline.Max.V / deltaVNum * ((int)location.row));
+            if (duplicateView) view = (Autodesk.Revit.DB.View)view.Document.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate));
 
-            //XYZ point = new XYZ(x, y, 0);
-
-            //Viewport viewport = Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, point);
-
-
-            //// TITLEBLOCK DIMENSIONS
-
-            //// Get the width and height parameters
-            //double ttlbkWidth = titleBlock.get_Parameter(BuiltInParameter.SHEET_WIDTH).AsDouble();
-            //double ttlbkHeight = titleBlock.get_Parameter(BuiltInParameter.SHEET_HEIGHT).AsDouble();
-            
-            //// Convert from feet to millimeters (if needed)
-            //double ttlbkWidth_mm = UnitUtils.ConvertFromInternalUnits(ttlbkWidth, UnitTypeId.Millimeters);
-            //double ttlbkHeight_mm = UnitUtils.ConvertFromInternalUnits(ttlbkHeight, UnitTypeId.Millimeters);
-
+            // Create the viewport
+            Viewport viewport = Viewport.Create(viewSheet.Document, viewSheet.Id, view.Id, centrePoint);
 
         }
 
@@ -158,6 +177,7 @@ namespace ReuseSchemeTool.model.revit
                     .ToList()
                     .First(tb => tb.Name == titleBlockTypeName);
         }
+
 
         public static ViewSheet getViewSheet()
         {

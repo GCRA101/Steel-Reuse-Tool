@@ -83,8 +83,6 @@ namespace ReuseSchemeTool.model
             this.uiDoc = uiApp.ActiveUIDocument;
             this.dbDoc = uiDoc.Document;
             frameConverter = new FrameConverter(dbDoc);
-
-            initializeOutputFolders();
         }
         
 
@@ -92,21 +90,30 @@ namespace ReuseSchemeTool.model
         {
             this.initialize(uiApp);
             this.reuseRatingCalculator = reuseRatingCalculator;
-
-            initializeOutputFolders();
         }
 
 
-        private void initializeOutputFolders()
+        private void initializeOutputFolders(Tool tool)
         {
             // LOCATION OF REVITMODELPATH TO BE REVIEWED !!!!!!!!!!! ******
             string revitModelPath = "c:\\Users\\galbieri\\Buro Happold\\Design & Technology - R&D Wishlist\\00728_STR Steel Re-use\\03_Reference Revit Model\\JIM-BHC-S4-04-002-100-ZZ-M3-ST-000001_rvt.rvt";
-            this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Ouputs");
-            this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
-            this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
-            this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
-
-            folderPaths = new List<string>() { this.jsonFilesFolderPath, this.excelFilesFolderPath, this.pdfFilesFolderPath};
+            
+            switch (tool)
+            {
+                case (Tool.INSPECTOR):
+                    this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Inspector_Ouputs");
+                    this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
+                    this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
+                    folderPaths = new List<string>() { this.excelFilesFolderPath, this.pdfFilesFolderPath };
+                    break;
+                case (Tool.SCHEME):
+                    this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Scheming_Ouputs");
+                    this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
+                    this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
+                    this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
+                    folderPaths = new List<string>() { this.jsonFilesFolderPath, this.excelFilesFolderPath, this.pdfFilesFolderPath };
+                    break;
+            }
 
             foreach (string folder in folderPaths) 
             { 
@@ -120,6 +127,9 @@ namespace ReuseSchemeTool.model
 
         public void runInspection()
         {
+
+            initializeOutputFolders(Tool.INSPECTOR);
+
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
             revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
@@ -140,6 +150,9 @@ namespace ReuseSchemeTool.model
 
         public void runScheming()
         {
+
+            initializeOutputFolders(Tool.SCHEME);
+
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
             revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
@@ -297,7 +310,7 @@ public void buildRevitViews()
                     elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
                     // Step 4: Apply the Filter to the Collector
                     elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
-                    filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
+                    filteredElements = elmsCollector.OfClass(typeof(FamilyInstance)).WherePasses(elemFilter).ToElements();
                     
                     double value = filteredElements.Sum(el => {
                         
@@ -354,10 +367,24 @@ public void buildRevitViews()
                 ViewSheetBuilder.buildTitleBlock("BHE_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
-                //ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
-                //ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
+                ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
 
-                //revitViews.Push(viewSheet);
+
+                location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R12);
+                ViewSheetBuilder.buildViewPort(legendView, location,false);
+
+                location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R16);
+                ViewSheetBuilder.buildViewPort(pcItemsView, location, false);
+
+                location = new ViewportLocationOnSheet(SheetColumn.C07, SheetRow.R16);
+                ViewSheetBuilder.buildViewPort(pcMatView, location, false);
+
+                location = new ViewportLocationOnSheet(SheetColumn.C13, SheetRow.R01);
+                ViewSheetBuilder.buildViewPort(stockChartView, location, false);
+
+                ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
+
+                revitViews.Push(viewSheet);
 
 
                 if (revitTransaction != null)
