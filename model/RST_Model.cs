@@ -255,12 +255,13 @@ public void buildRevitViews()
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", ColorPalette.TRAFFICLIGHTS);
+                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_MUTED);
 
                 // Color all Elements with a semi-transparent grey color
                 OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
-                Color greyColor = new Color(128, 128, 128); // RGB values for grey
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "ALL OTHER FRAMES", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", greyColor, 75, true);
+                System.Drawing.Color systBHGreyColor = ColorsFactory.getInstance().createBHColor(BHColor.MUTED_GREY); // RGB values for grey
+                Color revitBHGreyColor = new Autodesk.Revit.DB.Color(systBHGreyColor.R, systBHGreyColor.G, systBHGreyColor.B);
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "ALL OTHER FRAMES", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", revitBHGreyColor, 75, true);
 
 
                 revitViews.Push(ThreeDView);

@@ -1,5 +1,7 @@
-﻿using ReuseSchemeTool.controller;
+﻿using Autodesk.Revit.DB;
+using ReuseSchemeTool.controller;
 using ReuseSchemeTool.model;
+using ReuseSchemeTool.model.revit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,6 +47,13 @@ namespace ReuseSchemeTool.view
 
         public void initialise(InputSettings inputSettings)
         {
+
+            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.model.dbDoc));
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            List<string> frameTypeNames=revitFramesCollector.collectElements().Select(el=>((FamilyInstance)el).Symbol.Family.LookupParameter("StructuralFamilyNameKey").AsString()).ToList();
+
+
 
             for (int i = 0; i < this.clbSectionTypes.Items.Count; i++)
             {

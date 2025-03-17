@@ -24,6 +24,7 @@ using Autodesk.Revit.Creation;
 using System.Security.Cryptography;
 using ReuseSchemeTool.controller;
 using ReuseSchemeTool.model;
+using ReuseSchemeTool.model.revit;
 
 
 namespace ReuseSchemeTool.view.revit_plugin

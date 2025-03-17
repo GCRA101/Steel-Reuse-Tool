@@ -75,11 +75,14 @@
     <Compile Include="controller\Sound.cs" />
     <Compile Include="controller\SoundManager.cs" />
     <Compile Include="controller\SoundPathRetriever.cs" />
+    <Compile Include="model\BHColor.cs" />
+    <Compile Include="model\BHColorPaletteType.cs" />
     <Compile Include="model\ConditionSurveyInfo.cs" />
     <Compile Include="model\data_structures\RBColor.cs" />
     <Compile Include="model\data_structures\RBNode.cs" />
     <Compile Include="model\data_structures\RBTree.cs" />
     <Compile Include="model\DimensionalSurveyInfo.cs" />
+    <Compile Include="model\EMRInputSettings.cs" />
     <Compile Include="model\ExcelChartFactory.cs" />
     <Compile Include="model\ExcelChartFactoryInterface.cs" />
     <Compile Include="model\ExcelDataManager.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="model\Geometry1D.cs" />
     <Compile Include="model\GeometryInterface.cs" />
     <Compile Include="model\IncludePrivateResolver.cs" />
+    <Compile Include="model\InputSettings.cs" />
     <Compile Include="model\InvalidFilePathException.cs" />
     <Compile Include="model\JSONSerializer.cs" />
     <Compile Include="model\Line.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="model\ReuseRatingCalculator.cs" />
     <Compile Include="model\ReuseRatingInterface.cs" />
     <Compile Include="model\ReuseRatingStrategy.cs" />
+    <Compile Include="model\BHColorPalette.cs" />
     <Compile Include="model\revit\BHEParameterFilter.cs" />
     <Compile Include="model\revit\BuiltInParameterFilter.cs" />
     <Compile Include="model\revit\CollectorFilterDecorator.cs" />
