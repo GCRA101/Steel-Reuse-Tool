@@ -82,7 +82,7 @@ namespace ReuseSchemeTool.view
         public void createInputsView()
         {
             this.inputsView = new InputsView(this.model, this.controller);
-            this.inputsView.initialise();
+            this.inputsView.initialise(EMRInputSettings.getInstance());
 
             this.model.removeObserver((Observer)this.aboutBox);
             this.model.registerObserver(this.inputsView);

@@ -1,6 +1,7 @@
 ﻿using ReuseSchemeTool.controller;
 using ReuseSchemeTool.model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace ReuseSchemeTool.view
 {
@@ -40,6 +42,44 @@ namespace ReuseSchemeTool.view
             this.lblMaxWeightValue.Text = this.trbMaxWeight.Value.ToString();
 
         }
+
+        public void initialise(InputSettings inputSettings)
+        {
+
+            for (int i = 0; i < this.clbSectionTypes.Items.Count; i++)
+            {
+                if (inputSettings.getSteelSectionTypes().Select(enumValue=> enumValue.ToString()).ToList().Contains(this.clbSectionTypes.Items[i].ToString()))
+                { this.clbSectionTypes.SetItemChecked(i, true); }
+            }
+
+            for (int i = 0; i < this.clbSteelGrades.Items.Count; i++)
+            {
+                this.clbSteelGrades.SetItemChecked(i, true);
+            }
+
+
+            this.trbMinLength.Value = double.IsNaN(inputSettings.getMinLength_m())?
+                                        this.trbMinLength.Minimum : (int)inputSettings.getMinLength_m();
+            this.lblMinLengthValue.Text = this.trbMinLength.Value.ToString();
+
+            this.trbMaxLength.Value = double.IsNaN(inputSettings.getMaxLength_m())?
+                                        this.trbMaxLength.Maximum: (int)inputSettings.getMaxLength_m();
+            this.lblMaxLengthValue.Text = this.trbMaxLength.Value.ToString();
+
+            this.trbCutOff.Value = double.IsNaN(inputSettings.getEndCutOffLength_m())?
+                                        this.trbMaxLength.Maximum: (int)(inputSettings.getEndCutOffLength_m()* 10.0);
+            this.lblCutOffValue.Text = Math.Round((this.trbCutOff.Value / 10.0), 1).ToString();
+
+            this.trbMinWeight.Value = double.IsNaN(inputSettings.getMinWeight_kg_m())?
+                                        this.trbMinWeight.Maximum : (int)inputSettings.getMinWeight_kg_m();
+            this.lblMinWeightValue.Text = this.trbMinWeight.Value.ToString();
+
+            this.trbMaxWeight.Value = double.IsNaN(inputSettings.getMaxWeight_kg_m())?
+                                        this.trbMaxWeight.Maximum : (int)inputSettings.getMaxWeight_kg_m();
+            this.lblMaxWeightValue.Text = this.trbMaxWeight.Value.ToString();
+        }
+
+
 
         public void update()
         {
