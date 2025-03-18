@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class InspectorTool_AboutBox : Form, model.Observer
+    public partial class InspectorTool_AboutBox : System.Windows.Forms.Form, model.Observer
     {
         //ATTRIBUTES
         private RST_Model model;

@@ -16,7 +16,7 @@ using System.Windows.Media;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class InputsView : Form, Observer
+    public partial class InputsView : System.Windows.Forms.Form, Observer
     {
 
         //ATTRIBUTES
@@ -48,11 +48,20 @@ namespace ReuseSchemeTool.view
         public void initialise(InputSettings inputSettings)
         {
 
-            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.model.dbDoc));
+            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.controller.uiApp.ActiveUIDocument.Document));
             revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
             revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
-            List<string> frameTypeNames=revitFramesCollector.collectElements().Select(el=>((FamilyInstance)el).Symbol.Family.LookupParameter("StructuralFamilyNameKey").AsString()).ToList();
+            
+            
+            List<string> frameTypeLabels = revitFramesCollector.collectElements()
+                .Select(el => ((FamilyInstance)el).Symbol.Family.StructuralFamilyNameKey)
+                .Select(famName => famName.Split('-')[0])
+                .Where(famLabel=> !String.IsNullOrEmpty(famLabel))
+                .ToHashSet().ToList();
+            
+            frameTypeLabels.Sort();
 
+            frameTypeLabels.ForEach(ftlabel => this.clbSectionTypes.Items.Add(ftlabel));
 
 
             for (int i = 0; i < this.clbSectionTypes.Items.Count; i++)
@@ -60,6 +69,19 @@ namespace ReuseSchemeTool.view
                 if (inputSettings.getSteelSectionTypes().Select(enumValue=> enumValue.ToString()).ToList().Contains(this.clbSectionTypes.Items[i].ToString()))
                 { this.clbSectionTypes.SetItemChecked(i, true); }
             }
+
+
+            List<string> materialNames = revitFramesCollector.collectElements()
+                .Select(el => el.LookupParameter("BHE_Material").AsString())
+                .Where(matName => !String.IsNullOrEmpty(matName))
+                .Where(matName => matName.ToUpper().Contains("STEEL") || matName.ToUpper().Contains("S235") || matName.ToUpper().Contains("S275") ||
+                                  matName.ToUpper().Contains("S355") || matName.ToUpper().Contains("S460"))
+                .ToHashSet().ToList();
+
+            materialNames.Sort();
+
+            materialNames.ForEach(matName => this.clbSteelGrades.Items.Add(matName));
+
 
             for (int i = 0; i < this.clbSteelGrades.Items.Count; i++)
             {

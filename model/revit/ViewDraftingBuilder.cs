@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ReuseSchemeTool.model.revit
 {
@@ -104,11 +105,18 @@ namespace ReuseSchemeTool.model.revit
         }
 
 
-        private XYZ convertPointToInternalUnits(XYZ point_Metric)
+        private XYZ convertPointToInternalUnits(XYZ point_SI)
         {
-            return new XYZ(UnitUtils.ConvertToInternalUnits(point_Metric.X, UnitTypeId.Millimeters),
-                           UnitUtils.ConvertToInternalUnits(point_Metric.Y, UnitTypeId.Millimeters),
-                           UnitUtils.ConvertToInternalUnits(point_Metric.Z, UnitTypeId.Millimeters));
+            return new XYZ(UnitUtils.ConvertToInternalUnits(point_SI.X, UnitTypeId.Millimeters),
+                           UnitUtils.ConvertToInternalUnits(point_SI.Y, UnitTypeId.Millimeters),
+                           UnitUtils.ConvertToInternalUnits(point_SI.Z, UnitTypeId.Millimeters));
+        }
+
+        private XYZ convertPointFromInternalUnits(XYZ point_Imperial)
+        {
+            return new XYZ(UnitUtils.ConvertFromInternalUnits(point_Imperial.X, UnitTypeId.Millimeters),
+                           UnitUtils.ConvertFromInternalUnits(point_Imperial.Y, UnitTypeId.Millimeters),
+                           UnitUtils.ConvertFromInternalUnits(point_Imperial.Z, UnitTypeId.Millimeters));
         }
 
 
@@ -536,7 +544,7 @@ namespace ReuseSchemeTool.model.revit
             Transaction revitTransaction = null;
             TextNote textNote = null;
 
-            location = convertPointToInternalUnits(location);
+            location = this.convertPointToInternalUnits(location);
 
             try
             {
@@ -585,7 +593,7 @@ namespace ReuseSchemeTool.model.revit
 
 
 
-        public List<FilledRegion> createPieChart(XYZ center, double radius_mm, List<PieSliceData> pieSliceData)
+        public List<FilledRegion> createPieChart(XYZ center, double radius_mm, List<PieSliceData> pieSliceData, bool showPercentages=false,TextNoteType labelNoteType=null)
         {
             if (viewDrafting == null) return null;
 
@@ -603,16 +611,23 @@ namespace ReuseSchemeTool.model.revit
                 }
 
 
-                // Generate angles for slices
-                pieSliceData.ForEach(psd0 => psd0.setAngle(psd0.getValue() / pieSliceData.Sum(psd1 => psd1.getValue()) * 2 * Math.PI));
+                // Generate angles and percentages for slices
+                pieSliceData.ForEach(psd0 =>
+                {   psd0.setPercentage(psd0.getValue() / pieSliceData.Sum(psd1 => psd1.getValue()));
+                    psd0.setAngle(psd0.getValue() / pieSliceData.Sum(psd1 => psd1.getValue()) * 2 * Math.PI);});
 
 
                 double startAngle = 0;
                 double currentAngle = 0;
+                XYZ filledRegionCenter;
                 // Create the sectors
                 for (int i = 0; i < pieSliceData.Count; i++)
-                {
-                    filledRegions.Add(createSector(center, radius_mm, startAngle, startAngle + pieSliceData[i].getAngle(), pieSliceData[i].getColor()));
+                {                    
+                    filledRegions.Add(this.createSector(center, radius_mm, startAngle, startAngle + pieSliceData[i].getAngle(), pieSliceData[i].getColor(), out filledRegionCenter));
+                    if (showPercentages && labelNoteType!=null)
+                    {
+                        this.createTextNote(labelNoteType, filledRegionCenter, Math.Round((pieSliceData[i].getPercentage() * 100.0), 0).ToString() + " %");
+                    }
                     startAngle += pieSliceData[i].getAngle();
                 }
 
@@ -643,7 +658,7 @@ namespace ReuseSchemeTool.model.revit
         }
 
 
-        private FilledRegion createSector(XYZ center, double radius_mm, double startAngle, double endAngle, Color color)
+        private FilledRegion createSector(XYZ center, double radius_mm, double startAngle, double endAngle, Color color, out XYZ baryCenter)
         {
             center = convertPointToInternalUnits(center);
             double radius_ft = UnitUtils.ConvertToInternalUnits(radius_mm, UnitTypeId.Millimeters);
@@ -652,10 +667,13 @@ namespace ReuseSchemeTool.model.revit
             // Create the arc for the sector
             Arc arc = Arc.Create(center, radius_ft, startAngle, endAngle, XYZ.BasisX, XYZ.BasisY);
 
+            // Compute the barycenter of the sector
+            baryCenter = this.convertPointFromInternalUnits(Autodesk.Revit.DB.Line.CreateBound(center, arc.Evaluate(0.5, true)).Evaluate(0.6, true));
+
             // Create the lines from the center to the arc endpoints
             Autodesk.Revit.DB.Line line1 = Autodesk.Revit.DB.Line.CreateBound(center, arc.GetEndPoint(0));
             Autodesk.Revit.DB.Line line2 = Autodesk.Revit.DB.Line.CreateBound(arc.GetEndPoint(1), center);
-
+           
             // Create the filled region
             List<Curve> curves = new List<Curve> { line1, arc, line2 };
             CurveLoop curveLoop = CurveLoop.Create(curves);

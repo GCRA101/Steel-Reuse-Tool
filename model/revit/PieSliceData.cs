@@ -14,6 +14,7 @@ namespace ReuseSchemeTool.model.revit
         private double value;
         private Color color;
         private double angle;
+        private double percentage;
 
 
         /* CONSTRUCTORS */
@@ -45,12 +46,14 @@ namespace ReuseSchemeTool.model.revit
         public void setValue(double value) { this.value = value; }
         public void setColor(Color color) { this.color = color; }
         public void setAngle(double angle) { this.angle=angle; }
+        public void setPercentage(double percentage) { this.percentage = percentage; }
 
         // Getters
         public string getName() { return this.name; }
         public double getValue() { return this.value; }
         public Color getColor() { return this.color; }
         public double getAngle() { return this.angle; }
+        public double getPercentage() { return this.percentage; }
 
 
 

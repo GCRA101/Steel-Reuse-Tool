@@ -255,7 +255,7 @@ public void buildRevitViews()
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_MUTED);
+                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_BRIGHT);
 
                 // Color all Elements with a semi-transparent grey color
                 OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
@@ -296,7 +296,7 @@ public void buildRevitViews()
 
                 }).ToList();
 
-                ViewDraftingsFactory.getInstance().createPieChart(pcItemsView, "Pie Chart - Item Quantities", pieSlicesData, "items");
+                ViewDraftingsFactory.getInstance().createPieChart(pcItemsView, "Pie Chart - Item Quantities", pieSlicesData, "items",true);
 
                 revitViews.Push(pcItemsView);
 
@@ -338,7 +338,7 @@ public void buildRevitViews()
 
                 }).ToList();
 
-                ViewDraftingsFactory.getInstance().createPieChart(pcMatView, "Pie Chart - Material Quantities", pieSlicesData, "tonnes");
+                ViewDraftingsFactory.getInstance().createPieChart(pcMatView, "Pie Chart - Material Quantities", pieSlicesData, "tonnes", true);
 
                 revitViews.Push(pcMatView);
 

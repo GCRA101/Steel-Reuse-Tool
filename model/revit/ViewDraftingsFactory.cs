@@ -48,7 +48,7 @@ namespace ReuseSchemeTool.model.revit
         }
 
 
-        public ViewDrafting createPieChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<PieSliceData> pieSlicesData, string units)
+        public ViewDrafting createPieChart(Autodesk.Revit.DB.ViewDrafting viewDrafting, string title, List<PieSliceData> pieSlicesData, string units, bool showPercentages)
         {
             builder = new ViewDraftingBuilder(viewDrafting.Document, viewDrafting);
 
@@ -57,7 +57,7 @@ namespace ReuseSchemeTool.model.revit
             
             builder.createTextNote(titleNoteType, new XYZ(0, 400, 0), title.ToUpper());
             builder.createLine(new XYZ(0, 200, 0), new XYZ(4000, 200, 0));
-            builder.createPieChart(new XYZ(800, -800, 0), 800, pieSlicesData);
+            builder.createPieChart(new XYZ(800, -800, 0), 800, pieSlicesData, showPercentages, itemNoteType);
 
             for (int i = 0; i<pieSlicesData.Count();i++) 
             {

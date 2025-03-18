@@ -13,7 +13,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class InspectorTool_SplashScreen : Form, model.Observer
+    public partial class InspectorTool_SplashScreen : System.Windows.Forms.Form, model.Observer
     {
         // ATTRIBUTES
         private RST_Model model;
