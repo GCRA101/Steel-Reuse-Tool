@@ -194,17 +194,17 @@ namespace ReuseSchemeTool.model.revit
                 case (BHColorPaletteType.DARK):
                     refColor01 = this.createBHColor(BHColor.DARK_GREEN);
                     refColor02 = this.createBHColor(BHColor.DARK_ORANGE);
-                    refColor03 = this.createBHColor(BHColor.DARK_RED);
+                    refColor03 = this.createBHColor(BHColor.DARK_YELLOW);
                     break;
                 case (BHColorPaletteType.MUTED):
                     refColor01 = this.createBHColor(BHColor.MUTED_GREEN);
                     refColor02 = this.createBHColor(BHColor.MUTED_ORANGE);
-                    refColor03 = this.createBHColor(BHColor.MUTED_CORAL);
+                    refColor03 = this.createBHColor(BHColor.MUTED_YELLOW);
                     break;
                 case (BHColorPaletteType.BRIGHT):
-                    refColor01 = this.createBHColor(BHColor.DARK_GREEN);
-                    refColor02 = this.createBHColor(BHColor.DARK_ORANGE);
-                    refColor03 = this.createBHColor(BHColor.DARK_RED);
+                    refColor01 = this.createBHColor(BHColor.BRIGHT_GREEN);
+                    refColor02 = this.createBHColor(BHColor.BRIGHT_ORANGE);
+                    refColor03 = this.createBHColor(BHColor.BRIGHT_YELLOW);
                     break;
             }
 
