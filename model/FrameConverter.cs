@@ -120,7 +120,7 @@ namespace ReuseSchemeTool.model
         private Double getLength(Autodesk.Revit.DB.Element element)
         {
             Parameter lengthParam = element.LookupParameter("Length");
-            return lengthParam.AsDouble();
+            return Math.Round(UnitUtils.ConvertFromInternalUnits(lengthParam.AsDouble(),UnitTypeId.Meters),3);
         }
 
         private FrameType getType(Autodesk.Revit.DB.Element element)

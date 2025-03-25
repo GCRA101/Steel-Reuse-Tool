@@ -54,8 +54,8 @@ namespace ReuseSchemeTool.model
 
             // Length Check
             if ((frame.getCutLength()!=null) &&
-                (frame.getCutLength() >= UnitUtils.ConvertToInternalUnits(this.lengthRange[0], UnitTypeId.Meters)) &&
-                (frame.getCutLength() <= UnitUtils.ConvertToInternalUnits(this.lengthRange[1], UnitTypeId.Meters)))
+                (frame.getCutLength() >= this.lengthRange[0]) &&
+                (frame.getCutLength() <= this.lengthRange[1]))
             {
                 lengthCheck = true;
             }
@@ -72,9 +72,9 @@ namespace ReuseSchemeTool.model
             // 2. ASSIGN REUSE RATING
 
             if (sectionCheck && materialCheck && lengthCheck && weightCheck)
-                {frame.setReuseRating(ReuseRating.MUST_HAVE);}
+                {frame.setReuseRating(ReuseRating.WITHIN_CRITERIA);}
             else 
-                { frame.setReuseRating(ReuseRating.MUST_NOT_HAVE);}
+                { frame.setReuseRating(ReuseRating.OUTSIDE_CRITERIA);}
 
             
         }

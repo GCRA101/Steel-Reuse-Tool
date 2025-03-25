@@ -41,7 +41,7 @@ namespace ReuseSchemeTool.model.revit
 
         //createNewFilters()
         public void createNewFilters(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList,
-                                     List<String> materialsList, string parameterName, ColorPalette colorPalette)
+                                     List<String> materialsList, string parameterName, ColorPalette colorPalette, bool ascendingSort = true)
         {
             Transaction revitTransaction = null;
 
@@ -75,6 +75,8 @@ namespace ReuseSchemeTool.model.revit
                                         ToList();
 
                 parameterValues.Sort();
+
+                if (!ascendingSort) parameterValues.Reverse();
 
 
                 /*4.CREATE COLORS PALETTE FOR VIEW FILTERS */
@@ -173,7 +175,7 @@ namespace ReuseSchemeTool.model.revit
 
         //createNewFilters()
         public void createNewBHFilters(Autodesk.Revit.DB.View view, List<BuiltInCategory> categoriesList,
-                                     List<String> materialsList, string parameterName, BHColorPalette bhColorPalette)
+                                     List<String> materialsList, string parameterName, BHColorPalette bhColorPalette, bool ascendingSort=true)
         {
             Transaction revitTransaction = null;
 
@@ -260,6 +262,9 @@ namespace ReuseSchemeTool.model.revit
                 List<ElementId> viewFilterIds = new List<ElementId>();
                 viewFilterIds = view.GetFilters().ToList();
                 viewFilterIds.Sort((elId0, elId1) => view.Document.GetElement(elId0).Name.CompareTo(view.Document.GetElement(elId1).Name));
+
+
+                if (!ascendingSort) viewFilterIds.Reverse();
 
 
                 // Get the element id of the solid fill pattern

@@ -22,6 +22,7 @@ namespace ReuseSchemeTool.model.revit
             viewSheet = placeholder;
             viewSheet.SheetNumber = number;
             viewSheet.Name = title;
+            viewSheet.LookupParameter("BHE_Sheet Title 1").Set(title);
         }
 
         public static void buildTitleBlock(string titleBlockTypeName)

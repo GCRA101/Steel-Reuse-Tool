@@ -66,7 +66,7 @@ namespace ReuseSchemeTool.view.revit_plugin
 
                     while (controller.model.revitViews.Count > 0 )
                     {
-                        commandData.Application.ActiveUIDocument.ActiveView = controller.model.revitViews.Pop();
+                        commandData.Application.ActiveUIDocument.ActiveView = controller.model.revitViews.Dequeue();
                     }
 
                     controller.terminate(Tool.INSPECTOR);

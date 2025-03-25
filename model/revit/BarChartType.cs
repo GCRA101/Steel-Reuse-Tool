@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReuseSchemeTool.model
+namespace ReuseSchemeTool.model.revit
 {
-    public enum ReuseRating
+    public enum BarChartType
     {
-        WITHIN_CRITERIA,
-        OUTSIDE_CRITERIA
+        CLUSTERED,
+        STACKED
     }
 }

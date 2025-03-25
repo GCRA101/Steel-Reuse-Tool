@@ -9,7 +9,9 @@ using Newtonsoft.Json.Linq;
 using ReuseSchemeTool.model;
 using ReuseSchemeTool.model.revit;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace ReuseSchemeTool.model
@@ -38,7 +41,7 @@ namespace ReuseSchemeTool.model
         public Autodesk.Revit.DB.Document dbDoc;
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
-        public Stack<View> revitViews = new Stack<View>();
+        public Queue<View> revitViews = new Queue<View>();
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
         private string excelFilesFolderPath;
@@ -255,96 +258,194 @@ public void buildRevitViews()
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_BRIGHT);
+                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_BRIGHT,false);
 
                 // Color all Elements with a semi-transparent grey color
                 OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
                 System.Drawing.Color systBHGreyColor = ColorsFactory.getInstance().createBHColor(BHColor.MUTED_GREY); // RGB values for grey
-                Color revitBHGreyColor = new Autodesk.Revit.DB.Color(systBHGreyColor.R, systBHGreyColor.G, systBHGreyColor.B);
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "ALL OTHER FRAMES", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", revitBHGreyColor, 75, true);
+                Autodesk.Revit.DB.Color revitBHGreyColor = new Autodesk.Revit.DB.Color(systBHGreyColor.R, systBHGreyColor.G, systBHGreyColor.B);
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "OTHER TO BE RETAINED", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", revitBHGreyColor, 75, true);
+
+                revitViews.Enqueue(ThreeDView);
 
 
-                revitViews.Push(ThreeDView);
 
-                Dictionary<string, Color> viewFiltersData = ThreeDView.GetFilters().ToDictionary(elId => dbDoc.GetElement(elId).Name, elId => ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor);
+                List<KeyValuePair<string, Autodesk.Revit.DB.Color>> viewFiltersData = ThreeDView.GetFilters()
+                    .ToDictionary(elId => 
+                    {
+                        string filterName = dbDoc.GetElement(elId).Name.Replace('_', ' ');
+                        switch (filterName)
+                        {
+                            case "OUTSIDE CRITERIA":
+                                filterName = "DISMANTLED STEELWORK OUTSIDE CRITERIA";
+                                break;
+                            case "WITHIN CRITERIA":
+                                filterName = "DISMANTLED STEELWORK WITHIN CRITERIA";
+                                break;
+                            case "OTHER TO BE RETAINED":
+                                filterName = "OTHER EXISTING STEELWORK TO BE RETAINED";
+                                break;
+                        }
+                        return filterName; 
+                    },
+                    elId => ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor).ToList();
+
+                viewFiltersData.Sort((kvp1, kvp2) => kvp1.Key.Length.CompareTo(kvp2.Key.Length));
 
                 ViewDrafting legendView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Legend", 20);
-                ViewDraftingsFactory.getInstance().createLegend(legendView, "Legend", viewFiltersData.Keys.ToList(), viewFiltersData.Values.ToList());
-
-                revitViews.Push(legendView);
 
 
-                ViewDrafting pcItemsView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Item Quantities", 20);
+                ViewDraftingsFactory.getInstance().createLegend(legendView, "Legend", viewFiltersData.Select(kvp=>kvp.Key).ToList(), viewFiltersData.Select(kvp => kvp.Value).ToList());
+
+
+
+
+                ViewDrafting notesView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Design Notes", 20);
+                UserDefined_RatingStrategy ratingStrategy=(UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy();
+
+
+                List<string> notes = new List<string>
+                {
+                    "APPLICABLE SECTION TYPES ARE: " + ratingStrategy.allowedSectionTypes.Aggregate((current,next)=>current +", "+next),
+                    "APPLICABLE STEEL GRADES ARE: " + ratingStrategy.allowedMaterials.Aggregate((current,next)=>current +", "+next),
+                    "MINIMUM LENGTH IS : " + Math.Round(ratingStrategy.lengthRange.Min(),1).ToString() + " m",
+                    "MAXIMUM LENGTH IS : " + Math.Round(ratingStrategy.lengthRange.Max(),1).ToString() + " m",
+                    "MINIMUM WEIGHT IS : " + Math.Round(ratingStrategy.weightRange.Min(),1).ToString() + " kg/m",
+                    "MAXIMUM WEIGHT IS : " + Math.Round(ratingStrategy.weightRange.Max(),1).ToString() + " kg/m",
+                    "CONNECTION OFFCUT LENGTH IS : " + Math.Round(ratingStrategy.endCutOffLength*1000.0,0).ToString() + " mm",
+
+                };
+                Autodesk.Revit.DB.Color revitBlackColor = new Autodesk.Revit.DB.Color(0, 0, 0);
+                ViewDraftingsFactory.getInstance().createNotesBox(notesView, "Selection Criteria",notes, revitBlackColor);
+
+
+
+
+                ViewDrafting pcItemsView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Known vs Unknown", 20);
 
                 FilteredElementCollector elmsCollector = null;
                 ElementFilter elemFilter = null;
                 IList<Element> filteredElements = null;
 
-                List<PieSliceData> pieSlicesData = ThreeDView.GetFilters().Select(elId =>
-                {
-                    string name = dbDoc.GetElement(elId).Name;
 
-                    elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
-                    // Step 4: Apply the Filter to the Collector
-                    elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
-                    filteredElements = elmsCollector.WherePasses(elemFilter).ToElements();
-                    long value = filteredElements.Count();
+                List<Element> toDismantleFrames=revitFramesCollector.collectElements().Where(el => el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("EXISTING TO DISMANTLE")).ToList();
+                List<Element> knownToDismantleFrames = toDismantleFrames.Where(el => !el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("UNKNOWN")).ToList();
+                List<Element> unknownToDismantleFrames = toDismantleFrames.Where(el => el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("UNKNOWN")).ToList();
 
-                    Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
+                double lenKnown= Math.Round(knownToDismantleFrames.Select(el => UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(),UnitTypeId.Meters)).Sum(), 1);
+                double lenUnknown=Math.Round(unknownToDismantleFrames.Select(el => UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(), UnitTypeId.Meters)).Sum(),1);
+                Autodesk.Revit.DB.Color colorKnown = ColorAdapter.convertToRevit(ColorsFactory.getInstance().createBHColor(BHColor.MUTED_DUCK_EGG));
+                Autodesk.Revit.DB.Color colorUnknown = ColorAdapter.convertToRevit(ColorsFactory.getInstance().createBHColor(BHColor.MUTED_PLUM));
 
-                    return new PieSliceData(name, value, color);
+                List<PieSliceData> pieSlicesData = new List<PieSliceData> { new PieSliceData("KNOWN", lenKnown, colorKnown), new PieSliceData("UNKNOWN", lenUnknown, colorUnknown) };
 
-                }).ToList();
-
-                ViewDraftingsFactory.getInstance().createPieChart(pcItemsView, "Pie Chart - Item Quantities", pieSlicesData, "items",true);
-
-                revitViews.Push(pcItemsView);
+                ViewDraftingsFactory.getInstance().createPieChart(pcItemsView, pieSlicesData, "Known vs Unknown Dismantled Elements","by length","m",true);
 
 
 
-                ViewDrafting pcMatView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Material Quantities", 20);
 
-                pieSlicesData = ThreeDView.GetFilters().Select(elId =>
-                {
-                    string name = dbDoc.GetElement(elId).Name;
+                ViewDrafting pcMatView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Pie Chart - Steel Within Criteria", 20);
 
-                    elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
-                    // Step 4: Apply the Filter to the Collector
-                    elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
-                    filteredElements = elmsCollector.OfClass(typeof(FamilyInstance)).WherePasses(elemFilter).ToElements();
+                pieSlicesData = ThreeDView.GetFilters().
+                    Where(elId => !dbDoc.GetElement(elId).Name.Contains("OTHER")).
+                    Select(elId =>
+                    {
+                        string name = dbDoc.GetElement(elId).Name.Replace('_', ' ');
+
+                        elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
+                        // Step 4: Apply the Filter to the Collector
+                        elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
+                        filteredElements = elmsCollector.OfClass(typeof(FamilyInstance)).WherePasses(elemFilter).ToElements();
                     
-                    double value = filteredElements.Sum(el => {
+                        double value = filteredElements.Sum(el => {
                         
-                        Autodesk.Revit.DB.Parameter lengthParam = el.LookupParameter("Length");
-                        Autodesk.Revit.DB.Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
+                            Autodesk.Revit.DB.Parameter lengthParam = el.LookupParameter("Length");
+                            Autodesk.Revit.DB.Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
                         
-                        if (lengthParam != null && weightParam != null)
-                        {
-                            double length_m = UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(), UnitTypeId.Meters);
-                            double weight_kg_m = UnitUtils.ConvertFromInternalUnits(((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight").AsDouble() / 9.80665, UnitTypeId.Tonnes);
-                            return Math.Round(length_m * weight_kg_m,0);
-                        }
-                        // *********************************************************************************************************************
-                        // ADD A WARNING FOR THE USER HIGHLIGHTING WHICH REVIT ELEMENTS HAVE ONE OF THE TWO PARAMETERS ABOVE =NULL !!! *********
-                        // *********************************************************************************************************************
+                            if (lengthParam != null && weightParam != null)
+                            {
+                                double length_m = UnitUtils.ConvertFromInternalUnits(lengthParam.AsDouble(), UnitTypeId.Meters);
+                                double weight_kg_m = UnitUtils.ConvertFromInternalUnits(weightParam.AsDouble() / 9.80665, UnitTypeId.Tonnes);
+                                return Math.Round(length_m * weight_kg_m,0);
+                            }
+                            // *********************************************************************************************************************
+                            // ADD A WARNING FOR THE USER HIGHLIGHTING WHICH REVIT ELEMENTS HAVE ONE OF THE TWO PARAMETERS ABOVE =NULL !!! *********
+                            // *********************************************************************************************************************
 
-                        return 0.0;
+                            return 0.0;
 
-                        });
+                            });
 
-                    Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
+                        Autodesk.Revit.DB.Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
 
-                    return new PieSliceData(name, value, color);
+                        return new PieSliceData(name, value, color);
 
-                }).ToList();
+                    }).ToList();
 
-                ViewDraftingsFactory.getInstance().createPieChart(pcMatView, "Pie Chart - Material Quantities", pieSlicesData, "tonnes", true);
+                pieSlicesData.Reverse();
 
-                revitViews.Push(pcMatView);
+                ViewDraftingsFactory.getInstance().createPieChart(pcMatView, pieSlicesData, "Known Dismantled Elements - Steel Within Criteria","by weight", "tonnes", true);
 
 
 
-                Element filter = dbDoc.GetElement(ThreeDView.GetFilters().FirstOrDefault(elId => dbDoc.GetElement(elId).Name == "MUST_HAVE"));
+
+                List<ChartData> chartData;
+                chartData = ThreeDView.GetFilters().
+                    Where(elId => dbDoc.GetElement(elId).Name.Contains("CRITERIA")).
+                    Select(elId =>
+                    {
+                       string name = dbDoc.GetElement(elId).Name.Replace('_', ' ');
+
+                       elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
+                       // Step 4: Apply the Filter to the Collector
+                       elemFilter = ((ParameterFilterElement)dbDoc.GetElement(elId)).GetElementFilter();
+                       filteredElements = elmsCollector.OfClass(typeof(FamilyInstance)).WherePasses(elemFilter).ToElements();
+
+                       double value = filteredElements.Sum(el => {
+
+                           Autodesk.Revit.DB.Parameter lengthParam = el.LookupParameter("Length");
+                           Autodesk.Revit.DB.Parameter weightParam = ((FamilyInstance)el).Symbol.LookupParameter("Nominal Weight");
+
+                           if (lengthParam != null && weightParam != null)
+                           {
+                               double length_m = UnitUtils.ConvertFromInternalUnits(lengthParam.AsDouble(), UnitTypeId.Meters);
+                               double weight_kg_m = UnitUtils.ConvertFromInternalUnits(weightParam.AsDouble() / 9.80665, UnitTypeId.Tonnes);
+                               return Math.Round(length_m * weight_kg_m, 0);
+                           }
+                           // *********************************************************************************************************************
+                           // ADD A WARNING FOR THE USER HIGHLIGHTING WHICH REVIT ELEMENTS HAVE ONE OF THE TWO PARAMETERS ABOVE =NULL !!! *********
+                           // *********************************************************************************************************************
+
+                           return 0.0;
+
+                       });
+
+                       Autodesk.Revit.DB.Color color = ThreeDView.GetFilterOverrides(elId).SurfaceForegroundPatternColor;
+
+                       return new ChartData(name, value, color);
+
+                    }).ToList();
+
+
+                chartData.ForEach(cd =>
+                {
+                    if (cd.getName().Contains("OUTSIDE")) { cd.setName("(Outside criteria kg * 1.6965) =\n" + cd.getValue() * 1.6965 + "kgCO2e additional savings"); }
+                    if (cd.getName().Contains("WITHIN")) { cd.setName("(Inside criteria kg * 1.6965) =\n " + cd.getValue() * 1.6965 + "kgCO2e savings"); }
+                });
+
+                String c02SavingFactors_NotesFilePath = "ReuseSchemeTool.text_files.C02_SavingFactors.txt";
+                String c02SavingFactors_Notes = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(c02SavingFactors_NotesFilePath)).ReadToEnd();
+
+                ViewDrafting bcC02SavingsView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Bar Chart - Potential Carbon Savings", 20);
+
+                ViewDraftingsFactory.getInstance().createBarChart(bcC02SavingsView, "Potential C02 Savings", chartData, BarChartType.STACKED, c02SavingFactors_Notes,false,true);
+
+
+
+
+
+
+                Element filter = dbDoc.GetElement(ThreeDView.GetFilters().FirstOrDefault(elId => dbDoc.GetElement(elId).Name == "WITHIN_CRITERIA"));
 
                 elmsCollector = new FilteredElementCollector(dbDoc, ThreeDView.Id);
                 // Step 4: Apply the Filter to the Collector
@@ -360,32 +461,32 @@ public void buildRevitViews()
 
                 ViewDrafting stockChartView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Stock Chart", 20);
 
-                ViewDraftingsFactory.getInstance().createStockChart(stockChartView, "Stock Chart",stocksData);
+                Autodesk.Revit.DB.Color stockColor=ColorAdapter.convertToRevit(ColorsFactory.getInstance().createBHColor(BHColor.BRIGHT_GREEN));
+                ViewDraftingsFactory.getInstance().createStockChart(stockChartView, "Stock Chart",stocksData, stockColor);
 
-                revitViews.Push(stockChartView);
 
-                ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"1010101","Reuse Scheme Summary");
+                ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc),"SKXXX","STEEL REUSE POTENTIAL OVERVIEW");
                 ViewSheetBuilder.buildTitleBlock("BHE_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
 
 
-                location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R12);
-                ViewSheetBuilder.buildViewPort(legendView, location,false);
+                ViewSheetBuilder.buildViewPort(notesView, new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R12), false);
 
-                location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R16);
-                ViewSheetBuilder.buildViewPort(pcItemsView, location, false);
+                ViewSheetBuilder.buildViewPort(legendView, new ViewportLocationOnSheet(SheetColumn.C07, SheetRow.R12), false);
 
-                location = new ViewportLocationOnSheet(SheetColumn.C07, SheetRow.R16);
-                ViewSheetBuilder.buildViewPort(pcMatView, location, false);
+                ViewSheetBuilder.buildViewPort(pcItemsView, new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R16), false);
 
-                location = new ViewportLocationOnSheet(SheetColumn.C13, SheetRow.R01);
-                ViewSheetBuilder.buildViewPort(stockChartView, location, false);
+                ViewSheetBuilder.buildViewPort(pcMatView, new ViewportLocationOnSheet(SheetColumn.C07, SheetRow.R16), false);
+
+                ViewSheetBuilder.buildViewPort(stockChartView, new ViewportLocationOnSheet(SheetColumn.C13, SheetRow.R01), false);
+
+                ViewSheetBuilder.buildViewPort(bcC02SavingsView, new ViewportLocationOnSheet(SheetColumn.C09, SheetRow.R01), false);
 
                 ViewSheet viewSheet=ViewSheetBuilder.getViewSheet();
 
-                revitViews.Push(viewSheet);
+                revitViews.Enqueue(viewSheet);
 
 
                 if (revitTransaction != null)
@@ -435,7 +536,7 @@ public void buildRevitViews()
                 case (Tool.SCHEME):
                     string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
                     excelDataManager.write(new string[] { endCutOffLength }, "Steel Reuse Dashboard", new string[] { "endCutOffLength" });
-                    excelDataManager.write(existingSteelFrames.Where(esf => esf.getReuseRating() == ReuseRating.MUST_HAVE).ToList(), "Inputs", "A2");
+                    excelDataManager.write(existingSteelFrames.Where(esf => esf.getReuseRating() == ReuseRating.WITHIN_CRITERIA).ToList(), "Inputs", "A2");
                     break;
             }
 

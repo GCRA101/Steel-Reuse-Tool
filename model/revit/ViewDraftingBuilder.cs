@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,6 +193,7 @@ namespace ReuseSchemeTool.model.revit
 
             return solidFilledRegionType;
         }
+
 
 
         public FilledRegion createRectangle(List<XYZ> cornerPoints, Color color)
@@ -665,7 +667,7 @@ namespace ReuseSchemeTool.model.revit
             FilledRegion filledRegion = null;
 
             // Create the arc for the sector
-            Arc arc = Arc.Create(center, radius_ft, startAngle, endAngle, XYZ.BasisX, XYZ.BasisY);
+            Autodesk.Revit.DB.Arc arc = Autodesk.Revit.DB.Arc.Create(center, radius_ft, startAngle, endAngle, XYZ.BasisX, XYZ.BasisY);
 
             // Compute the barycenter of the sector
             baryCenter = this.convertPointFromInternalUnits(Autodesk.Revit.DB.Line.CreateBound(center, arc.Evaluate(0.5, true)).Evaluate(0.6, true));
@@ -689,8 +691,8 @@ namespace ReuseSchemeTool.model.revit
             return filledRegion;
         }
 
-        public Dictionary<string,List<Autodesk.Revit.DB.Line>> createStockChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, Single chartWidth, 
-                                                   Single stockWidth, Single vSpacing, Single hSpacing, Single hStockMax, Dictionary<string,List<double>> stocksData)
+        public Dictionary<string,List<Autodesk.Revit.DB.Line>> createStockChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, Single chartWidth, Single labelWidth,
+                                                   Single stockWidth, Single vSpacing, Single hSpacing, Single hStockMax, Dictionary<string,List<double>> stocksData, Color stackColor)
         {
             if (viewDrafting == null) return null;
 
@@ -710,7 +712,7 @@ namespace ReuseSchemeTool.model.revit
 
                 stocksData.Values.ToList().ForEach(list=>list.Sort());
 
-                String key, label;
+                String key, itemLabel, countLabel;
                 double stockRefX;
                 XYZ chartRefPoint = new XYZ(topLeftCornerPoint.X, topLeftCornerPoint.Y, topLeftCornerPoint.Z);
                 XYZ lineStartPoint, lineEndPoint;
@@ -721,12 +723,13 @@ namespace ReuseSchemeTool.model.revit
                     
                     key = stocksData.Keys.ToList()[i];
                     stocksData.TryGetValue(key, out values);
-                    label = key + " - " + values.Count() + " NO.";
+                    itemLabel = key;
+                    countLabel = " - " + values.Count() + " NO.";
                     chartRefPoint =  new XYZ(chartRefPoint.X, chartRefPoint.Y - vSpacing, chartRefPoint.Z);
-                    TextNote labelTextNote = this.createTextNote(textNoteType, chartRefPoint, label);
+                    TextNote itemLabelTextNote = this.createTextNote(textNoteType, chartRefPoint, itemLabel);
 
                     List<Autodesk.Revit.DB.Line> lines = new List<Autodesk.Revit.DB.Line>();
-                    LineStyle lineStyle = new LineStyle("ReuseStocksLineStyle", 10, new Color(230, 50, 135));
+                    LineStyle lineStyle = new LineStyle("ReuseStocksLineStyle", 10, stackColor);
                     GraphicsStyle graphicsStyle = lineStyle.getGraphicsStyle(dbDoc);
 
                     double stockScaleRatio=hStockMax / values.Max();
@@ -735,7 +738,7 @@ namespace ReuseSchemeTool.model.revit
 
                     for (int j = 0; j < values.Count; j++)
                     {
-                        stockRefX= chartRefPoint.X + (chartWidth - stockWidth) + hSpacing * k;
+                        stockRefX= chartRefPoint.X + labelWidth + hSpacing * k;
                         
                         if (stockRefX > chartWidth)
                         {
@@ -743,13 +746,19 @@ namespace ReuseSchemeTool.model.revit
                             k = 0;
                         }
                         
-                        lineStartPoint = new XYZ(chartRefPoint.X+(chartWidth-stockWidth)+hSpacing*k, chartRefPoint.Y, chartRefPoint.Z);
+                        lineStartPoint = new XYZ(chartRefPoint.X+labelWidth+hSpacing*k, chartRefPoint.Y, chartRefPoint.Z);
                         lineEndPoint = new XYZ(lineStartPoint.X, lineStartPoint.Y + values[j]* 2*stockScaleRatio, lineStartPoint.Z);
                         lines.Add(this.createLine(lineStartPoint,lineEndPoint, graphicsStyle));
 
                         k += 1;
                     }
-                    linesDict.Add(label, lines);
+
+                    double clX = Math.Min(chartRefPoint.X + labelWidth + hSpacing * k+ 50, labelWidth + stockWidth+ 50);
+                    XYZ countLabelRefPoint = new XYZ(clX, chartRefPoint.Y, chartRefPoint.Z);
+
+                    TextNote countLabelTextNote = this.createTextNote(textNoteType, countLabelRefPoint, countLabel);
+
+                    linesDict.Add(itemLabel, lines);
                 }
 
                 if (revitTransaction != null)
@@ -777,5 +786,85 @@ namespace ReuseSchemeTool.model.revit
             return linesDict;
         }
 
+
+        public Dictionary<string,FilledRegion> createStackedBarChart(XYZ topLeftCornerPoint, TextNoteType textNoteType, List<ChartData> chartData, double width_mm, double length_mm, bool ascendingSort=false, bool dataLabels = false)
+        {
+            if (viewDrafting == null) return null;
+
+            Transaction revitTransaction = null;
+
+            Dictionary<string, FilledRegion> barsDict = new Dictionary<string, FilledRegion>();
+
+            try
+            {
+                //Start New Transaction
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction = new Transaction(dbDoc, "Create Drafting Pie Chart");
+                    revitTransaction.Start();
+                }
+
+                double sumValues=chartData.Sum(cd => cd.getValue());
+                double delta = length_mm / sumValues;
+
+                if (ascendingSort) chartData.Sort((cd1, cd2) => cd1.getValue().CompareTo(cd2.getValue()));
+                else chartData.Sort((cd1, cd2) => cd2.getValue().CompareTo(cd1.getValue()));
+
+                XYZ chartRefPoint = new XYZ(topLeftCornerPoint.X, topLeftCornerPoint.Y, topLeftCornerPoint.Z);
+                string barLabel;
+                double barLength;
+
+
+                for (int i = 0; i < chartData.Count; i++)
+                {
+
+                    barLabel = chartData[i].getName();
+                    barLength = delta * chartData[i].getValue();
+
+                    FilledRegion barFilledRegion = this.createRectangle(chartRefPoint, barLength, width_mm, chartData[i].getColor());
+
+                    if (dataLabels)
+                    {
+                        XYZ startPoint = new XYZ(chartRefPoint.X + barLength / 2, chartRefPoint.Y - width_mm / 2, chartRefPoint.Z);
+                        XYZ endPoint = new XYZ(startPoint.X, startPoint.Y - 400, startPoint.Z);
+                        this.createCircle(startPoint, 10, new Color(0, 0, 0));
+                        this.createLine(startPoint, endPoint);
+                        TextNote label =this.createTextNote(textNoteType, endPoint, barLabel);
+                        //double labelWidth= Math.Abs(label.get_BoundingBox(null).Max.X - label.get_BoundingBox(null).Min.X);
+                        //double labelHeight = Math.Abs(label.get_BoundingBox(this.viewDrafting).Max.Y - label.get_BoundingBox(this.viewDrafting).Min.Y);
+                        //ElementTransformUtils.MoveElement(dbDoc, label.Id, new XYZ(-1 * labelWidth / 2, -1 * labelHeight / 2, 0));
+                    }
+
+                    chartRefPoint = new XYZ(chartRefPoint.X + barLength, chartRefPoint.Y, chartRefPoint.Z);
+
+                    barsDict.Add(barLabel, barFilledRegion);
+                }
+
+                if (revitTransaction != null)
+                {
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (revitTransaction != null)
+                {
+
+                    revitTransaction.RollBack();
+
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+            }
+
+            return barsDict;
+
+
+        }
     }
 }

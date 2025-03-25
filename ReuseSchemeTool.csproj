@@ -77,6 +77,11 @@
     <Compile Include="controller\SoundPathRetriever.cs" />
     <Compile Include="model\BHColor.cs" />
     <Compile Include="model\BHColorPaletteType.cs" />
+    <Compile Include="model\revit\BarChartType.cs" />
+    <Compile Include="model\revit\ChartData.cs" />
+    <Compile Include="model\RSTColor.cs" />
+    <Compile Include="model\ColorAdapter.cs" />
+    <Compile Include="model\ColorInterface.cs" />
     <Compile Include="model\ConditionSurveyInfo.cs" />
     <Compile Include="model\data_structures\RBColor.cs" />
     <Compile Include="model\data_structures\RBNode.cs" />
@@ -270,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="text_files\SchemingTool_LongDescription.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="text_files\C02_SavingFactors.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

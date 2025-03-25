@@ -1,0 +1,4 @@
+﻿Steel - Hot Rolled - Open Section (all grade) - UK sourced
+A1 to A3 factor = 1.74
+
+Saving factor = 1.74 * 0.975 = 1.6965 kgCO2e/kg
