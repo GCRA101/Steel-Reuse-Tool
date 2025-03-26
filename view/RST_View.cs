@@ -49,7 +49,7 @@ namespace ReuseSchemeTool.view
                     break;
             }
 
-            this.controller.soundManager.play(Sound.SPLASHSCREEN);
+            this.controller.getSoundManager().play(Sound.SPLASHSCREEN);
             this.model.registerObserver((Observer)this.splashScreen);
             System.Threading.Thread.Sleep(1000);
             this.splashScreen.Show();

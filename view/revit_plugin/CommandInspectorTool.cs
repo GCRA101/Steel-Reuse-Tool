@@ -52,7 +52,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 controller.initialize(Tool.INSPECTOR);
 
                 if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
-                    controller.soundManager.play(Sound.CLICKBUTTON);
+                    controller.getSoundManager().play(Sound.CLICKBUTTON);
 
                     revitTransaction.Start();
 
@@ -77,7 +77,7 @@ namespace ReuseSchemeTool.view.revit_plugin
             }
 
             catch (MissingInputsException ex1) {
-                 controller.missingInputsHandler.execute(ex1);
+                 controller.getMissingInputsHandler().execute(ex1);
                  return Result.Failed;
 
             }

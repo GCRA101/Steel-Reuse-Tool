@@ -48,7 +48,7 @@ namespace ReuseSchemeTool.view
         public void initialise(InputSettings inputSettings)
         {
 
-            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.controller.uiApp.ActiveUIDocument.Document));
+            RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.controller.getUIApp().ActiveUIDocument.Document));
             revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
             revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
             

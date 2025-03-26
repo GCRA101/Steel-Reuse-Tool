@@ -76,7 +76,7 @@ namespace ReuseSchemeTool.controller
 
         private void aboutBoxBtnOk_Click(System.Object sender, System.EventArgs e) {
             //Play Sound Effect
-            this.controller.soundManager.play(Sound.CLICKBUTTON);
+            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
             //Create the View
             view.createInputsView();
             //Initialize Components for Events listening
@@ -86,7 +86,7 @@ namespace ReuseSchemeTool.controller
         private void inputsViewClb_Click(System.Object sender, System.EventArgs e)
         {
             //Play Sound Effect
-            this.controller.soundManager.play(Sound.CHECKBOX);
+            this.controller.getSoundManager().play(Sound.CHECKBOX);
         }
 
         private void inputsViewTrb_Scroll(System.Object sender, System.EventArgs e)
@@ -105,7 +105,7 @@ namespace ReuseSchemeTool.controller
         private void inputsViewBtnRun_Click(System.Object sender, System.EventArgs e)
         {
             //Play Sound Effect
-            this.controller.soundManager.play(Sound.CLICKBUTTON);
+            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
 
             //Launch the process while catching exceptions
             try
@@ -116,7 +116,7 @@ namespace ReuseSchemeTool.controller
             }
             catch (MissingInputsException ex1) 
             {
-                this.controller.missingInputsHandler.execute(ex1); 
+                this.controller.getMissingInputsHandler().execute(ex1); 
             }
             
         }

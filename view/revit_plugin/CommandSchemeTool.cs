@@ -53,9 +53,9 @@ namespace ReuseSchemeTool.view.revit_plugin
                 controller.initialize(Tool.SCHEME);
 
                 if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
-                    controller.soundManager.play(Sound.CLICKBUTTON);
+                    controller.getSoundManager().play(Sound.CLICKBUTTON);
                     controller.view.createInputsView();
-                    controller.eventsListener.initializeInputsView();
+                    controller.getEventsListener().initializeInputsView();
                 }
 
                 if (controller.view.inputsView.ShowDialog() == DialogResult.OK)
@@ -85,7 +85,7 @@ namespace ReuseSchemeTool.view.revit_plugin
             }
 
             catch (MissingInputsException ex1) {
-                 controller.missingInputsHandler.execute(ex1);
+                 controller.getMissingInputsHandler().execute(ex1);
                  return Result.Failed;
 
             }

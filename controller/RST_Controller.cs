@@ -16,15 +16,15 @@ namespace ReuseSchemeTool.controller
         public RST_Model model { get; set; }
         public RST_View view { get; set; }
         // Reference to Revit UI Application
-        public Autodesk.Revit.UI.UIApplication uiApp { get; set; }
+        private Autodesk.Revit.UI.UIApplication uiApp { get; set; }
         // ExceptionHandlers
-        public MissingInputsHandler missingInputsHandler { get; set; }
+        private MissingInputsHandler missingInputsHandler { get; set; }
         // EventListeners
-        public EventsListener eventsListener { get; set; }
+        private EventsListener eventsListener { get; set; }
         // AudioManagers
-        public SoundManager soundManager { get; set; }
+        private SoundManager soundManager { get; set; }
         // Other Variables
-        public string jsonFilePath { get; set; }
+        private string jsonFilePath { get; set; }
 
 
 
@@ -137,6 +137,23 @@ namespace ReuseSchemeTool.controller
 
             this.model.initialize(this.uiApp, reuseRatingCalculator);
         }
+
+
+
+        // Setters
+        public void setUIApp(Autodesk.Revit.UI.UIApplication uiApp) { this.uiApp = uiApp; }
+        public void setMissingInputsHandler(MissingInputsHandler missingInputsHandler) { this.missingInputsHandler = missingInputsHandler; }
+        public void setEventsListener(EventsListener eventsListener) { this.eventsListener = eventsListener; }
+        public void setSoundManager(SoundManager soundManager) { this.soundManager = soundManager; }
+        public void setJsonFilePath(string jsonFilePath) { this.jsonFilePath = jsonFilePath; }
+
+        // Getters
+        public Autodesk.Revit.UI.UIApplication getUIApp() { return this.uiApp; }
+        public MissingInputsHandler getMissingInputsHandler() { return this.missingInputsHandler; }
+        public EventsListener getEventsListener() { return this.eventsListener; }
+        public SoundManager getSoundManager() { return this.soundManager; }
+        public string getJsonFilePath() { return this.jsonFilePath; }
+
 
     }
 
