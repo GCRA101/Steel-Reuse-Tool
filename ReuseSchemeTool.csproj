@@ -221,20 +221,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="sounds\CHECKBOX.wav" />
-    <EmbeddedResource Include="sounds\CLICKBUTTON.wav" />
-    <EmbeddedResource Include="sounds\SPLASHSCREEN.wav" />
-    <EmbeddedResource Include="sounds\WARNING.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="icons\BHicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="text_files\AboutBox_Description.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="text_files\InspectorTool_LongDescription.txt" />
-    <EmbeddedResource Include="sounds\ENDRUN.wav" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -266,18 +256,29 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="images\InspectorTool_AppLogo.png" />
-    <EmbeddedResource Include="images\InspectorTool_AppLogo16x16.png" />
-    <EmbeddedResource Include="images\InspectorTool_AppLogo32x32.png" />
-    <EmbeddedResource Include="images\SchemingTool_AppLogo.png" />
-    <EmbeddedResource Include="images\SchemingTool_AppLogo16x16.png" />
-    <EmbeddedResource Include="images\SchemingTool_AppLogo32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="text_files\SchemingTool_LongDescription.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="text_files\C02_SavingFactors.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="controller\sounds\CHECKBOX.wav" />
+    <EmbeddedResource Include="controller\sounds\CLICKBUTTON.wav" />
+    <EmbeddedResource Include="controller\sounds\ENDRUN.wav" />
+    <EmbeddedResource Include="controller\sounds\SPLASHSCREEN.wav" />
+    <EmbeddedResource Include="controller\sounds\WARNING.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\images\InspectorTool_AppLogo.png" />
+    <EmbeddedResource Include="view\images\InspectorTool_AppLogo16x16.png" />
+    <EmbeddedResource Include="view\images\InspectorTool_AppLogo32x32.png" />
+    <EmbeddedResource Include="view\images\SchemingTool_AppLogo.png" />
+    <EmbeddedResource Include="view\images\SchemingTool_AppLogo16x16.png" />
+    <EmbeddedResource Include="view\images\SchemingTool_AppLogo32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\icons\BHicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

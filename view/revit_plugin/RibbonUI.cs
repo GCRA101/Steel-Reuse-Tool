@@ -37,17 +37,17 @@ namespace ReuseSchemeTool.view.revit_plugin
                 ribbonPanel = RibbonTabPanelFactory.getInstance().create(application, tabName, panelName);
                 //3. Buildup Inputs for RibbonItemFactory
                 // Inspector Tool
-                String inspector_imagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo16x16.png";
-                String inspector_largeImagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo32x32.png";
-                String inspector_toolTipImagePath = "ReuseSchemeTool.images.InspectorTool_AppLogo.png";
+                String inspector_imagePath = "ReuseSchemeTool.view.images.InspectorTool_AppLogo16x16.png";
+                String inspector_largeImagePath = "ReuseSchemeTool.view.images.InspectorTool_AppLogo32x32.png";
+                String inspector_toolTipImagePath = "ReuseSchemeTool.view.images.InspectorTool_AppLogo.png";
                 String inspector_toolTipText = "Reuse Inspector Tool";
                 String inspector_longDescriptionFilePath = "ReuseSchemeTool.text_files.InspectorTool_LongDescription.txt";
                 String inspector_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(inspector_longDescriptionFilePath)).ReadToEnd();
                 String inspector_className = "ReuseSchemeTool.view.revit_plugin.CommandInspectorTool";
                 // Scheming Tool
-                String scheming_imagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo16x16.png";
-                String scheming_largeImagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo32x32.png";
-                String scheming_toolTipImagePath = "ReuseSchemeTool.images.SchemingTool_AppLogo.png";
+                String scheming_imagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo16x16.png";
+                String scheming_largeImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo32x32.png";
+                String scheming_toolTipImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo.png";
                 String scheming_toolTipText = "Reuse Inspector Tool";
                 String scheming_longDescriptionFilePath = "ReuseSchemeTool.text_files.SchemingTool_LongDescription.txt";
                 String scheming_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(scheming_longDescriptionFilePath)).ReadToEnd();

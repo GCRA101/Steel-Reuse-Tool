@@ -17,19 +17,19 @@ namespace ReuseSchemeTool.controller
             switch (sound)
             {
                 case Sound.SPLASHSCREEN:
-                    return "ReuseSchemeTool.sounds.SPLASHSCREEN.wav";
+                    return "ReuseSchemeTool.controller.sounds.SPLASHSCREEN.wav";
                     break;
                 case Sound.CLICKBUTTON:
-                    return "ReuseSchemeTool.sounds.CLICKBUTTON.wav";
+                    return "ReuseSchemeTool.controller.sounds.CLICKBUTTON.wav";
                     break;
                 case Sound.CHECKBOX:
-                    return "ReuseSchemeTool.sounds.CHECKBOX.wav";
+                    return "ReuseSchemeTool.controller.sounds.CHECKBOX.wav";
                     break;
                 case Sound.WARNING:
-                    return "ReuseSchemeTool.sounds.WARNING.wav";
+                    return "ReuseSchemeTool.controller.sounds.WARNING.wav";
                     break;
                 case Sound.ENDRUN:
-                    return "ReuseSchemeTool.sounds.ENDRUN.wav";
+                    return "ReuseSchemeTool.controller.sounds.ENDRUN.wav";
                     break;
                 default:
                     return "";
