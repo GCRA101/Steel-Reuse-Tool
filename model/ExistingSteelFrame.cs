@@ -36,7 +36,7 @@ namespace ReuseSchemeTool.model
         // Setters
         public void setConditionInfo(ConditionSurveyInfo conditionInfo) { this.conditionInfo = conditionInfo; } 
         public void setDimensionInfo(DimensionalSurveyInfo dimensionInfo) { this.dimensionInfo = dimensionInfo; }   
-        public void setCutOffLength(Double endCutOffLength) { this.endCutOffLength= endCutOffLength; }
+        public void setEndCutOffLength(Double endCutOffLength) { this.endCutOffLength= endCutOffLength; }
         public void setReuseRating(ReuseRating reuseRating) { this.reuseRating = reuseRating; }
         public void setReuseStrategy(string reuseStrategy) { this.reuseStrategy = reuseStrategy; }
 
@@ -44,7 +44,7 @@ namespace ReuseSchemeTool.model
         public ConditionSurveyInfo getConditionInfo() { return this.conditionInfo; }
         public DimensionalSurveyInfo getDimensionInfo() { return this.dimensionInfo; }
         public Double getEndCutOffLength() { return this.endCutOffLength; }
-        public Double getCutLength() { return this.getLength()-this.endCutOffLength; }
+        public Double getCutLength() { return this.getLength_m()-this.endCutOffLength; }
         public ReuseRating getReuseRating() { return this.reuseRating; }
         public string getReuseStrategy() { return this.reuseStrategy; }
 

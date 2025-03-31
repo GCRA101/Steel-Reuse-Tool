@@ -38,10 +38,10 @@ namespace ReuseSchemeTool.controller
             switch (tool)
             {
                 case (Tool.INSPECTOR):
-                    this.aboutBoxBtnOk = ((InspectorTool_AboutBox)this.view.aboutBox).btnOK;
+                    this.aboutBoxBtnOk = ((InspectorTool_AboutBox)this.view.getAboutBox()).btnOK;
                     break;
                 case (Tool.SCHEME):
-                    this.aboutBoxBtnOk = ((SchemingTool_AboutBox)this.view.aboutBox).btnOK;
+                    this.aboutBoxBtnOk = ((SchemingTool_AboutBox)this.view.getAboutBox()).btnOK;
                     break;
             }
             
@@ -54,22 +54,22 @@ namespace ReuseSchemeTool.controller
             EventHandler trbScrollHandler = new EventHandler(inputsViewTrb_Scroll);
             EventHandler btnRunClickHandler = new EventHandler(inputsViewBtnRun_Click);
 
-            this.clbSectionTypes = this.view.inputsView.clbSectionTypes;
+            this.clbSectionTypes = this.view.getInputsView().clbSectionTypes;
             clbSectionTypes.Click += clbClickHandler;
-            this.clbSteelGrades = this.view.inputsView.clbSteelGrades;
+            this.clbSteelGrades = this.view.getInputsView().clbSteelGrades;
             clbSteelGrades.Click += clbClickHandler;
-            this.trbMinLength = this.view.inputsView.trbMinLength;
+            this.trbMinLength = this.view.getInputsView().trbMinLength;
             trbMinLength.Scroll += trbScrollHandler;
-            this.trbMaxLength = this.view.inputsView.trbMaxLength;
+            this.trbMaxLength = this.view.getInputsView().trbMaxLength;
             trbMaxLength.Scroll += trbScrollHandler;
-            this.trbCutOff = this.view.inputsView.trbCutOff;
+            this.trbCutOff = this.view.getInputsView().trbCutOff;
             trbCutOff.Scroll += trbScrollHandler;
-            this.trbMinWeight = this.view.inputsView.trbMinWeight;
+            this.trbMinWeight = this.view.getInputsView().trbMinWeight;
             trbMinWeight.Scroll += trbScrollHandler;
-            this.trbMaxWeight = this.view.inputsView.trbMaxWeight;
+            this.trbMaxWeight = this.view.getInputsView().trbMaxWeight;
             trbMaxWeight.Scroll += trbScrollHandler;
 
-            this.btnRun = this.view.inputsView.btnRun;
+            this.btnRun = this.view.getInputsView().btnRun;
             //btnRun.Click += btnRunClickHandler;
         }
 
@@ -95,11 +95,11 @@ namespace ReuseSchemeTool.controller
             //this.controller.getSoundManager().play(Sound.CLICKBUTTON);
 
 
-            if (sender== trbMinLength) {this.view.inputsView.lblMinLengthValue.Text = trbMinLength.Value.ToString();}
-            if (sender == trbMaxLength) { this.view.inputsView.lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
-            if (sender == trbCutOff) { this.view.inputsView.lblCutOffValue.Text = Math.Round((trbCutOff.Value/10.0),1).ToString(); }
-            if (sender == trbMinWeight) { this.view.inputsView.lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
-            if (sender == trbMaxWeight) { this.view.inputsView.lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
+            if (sender== trbMinLength) {this.view.getInputsView().lblMinLengthValue.Text = trbMinLength.Value.ToString();}
+            if (sender == trbMaxLength) { this.view.getInputsView().lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
+            if (sender == trbCutOff) { this.view.getInputsView().lblCutOffValue.Text = Math.Round((trbCutOff.Value/10.0),1).ToString(); }
+            if (sender == trbMinWeight) { this.view.getInputsView().lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
+            if (sender == trbMaxWeight) { this.view.getInputsView().lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
         }
 
         private void inputsViewBtnRun_Click(System.Object sender, System.EventArgs e)

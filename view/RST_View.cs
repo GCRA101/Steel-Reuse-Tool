@@ -22,9 +22,9 @@ namespace ReuseSchemeTool.view
         public RST_Model model { set; get; }
         public RST_Controller controller { set; get; }
         //Main windows of the View
-        public System.Windows.Forms.Form splashScreen { set; get; }
-        public System.Windows.Forms.Form aboutBox { set; get; }
-        public InputsView inputsView { set; get; }
+        private System.Windows.Forms.Form splashScreen;
+        private System.Windows.Forms.Form aboutBox;
+        private InputsView inputsView;
 
         //CONSTRUCTORS
         public RST_View(RST_Model model, RST_Controller controller)
@@ -75,8 +75,6 @@ namespace ReuseSchemeTool.view
 
             this.model.registerObserver((Observer)this.aboutBox);
             this.model.notifyObservers();
-            //this.aboutBox.Show();
-            //this.aboutBox.Refresh();
         }
 
         public void createInputsView()
@@ -87,8 +85,14 @@ namespace ReuseSchemeTool.view
             this.model.removeObserver((Observer)this.aboutBox);
             this.model.registerObserver(this.inputsView);
 
-            //this.inputsView.Show();
             this.aboutBox.Close();
         }
+
+
+        // Getters
+        public System.Windows.Forms.Form getSplashScreen() { return this.splashScreen; }
+        public System.Windows.Forms.Form getAboutBox() { return this.aboutBox; }
+        public InputsView getInputsView() { return this.inputsView; }
+
     }
 }

@@ -25,7 +25,7 @@ namespace ReuseSchemeTool.model
 
         // Setters
         public void setGeometry(Line geometry) { this.frame.setGeometry(geometry); }
-        public void setLength(double length) { this.frame.setLength(length); }
+        public void setLength_m(double length) { this.frame.setLength_m(length); }
         public void setMaterial(string material) { this.frame.setMaterial(material); }
         public void setSection(Section section) { this.frame.setSection(section); }
         public void setUniqueId(string uniqueId) { this.frame.setUniqueId(uniqueId); }
@@ -33,7 +33,7 @@ namespace ReuseSchemeTool.model
 
         // Getters
         public Line getGeometry() {return frame.getGeometry();}
-        public double getLength(){ return frame.getLength(); }
+        public double getLength_m(){ return frame.getLength_m(); }
         public string getMaterial(){ return frame.getMaterial();}
         public Section getSection(){ return frame.getSection();}
         public string getUniqueId(){ return frame.getUniqueId();}

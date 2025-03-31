@@ -130,7 +130,6 @@
     <Compile Include="model\revit\RevitFileManager.cs" />
     <Compile Include="model\revit\LineStyle.cs" />
     <Compile Include="model\revit\RevitFramesCollectorStrategy.cs" />
-    <Compile Include="model\revit\RevitItemsCollector.cs" />
     <Compile Include="model\revit\ViewDraftingBuilder.cs" />
     <Compile Include="model\revit\OverrideGraphicsFactory.cs" />
     <Compile Include="model\revit\PieSliceData.cs" />
@@ -147,6 +146,7 @@
     <Compile Include="model\revit\SheetRow.cs" />
     <Compile Include="model\SteelFrame.cs" />
     <Compile Include="model\SteelSectionType.cs" />
+    <Compile Include="model\SurveyInfo.cs" />
     <Compile Include="model\Tool.cs" />
     <Compile Include="model\UserDefined_RatingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

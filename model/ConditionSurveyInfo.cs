@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class ConditionSurveyInfo
+    public class ConditionSurveyInfo: SurveyInfo
     {
     }
 }

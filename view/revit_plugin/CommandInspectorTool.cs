@@ -51,7 +51,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 //Show the SplashScreen and the AboutBox
                 controller.initialize(Tool.INSPECTOR);
 
-                if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
+                if (controller.view.getInputsView().ShowDialog() == DialogResult.OK) {
                     controller.getSoundManager().play(Sound.CLICKBUTTON);
 
                     revitTransaction.Start();

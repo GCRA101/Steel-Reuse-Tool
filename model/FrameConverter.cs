@@ -34,7 +34,7 @@ namespace ReuseSchemeTool.model
             frame.setSection(getProperty(element));
             frame.setMaterial(getMaterial(element));
             frame.setGeometry(getGeometry(element));
-            frame.setLength(getLength(element));
+            frame.setLength_m(getLength(element));
             frame.setType(getType(element));
             frame.setUniqueId(getUniqueId(element));
 

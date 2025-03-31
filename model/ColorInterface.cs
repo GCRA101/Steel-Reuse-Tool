@@ -12,6 +12,7 @@ namespace ReuseSchemeTool.model
         Byte getGreen();
         Byte getBlue();
         Byte[] getRGB();
+        int getETABSIntValue();
 
     }
 }

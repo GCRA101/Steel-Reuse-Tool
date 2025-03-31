@@ -23,7 +23,6 @@ namespace ReuseSchemeTool.model
             color = new model.RSTColor(revitColor.Red, revitColor.Green, revitColor.Blue);
         }
 
-
         public static Autodesk.Revit.DB.Color convertToRevit(System.Drawing.Color sysColor)
         {
             convertColor(sysColor);

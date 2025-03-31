@@ -15,9 +15,14 @@ public class ExcelDataManager
     private Microsoft.Office.Interop.Excel.Application ExcelApp;
     private Workbook ExcelWkb;
     private Worksheet ExcelWks;
-
     private string filePath;
     private string outputsFolderPath;
+
+    private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+    private const uint SWP_NOSIZE = 0x0001;
+    private const uint SWP_NOMOVE = 0x0002;
+    private const uint SWP_SHOWWINDOW = 0x0040;
+
 
 
     // CONSTRUCTORS
@@ -155,7 +160,7 @@ public class ExcelDataManager
             matrix[i,0]= existingFrame.getSectionType().ToString();
             matrix[i,1] = existingFrame.getSection().getName();
             matrix[i,2] = Math.Round(existingFrame.getSection().getArea(), 3).ToString();
-            matrix[i,3] = Math.Round(existingFrame.getLength(), 3).ToString();
+            matrix[i,3] = Math.Round(existingFrame.getLength_m(), 3).ToString();
             matrix[i,4] = existingFrame.getReuseRating().ToString();
         }
 
@@ -169,7 +174,7 @@ public class ExcelDataManager
     }
 
 
-    public void SetFilePath(string filePath)
+    public void setFilePath(string filePath)
     {
         if (filePath != "" && !(filePath.Contains(".xlsx") || filePath.Contains(".xlsm") || filePath.Contains(".xls")))
         {
@@ -188,29 +193,29 @@ public class ExcelDataManager
         }
     }
 
-    public void FormatRange(Range range, ExcelRangeType excelRangeType)
+    public void formatRange(Range range, ExcelRangeType excelRangeType)
     {
         // Assign specific Range Format based on input ExcelRangeType Enum value
         switch (excelRangeType)
         {
             case ExcelRangeType.HEADER_PRIMARY:
                 // Call private FormatRange() method with pre-set inputs
-                FormatRange(range, "Segoe UI", 10, true, XlHAlign.xlHAlignCenter, XlVAlign.xlVAlignCenter, XlLineStyle.xlContinuous,
+                formatRange(range, "Segoe UI", 10, true, XlHAlign.xlHAlignCenter, XlVAlign.xlVAlignCenter, XlLineStyle.xlContinuous,
                     XlBorderWeight.xlMedium, XlColorIndex.xlColorIndexNone, XlPattern.xlPatternLinearGradient, 90,
                     XlThemeColor.xlThemeColorAccent6, false);
                 break;
             case ExcelRangeType.HEADER_SECONDARY:
                 // Call private FormatRange() method with pre-set inputs
-                FormatRange(range, interiorColor: (XlColorIndex)19);
+                formatRange(range, interiorColor: (XlColorIndex)19);
                 break;
             case ExcelRangeType.NORMAL:
                 // Call private FormatRange() method with pre-set inputs
-                FormatRange(range);
+                formatRange(range);
                 break;
         }
     }
 
-    private void FormatRange(Range range, string fontName = "Segoe UI", int fontSize = 10, bool fontBold = false,
+    private void formatRange(Range range, string fontName = "Segoe UI", int fontSize = 10, bool fontBold = false,
     XlHAlign textHorAlignment = XlHAlign.xlHAlignCenter, XlVAlign textVertAlignment = XlVAlign.xlVAlignCenter,
     XlLineStyle borderLineStyle = XlLineStyle.xlContinuous, XlBorderWeight borderLineWeight = XlBorderWeight.xlThin,
         XlColorIndex interiorColor = XlColorIndex.xlColorIndexNone, XlPattern interiorPattern = XlPattern.xlPatternNone,
@@ -265,10 +270,6 @@ public class ExcelDataManager
     [DllImport("user32.dll")]
     private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
-    private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
-    private const uint SWP_NOSIZE = 0x0001;
-    private const uint SWP_NOMOVE = 0x0002;
-    private const uint SWP_SHOWWINDOW = 0x0040;
 
     public void setTopMost()
     {

@@ -52,13 +52,13 @@ namespace ReuseSchemeTool.view.revit_plugin
                 //Show the SplashScreen and the AboutBox
                 controller.initialize(Tool.SCHEME);
 
-                if (controller.view.aboutBox.ShowDialog() == DialogResult.OK) {
+                if (controller.view.getInputsView().ShowDialog() == DialogResult.OK) {
                     controller.getSoundManager().play(Sound.CLICKBUTTON);
                     controller.view.createInputsView();
                     controller.getEventsListener().initializeInputsView();
                 }
 
-                if (controller.view.inputsView.ShowDialog() == DialogResult.OK)
+                if (controller.view.getInputsView().ShowDialog() == DialogResult.OK)
                 {
 
                     revitTransaction.Start();

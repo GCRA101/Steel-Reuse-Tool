@@ -121,7 +121,7 @@
             this.btnRun.TabIndex = 30;
             this.btnRun.Text = "RUN";
             this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            //this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // lblSectionTypes
             // 
@@ -202,7 +202,7 @@
             this.trbMaxWeight.SmallChange = 25;
             this.trbMaxWeight.TabIndex = 42;
             this.trbMaxWeight.Value = 100;
-            this.trbMaxWeight.Scroll += new System.EventHandler(this.trbMaxWeight_Scroll);
+            //this.trbMaxWeight.Scroll += new System.EventHandler(this.trbMaxWeight_Scroll);
             // 
             // lblMinWeight
             // 

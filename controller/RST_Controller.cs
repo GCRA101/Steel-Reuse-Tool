@@ -91,8 +91,8 @@ namespace ReuseSchemeTool.controller
                     break;
                 case Tool.SCHEME:
                     //Close and dispose the form
-                    this.view.inputsView.Close();
-                    this.view.inputsView.Dispose();
+                    this.view.getInputsView().Close();
+                    this.view.getInputsView().Dispose();
                     break;
             }
 
@@ -106,28 +106,28 @@ namespace ReuseSchemeTool.controller
             // SECTION TYPES
             //Get the list of section types selected by the user in the UI by the help of an Enumerator
             List<string> selSectionTypes = new List<string>();
-            IEnumerator<string> enumerator = this.view.inputsView.clbSectionTypes.CheckedItems.Cast<String>().GetEnumerator();
+            IEnumerator<string> enumerator = this.view.getInputsView().clbSectionTypes.CheckedItems.Cast<String>().GetEnumerator();
             while (enumerator.MoveNext()) { selSectionTypes.Add(enumerator.Current); }
 
             // STEEL GRADES
             //Get the list of steel grades selected by the user in the UI by the help of an Enumerator
             List<string> selSteelGrades = new List<string>();
-            enumerator = this.view.inputsView.clbSteelGrades.CheckedItems.Cast<String>().GetEnumerator();
+            enumerator = this.view.getInputsView().clbSteelGrades.CheckedItems.Cast<String>().GetEnumerator();
             while (enumerator.MoveNext()) { selSteelGrades.Add(enumerator.Current); }
 
             // MAX/MIN LENGHTS
             Single[] lengthsRange = {
-                Single.Parse(this.view.inputsView.lblMinLengthValue.Text),
-                Single.Parse(this.view.inputsView.lblMaxLengthValue.Text)
+                Single.Parse(this.view.getInputsView().lblMinLengthValue.Text),
+                Single.Parse(this.view.getInputsView().lblMaxLengthValue.Text)
             };
 
             // END CUT-OFF LENGTH
-            Single endCutOffLength = Single.Parse(this.view.inputsView.lblCutOffValue.Text);
+            Single endCutOffLength = Single.Parse(this.view.getInputsView().lblCutOffValue.Text);
 
             // MAX/MIN WEIGHTS
             Single[] weightsRange = {
-                Single.Parse(this.view.inputsView.lblMinWeightValue.Text),
-                Single.Parse(this.view.inputsView.lblMaxWeightValue.Text)
+                Single.Parse(this.view.getInputsView().lblMinWeightValue.Text),
+                Single.Parse(this.view.getInputsView().lblMaxWeightValue.Text)
             };
 
             UserDefined_RatingStrategy udRatingStrategy = 

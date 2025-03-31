@@ -13,7 +13,7 @@ namespace ReuseSchemeTool.model
         //ATTRIBUTES
         protected Section section;
         protected String material;
-        protected Double length;
+        protected Double length_m;
         protected String uniqueId;
         protected Line geometry;
         protected FrameType type;
@@ -26,7 +26,7 @@ namespace ReuseSchemeTool.model
         {
             this.section = section;
             this.material = material;
-            this.length = length;
+            this.length_m = length;
             this.uniqueId = uniqueId;
             this.geometry = geometry;
         }
@@ -36,7 +36,7 @@ namespace ReuseSchemeTool.model
         //Setters
         public void setSection(Section section) { this.section = section; }
         public void setMaterial(String material) { this.material = material; }
-        public void setLength(Double length) { this.length = length; }
+        public void setLength_m(Double length) { this.length_m = length; }
         public void setUniqueId(String uniqueId) { this.uniqueId = uniqueId; }
         public void setGeometry(Line geometry) { this.geometry = geometry; }
         public void setType(FrameType type) { this.type = type; }
@@ -44,7 +44,7 @@ namespace ReuseSchemeTool.model
         //Getters
         public Section getSection() { return section; }
         public String getMaterial() { return material; }
-        public double getLength() { return length; }
+        public double getLength_m() { return length_m; }
         public String getUniqueId() { return uniqueId; }
         public Line getGeometry() { return geometry; }
         public FrameType getType() { return type; }
@@ -85,7 +85,7 @@ namespace ReuseSchemeTool.model
             // 3. Compare section
             if (this.section.CompareTo(frame.section)!=0) return this.section.CompareTo(frame.section);
             // 4. Compare Geometry
-            if (this.length.CompareTo(frame.length)!=0) return frame.length.CompareTo(frame.length);
+            if (this.length_m.CompareTo(frame.length_m)!=0) return frame.length_m.CompareTo(frame.length_m);
             // 5. Return 0 (i.e. equality) otherwise...
             return 0;
         }

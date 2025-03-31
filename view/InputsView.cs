@@ -117,14 +117,5 @@ namespace ReuseSchemeTool.view
             throw new NotImplementedException();
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trbMaxWeight_Scroll(object sender, EventArgs e)
-        {
-
-        }
     }
 }
