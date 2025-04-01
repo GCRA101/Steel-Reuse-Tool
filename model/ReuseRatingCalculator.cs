@@ -9,7 +9,7 @@ namespace ReuseSchemeTool.model
     public class ReuseRatingCalculator : ReuseRatingInterface
     {
         /* ATTRIBUTES */
-        ReuseRatingStrategy ratingStrategy;
+        private ReuseRatingStrategy ratingStrategy;
 
         /* CONSTRUCTOR */
         // Overloaded

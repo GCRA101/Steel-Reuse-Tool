@@ -32,5 +32,7 @@ namespace ReuseSchemeTool.model
 
             this.barycenter = new Point(xtot/points.Count, ytot/points.Count, ztot/points.Count);
         }
+
+        public Point getBarycenter() { return this.barycenter; }
     }
 }

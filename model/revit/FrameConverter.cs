@@ -8,46 +8,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace ReuseSchemeTool.model
+namespace ReuseSchemeTool.model.revit
 {
     public class FrameConverter
     {
+
         /* ATTRIBUTES */
         private Autodesk.Revit.DB.Document dbDoc;
-        private List<String> categoryNames = new List<string> { "Structural Framing", "Structural Columns" };
+        private List<string> categoryNames;
+        private Autodesk.Revit.DB.Element element;
 
         /* CONSTRUCTORS */
         public FrameConverter(Autodesk.Revit.DB.Document dbDoc)
         {
             this.dbDoc = dbDoc;
+            this.categoryNames= new List<string> { "Structural Framing", "Structural Columns" };
         }
 
 
         /* METHODS */
 
-        public Frame getFrameObj(Autodesk.Revit.DB.Element element)
+        public Frame getObj(Autodesk.Revit.DB.Element element)
         {
-            if (!checkObjType(element)) return null;
+            this.element = element;
+
+            if (!checkObjType()) return null;
 
             Frame frame = new Frame();
 
-            frame.setSection(getProperty(element));
-            frame.setMaterial(getMaterial(element));
-            frame.setGeometry(getGeometry(element));
-            frame.setLength_m(getLength(element));
-            frame.setType(getType(element));
-            frame.setUniqueId(getUniqueId(element));
+            frame.setSection(getProperty());
+            frame.setMaterial(getMaterial());
+            frame.setGeometry((Line)getGeometry());
+            frame.setLength_m(getLength());
+            frame.setType(getType());
+            frame.setUniqueId(getUniqueId());
 
             return frame;
 
         }
 
-        private Boolean checkObjType(Autodesk.Revit.DB.Element element)
+        private Boolean checkObjType()
         {
             return this.categoryNames.Contains(element.Category.Name);
         }
 
-        private Section getProperty(Autodesk.Revit.DB.Element element)
+        private Section getProperty()
         {
 
             String name= ((ElementType)dbDoc.GetElement(element.GetTypeId())).Name;
@@ -78,13 +83,13 @@ namespace ReuseSchemeTool.model
             return new Section(name, area_mm2, weight_kg_m);
         }
 
-        private String getMaterial(Autodesk.Revit.DB.Element element)
+        private String getMaterial()
         {
             Parameter materialParam = element.LookupParameter("BHE_Material");
             return materialParam.AsValueString();
         }
 
-        private Line getGeometry(Autodesk.Revit.DB.Element element)
+        private Geometry getGeometry()
         {
             Options options = new Options();
             options.ComputeReferences = true;
@@ -117,13 +122,13 @@ namespace ReuseSchemeTool.model
             return new Line(startPoint, endPoint);
         }
 
-        private Double getLength(Autodesk.Revit.DB.Element element)
+        private double getLength()
         {
             Parameter lengthParam = element.LookupParameter("Length");
             return Math.Round(UnitUtils.ConvertFromInternalUnits(lengthParam.AsDouble(),UnitTypeId.Meters),3);
         }
 
-        private FrameType getType(Autodesk.Revit.DB.Element element)
+        private FrameType getType()
         {
             BuiltInCategory builtInCategory = (BuiltInCategory)element.Category.Id.IntegerValue;
 
@@ -142,10 +147,11 @@ namespace ReuseSchemeTool.model
             return FrameType.NOTAPPLICABLE;
         }
 
-        private String getUniqueId(Autodesk.Revit.DB.Element element)
+        private String getUniqueId()
         {
             return element.Id.ToString();
         }
+
     }
 
 }

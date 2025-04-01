@@ -95,7 +95,7 @@
     <Compile Include="model\ExistingSteelFrame.cs" />
     <Compile Include="model\FileManager.cs" />
     <Compile Include="model\Frame.cs" />
-    <Compile Include="model\FrameConverter.cs" />
+    <Compile Include="model\revit\FrameConverter.cs" />
     <Compile Include="model\FrameDecorator.cs" />
     <Compile Include="model\FrameInterface.cs" />
     <Compile Include="model\FrameType.cs" />
@@ -121,7 +121,6 @@
     <Compile Include="model\revit\BuiltInParameterFilter.cs" />
     <Compile Include="model\revit\CollectorFilterDecorator.cs" />
     <Compile Include="model\revit\PhaseCreatedFilter.cs" />
-    <Compile Include="model\revit\RevitConverterInterface.cs" />
     <Compile Include="model\revit\RevitElemCollectorInterface.cs" />
     <Compile Include="model\revit\ColorPalette.cs" />
     <Compile Include="model\revit\ColorsFactory.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="model\revit\SheetRow.cs" />
     <Compile Include="model\SteelFrame.cs" />
     <Compile Include="model\SteelSectionType.cs" />
+    <Compile Include="model\StructuralElement.cs" />
     <Compile Include="model\SurveyInfo.cs" />
     <Compile Include="model\Tool.cs" />
     <Compile Include="model\UserDefined_RatingStrategy.cs" />

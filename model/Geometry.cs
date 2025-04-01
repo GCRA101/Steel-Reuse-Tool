@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public abstract class Geometry
+    public abstract class Geometry: IComparable
     {
 
         /* ATTRIBUTES */
@@ -23,7 +23,6 @@ namespace ReuseSchemeTool.model
         // Getters
         public string getUniqueId() { return this.uniqueId; }
 
-        
-        
+        public abstract int CompareTo(object obj);
     }
 }

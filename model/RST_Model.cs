@@ -48,8 +48,6 @@ namespace ReuseSchemeTool.model
         private string pdfFilesFolderPath;
         private List<string> folderPaths;
 
-        private Autodesk.Revit.DB.Family titleBlockFamily;
-
         private const string EMBEDDEDFILEPATH_XLSM_DATABASE = "ReuseSchemeTool.model.excel_files.Database_Graphs.xlsm";
 
         private const string MODEL_INSPECTOR_NAME = "Reuse Inspector Tool";
@@ -141,7 +139,7 @@ namespace ReuseSchemeTool.model
             frameElements = revitFramesCollector.collectElements();
 
             /* 2. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
-            steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
+            steelFrames = frameElements.Select(elem => frameConverter.getObj(elem)).ToList();
             existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
 
             /* 3. GENERATE OUTPUTS */
@@ -164,7 +162,7 @@ namespace ReuseSchemeTool.model
             frameElements=revitFramesCollector.collectElements();
 
             /* 2. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
-            steelFrames = frameElements.Select(elem => frameConverter.getFrameObj(elem)).ToList();
+            steelFrames = frameElements.Select(elem => frameConverter.getObj(elem)).ToList();
             existingSteelFrames = steelFrames.Select(sframe => new ExistingSteelFrame(sframe)).ToList();
 
             /* 3. CALCULATE REUSE RATING FOR SOFTWARE-AGNOSTIC STEEL FRAME OBJECTS */

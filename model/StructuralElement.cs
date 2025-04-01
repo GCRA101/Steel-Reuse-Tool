@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public interface RevitConverterInterface
+    public abstract class StructuralElement
     {
-        bool checkObjType();
-        Geometry getGeometry();
-        string getUniqueId();
+        protected string uniqueId;
+
     }
 }

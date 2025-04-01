@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace ReuseSchemeTool.model
 {
-    public class Frame: IComparable
+    public class Frame: StructuralElement, IComparable
     {
         //ATTRIBUTES
         protected Section section;
         protected String material;
         protected Double length_m;
-        protected String uniqueId;
         protected Line geometry;
         protected FrameType type;
 
