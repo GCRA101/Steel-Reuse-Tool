@@ -155,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="view\DockType.cs" />
     <Compile Include="view\InputsView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +174,8 @@
     <Compile Include="view\InspectorTool_SplashScreen.Designer.cs">
       <DependentUpon>InspectorTool_SplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\ProcessName.cs" />
+    <Compile Include="view\ProcessNameRetriever.cs" />
     <Compile Include="view\revit_plugin\BitmapImageFactory.cs" />
     <Compile Include="view\revit_plugin\CommandInspectorTool.cs" />
     <Compile Include="view\revit_plugin\CommandSchemeTool.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="view\SchemingTool_SplashScreen.Designer.cs">
       <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\WindowResizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="model\excel_files\Database_Graphs.xlsm" />
@@ -261,7 +265,6 @@
   <ItemGroup>
     <EmbeddedResource Include="text_files\C02_SavingFactors.txt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="controller\sounds\CHECKBOX.wav" />
     <EmbeddedResource Include="controller\sounds\CLICKBUTTON.wav" />
