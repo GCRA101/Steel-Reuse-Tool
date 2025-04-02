@@ -48,7 +48,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 String scheming_imagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo16x16.png";
                 String scheming_largeImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo32x32.png";
                 String scheming_toolTipImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo.png";
-                String scheming_toolTipText = "Reuse Inspector Tool";
+                String scheming_toolTipText = "Reuse Scheme Tool";
                 String scheming_longDescriptionFilePath = "ReuseSchemeTool.model.text_files.SchemingTool_LongDescription.txt";
                 String scheming_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(scheming_longDescriptionFilePath)).ReadToEnd();
                 String scheming_className = "ReuseSchemeTool.view.revit_plugin.CommandSchemeTool";
