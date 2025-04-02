@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class InspectorTool_ProgrBarView: Form
+    public partial class InspectorTool_ProgrBarView: Form, model.Observer
     {
         //ATTRIBUTES
         private RST_Model model;
