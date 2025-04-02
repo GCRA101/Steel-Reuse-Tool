@@ -77,7 +77,6 @@
             this.prgbProgress.Size = new System.Drawing.Size(261, 52);
             this.prgbProgress.Step = 1;
             this.prgbProgress.TabIndex = 2;
-            this.prgbProgress.Click += new System.EventHandler(this.prgbProgress_Click);
             // 
             // lblProgrPercent
             // 

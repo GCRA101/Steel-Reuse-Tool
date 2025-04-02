@@ -18,6 +18,9 @@ namespace ReuseSchemeTool.view
         private int progrBarStep;
         private int deltaProgrBar;
 
+        private const int CS_DROPSHADOW = 0x00020000;
+
+
         public InspectorTool_ProgrBarView(RST_Model model)
         {
             // This call is required by the designer.
@@ -74,9 +77,16 @@ namespace ReuseSchemeTool.view
 
         }
 
-        private void lblProgrPercent_Click(object sender, EventArgs e)
-        {
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
         }
+
     }
 }

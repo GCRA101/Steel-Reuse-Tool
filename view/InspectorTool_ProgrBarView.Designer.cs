@@ -85,7 +85,6 @@
             this.lblProgrPercent.Size = new System.Drawing.Size(57, 57);
             this.lblProgrPercent.TabIndex = 3;
             this.lblProgrPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblProgrPercent.Click += new System.EventHandler(this.lblProgrPercent_Click);
             // 
             // InspectorTool_ProgrBarView
             // 

@@ -18,6 +18,8 @@ namespace ReuseSchemeTool.view
         // ATTRIBUTES
         private RST_Model model;
 
+        private const int CS_DROPSHADOW = 0x00020000;
+
         // CONSTRUCTOR
         public SchemingTool_SplashScreen(RST_Model model)
         {
@@ -45,6 +47,16 @@ namespace ReuseSchemeTool.view
             this.lblVersion.Text = this.model.getModelVersion();
             //Copyright info
             this.lblCopyright.Text = this.model.getModelCopyRight();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
         }
     }
 }
