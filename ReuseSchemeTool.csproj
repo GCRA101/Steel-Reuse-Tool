@@ -168,6 +168,12 @@
     <Compile Include="view\InspectorTool_AboutBox.Designer.cs">
       <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\InspectorTool_ProgrBarView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\InspectorTool_ProgrBarView.Designer.cs">
+      <DependentUpon>InspectorTool_ProgrBarView.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\InspectorTool_SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,12 @@
     <Compile Include="view\SchemingTool_AboutBox.Designer.cs">
       <DependentUpon>SchemingTool_AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\SchemingTool_ProgrBarView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\SchemingTool_ProgrBarView.Designer.cs">
+      <DependentUpon>SchemingTool_ProgrBarView.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\SchemingTool_SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,11 +218,17 @@
     <EmbeddedResource Include="view\InspectorTool_AboutBox.resx">
       <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\InspectorTool_ProgrBarView.resx">
+      <DependentUpon>InspectorTool_ProgrBarView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\InspectorTool_SplashScreen.resx">
       <DependentUpon>InspectorTool_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\SchemingTool_AboutBox.resx">
       <DependentUpon>SchemingTool_AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\SchemingTool_ProgrBarView.resx">
+      <DependentUpon>SchemingTool_ProgrBarView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\SchemingTool_SplashScreen.resx">
       <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>

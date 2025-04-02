@@ -54,7 +54,7 @@
             this.tableLayoutPanel.Controls.Add(this.txtDescription, 0, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 6;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
@@ -63,17 +63,16 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(458, 368);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(611, 453);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // lblProductName
             // 
             this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProductName.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductName.Location = new System.Drawing.Point(161, 0);
-            this.lblProductName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProductName.Location = new System.Drawing.Point(216, 0);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(295, 44);
+            this.lblProductName.Size = new System.Drawing.Size(392, 54);
             this.lblProductName.TabIndex = 0;
             this.lblProductName.Text = "Product Name";
             this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -82,10 +81,9 @@
             // 
             this.lblVersion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(161, 44);
-            this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVersion.Location = new System.Drawing.Point(216, 54);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(295, 40);
+            this.lblVersion.Size = new System.Drawing.Size(392, 49);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "Version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -94,10 +92,9 @@
             // 
             this.lblCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCopyright.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCopyright.Location = new System.Drawing.Point(161, 84);
-            this.lblCopyright.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCopyright.Location = new System.Drawing.Point(216, 103);
             this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(295, 40);
+            this.lblCopyright.Size = new System.Drawing.Size(392, 49);
             this.lblCopyright.TabIndex = 2;
             this.lblCopyright.Text = "Copyright";
             this.lblCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -106,10 +103,9 @@
             // 
             this.lblCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCompanyName.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompanyName.Location = new System.Drawing.Point(161, 124);
-            this.lblCompanyName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCompanyName.Location = new System.Drawing.Point(216, 152);
             this.lblCompanyName.Name = "lblCompanyName";
-            this.lblCompanyName.Size = new System.Drawing.Size(295, 40);
+            this.lblCompanyName.Size = new System.Drawing.Size(392, 49);
             this.lblCompanyName.TabIndex = 3;
             this.lblCompanyName.Text = "Company Name";
             this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -119,21 +115,21 @@
             this.panelImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelImage.BackgroundImage")));
             this.panelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelImage.Location = new System.Drawing.Point(2, 2);
-            this.panelImage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelImage.Location = new System.Drawing.Point(3, 2);
+            this.panelImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelImage.Name = "panelImage";
             this.tableLayoutPanel.SetRowSpan(this.panelImage, 4);
-            this.panelImage.Size = new System.Drawing.Size(155, 160);
+            this.panelImage.Size = new System.Drawing.Size(207, 197);
             this.panelImage.TabIndex = 4;
             // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnOK.Location = new System.Drawing.Point(376, 331);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOK.Location = new System.Drawing.Point(501, 406);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(80, 35);
+            this.btnOK.Size = new System.Drawing.Size(107, 45);
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -142,23 +138,23 @@
             // 
             this.tableLayoutPanel.SetColumnSpan(this.txtDescription, 2);
             this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDescription.Location = new System.Drawing.Point(2, 166);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDescription.Location = new System.Drawing.Point(3, 203);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(454, 161);
+            this.txtDescription.Size = new System.Drawing.Size(605, 199);
             this.txtDescription.TabIndex = 6;
             this.txtDescription.Text = "";
             // 
-            // AboutBox
+            // SchemingTool_AboutBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 368);
+            this.ClientSize = new System.Drawing.Size(611, 453);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "AboutBox";
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "SchemingTool_AboutBox";
             this.Text = "AboutBox";
             this.Load += new System.EventHandler(this.aboutBox_Load);
             this.tableLayoutPanel.ResumeLayout(false);

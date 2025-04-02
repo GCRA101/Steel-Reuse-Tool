@@ -30,10 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputsView));
             this.clbSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.prgbProgress = new System.Windows.Forms.ProgressBar();
             this.trbMinLength = new System.Windows.Forms.TrackBar();
             this.trbMaxLength = new System.Windows.Forms.TrackBar();
-            this.lblProgrBar = new System.Windows.Forms.Label();
             this.btnRun = new System.Windows.Forms.Button();
             this.lblSectionTypes = new System.Windows.Forms.Label();
             this.lblSteelGrades = new System.Windows.Forms.Label();
@@ -69,14 +67,6 @@
             this.clbSectionTypes.Size = new System.Drawing.Size(149, 104);
             this.clbSectionTypes.TabIndex = 0;
             // 
-            // prgbProgress
-            // 
-            this.prgbProgress.Location = new System.Drawing.Point(27, 734);
-            this.prgbProgress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.prgbProgress.Name = "prgbProgress";
-            this.prgbProgress.Size = new System.Drawing.Size(323, 32);
-            this.prgbProgress.TabIndex = 1;
-            // 
             // trbMinLength
             // 
             this.trbMinLength.Location = new System.Drawing.Point(33, 267);
@@ -100,28 +90,17 @@
             this.trbMaxLength.TabIndex = 3;
             this.trbMaxLength.Value = 6;
             // 
-            // lblProgrBar
-            // 
-            this.lblProgrBar.AutoSize = true;
-            this.lblProgrBar.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgrBar.Location = new System.Drawing.Point(23, 706);
-            this.lblProgrBar.Name = "lblProgrBar";
-            this.lblProgrBar.Size = new System.Drawing.Size(135, 17);
-            this.lblProgrBar.TabIndex = 29;
-            this.lblProgrBar.Text = "Iteration in Progress...";
-            // 
             // btnRun
             // 
             this.btnRun.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnRun.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRun.Location = new System.Drawing.Point(121, 642);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(4);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(141, 47);
             this.btnRun.TabIndex = 30;
             this.btnRun.Text = "RUN";
             this.btnRun.UseVisualStyleBackColor = true;
-            //this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // lblSectionTypes
             // 
@@ -202,7 +181,6 @@
             this.trbMaxWeight.SmallChange = 25;
             this.trbMaxWeight.TabIndex = 42;
             this.trbMaxWeight.Value = 100;
-            //this.trbMaxWeight.Scroll += new System.EventHandler(this.trbMaxWeight_Scroll);
             // 
             // lblMinWeight
             // 
@@ -316,7 +294,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 794);
+            this.ClientSize = new System.Drawing.Size(380, 729);
             this.Controls.Add(this.lblCutOffValue);
             this.Controls.Add(this.lblCutOff);
             this.Controls.Add(this.lblMaxWeightValue);
@@ -334,17 +312,16 @@
             this.Controls.Add(this.clbSteelGrades);
             this.Controls.Add(this.lblSectionTypes);
             this.Controls.Add(this.btnRun);
-            this.Controls.Add(this.lblProgrBar);
             this.Controls.Add(this.trbMaxLength);
             this.Controls.Add(this.trbMinLength);
-            this.Controls.Add(this.prgbProgress);
             this.Controls.Add(this.clbSectionTypes);
             this.Controls.Add(this.trbCutOff);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InputsView";
             this.Text = "InputsView";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.trbMinLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMaxLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinWeight)).EndInit();
@@ -358,10 +335,8 @@
         #endregion
 
         public System.Windows.Forms.CheckedListBox clbSectionTypes;
-        public System.Windows.Forms.ProgressBar prgbProgress;
         public System.Windows.Forms.TrackBar trbMinLength;
         public System.Windows.Forms.TrackBar trbMaxLength;
-        internal System.Windows.Forms.Label lblProgrBar;
         public System.Windows.Forms.Button btnRun;
         internal System.Windows.Forms.Label lblSectionTypes;
         internal System.Windows.Forms.Label lblSteelGrades;

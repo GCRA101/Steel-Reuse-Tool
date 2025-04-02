@@ -24,6 +24,7 @@ namespace ReuseSchemeTool.view
         //Main windows of the View
         private System.Windows.Forms.Form splashScreen;
         private System.Windows.Forms.Form aboutBox;
+        private System.Windows.Forms.Form progressBarView;
         private InputsView inputsView;
 
         //CONSTRUCTORS
@@ -88,10 +89,34 @@ namespace ReuseSchemeTool.view
             this.aboutBox.Close();
         }
 
+        public void createProgressBarView(Tool tool)
+        {
+            switch (tool)
+            {
+                case Tool.INSPECTOR:
+                    this.progressBarView = new InspectorTool_ProgrBarView(this.model);
+                    break;
+                case Tool.SCHEME:
+                    this.progressBarView = new SchemingTool_ProgrBarView(this.model);
+                    break;
+            }
+
+            this.model.registerObserver((Observer)this.progressBarView);
+            this.model.notifyObservers();
+
+            this.progressBarView.TopMost = true;
+            this.progressBarView.Show();
+            this.progressBarView.Refresh();
+
+            System.Threading.Thread.Sleep(500);
+        }
+
 
         // Getters
         public System.Windows.Forms.Form getSplashScreen() { return this.splashScreen; }
         public System.Windows.Forms.Form getAboutBox() { return this.aboutBox; }
+        public System.Windows.Forms.Form getProgressBarView() { return this.progressBarView; }
+        
         public InputsView getInputsView() { return this.inputsView; }
 
     }

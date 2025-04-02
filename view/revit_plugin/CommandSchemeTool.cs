@@ -53,20 +53,27 @@ namespace ReuseSchemeTool.view.revit_plugin
                 controller.initialize(Tool.SCHEME);
 
                 if (controller.view.getAboutBox().ShowDialog() == DialogResult.OK) {
+
                     controller.getSoundManager().play(Sound.CLICKBUTTON);
+
                     controller.view.createInputsView();
                     controller.getEventsListener().initializeInputsView();
                 }
 
                 if (controller.view.getInputsView().ShowDialog() == DialogResult.OK)
                 {
+                    //controller.view.getInputsView().TopMost = true;
+
+                    controller.getSoundManager().play(Sound.CLICKBUTTON);
+
+                    System.Threading.Thread.Sleep(1000);
+
+                    controller.view.createProgressBarView(Tool.SCHEME);
 
                     revitTransaction.Start();
 
                     controller.processInputData();
                     controller.run(Tool.SCHEME);
-                    controller.model.updateReuseRatings();
-                    controller.model.buildRevitViews();
 
                     // Close and Dispose Transaction
                     revitTransaction.Commit();

@@ -52,7 +52,6 @@ namespace ReuseSchemeTool.controller
         {            
             EventHandler clbClickHandler =new EventHandler(inputsViewClb_Click);
             EventHandler trbScrollHandler = new EventHandler(inputsViewTrb_Scroll);
-            EventHandler btnRunClickHandler = new EventHandler(inputsViewBtnRun_Click);
 
             this.clbSectionTypes = this.view.getInputsView().clbSectionTypes;
             clbSectionTypes.Click += clbClickHandler;
@@ -70,7 +69,6 @@ namespace ReuseSchemeTool.controller
             trbMaxWeight.Scroll += trbScrollHandler;
 
             this.btnRun = this.view.getInputsView().btnRun;
-            //btnRun.Click += btnRunClickHandler;
         }
 
 
@@ -93,32 +91,11 @@ namespace ReuseSchemeTool.controller
         {
             //Play Sound Effect
             //this.controller.getSoundManager().play(Sound.CLICKBUTTON);
-
-
             if (sender== trbMinLength) {this.view.getInputsView().lblMinLengthValue.Text = trbMinLength.Value.ToString();}
             if (sender == trbMaxLength) { this.view.getInputsView().lblMaxLengthValue.Text = trbMaxLength.Value.ToString(); }
             if (sender == trbCutOff) { this.view.getInputsView().lblCutOffValue.Text = Math.Round((trbCutOff.Value/10.0),1).ToString(); }
             if (sender == trbMinWeight) { this.view.getInputsView().lblMinWeightValue.Text = trbMinWeight.Value.ToString(); }
             if (sender == trbMaxWeight) { this.view.getInputsView().lblMaxWeightValue.Text = trbMaxWeight.Value.ToString(); }
-        }
-
-        private void inputsViewBtnRun_Click(System.Object sender, System.EventArgs e)
-        {
-            //Play Sound Effect
-            this.controller.getSoundManager().play(Sound.CLICKBUTTON);
-
-            //Launch the process while catching exceptions
-            try
-            {
-                this.controller.processInputData();
-                this.controller.run(Tool.SCHEME);
-                this.controller.terminate(Tool.SCHEME);
-            }
-            catch (MissingInputsException ex1) 
-            {
-                this.controller.getMissingInputsHandler().execute(ex1); 
-            }
-            
         }
 
     }

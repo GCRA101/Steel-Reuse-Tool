@@ -22,6 +22,7 @@ namespace ReuseSchemeTool.view
         //ATTRIBUTES
         protected RST_Model model;
         protected RST_Controller controller;
+        private int progrBarStep;
 
 
         public InputsView(RST_Model model, RST_Controller controller)
@@ -112,10 +113,7 @@ namespace ReuseSchemeTool.view
 
 
 
-        public void update()
-        {
-            throw new NotImplementedException();
-        }
+        public void update() { }
 
     }
 }

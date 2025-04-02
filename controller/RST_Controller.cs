@@ -1,6 +1,7 @@
 ﻿using ReuseSchemeTool.model;
 using ReuseSchemeTool.view;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,16 +73,26 @@ namespace ReuseSchemeTool.controller
                     this.model.runInspection();
                     break;
                 case Tool.SCHEME:
-                    this.model.runScheming();
+                    try
+                    {
+                        this.model.runScheming();
+                        this.model.updateReuseRatings();
+                        this.model.buildRevitViews();
+                        this.soundManager.play(Sound.ENDRUN);
+                    }
+                    catch (MissingInputsException ex1)
+                    {
+                        missingInputsHandler.execute(ex1);
+                    }
                     break;
             }
-            
+
         }
 
         public void serialize()
-        {
-            throw new NotImplementedException();
-        }
+            {
+                throw new NotImplementedException();
+            }
 
         public void terminate(Tool tool)
         {
@@ -93,11 +104,13 @@ namespace ReuseSchemeTool.controller
                     //Close and dispose the form
                     this.view.getInputsView().Close();
                     this.view.getInputsView().Dispose();
+                    //Close and dispose the progress bar view
+                    this.view.getProgressBarView().Close();
+                    this.view.getProgressBarView().Dispose();
                     break;
             }
 
         }
-
 
         public void processInputData()
         {
