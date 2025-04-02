@@ -286,7 +286,6 @@
   <ItemGroup>
     <EmbeddedResource Include="controller\sounds\CHECKBOX.wav" />
     <EmbeddedResource Include="controller\sounds\CLICKBUTTON.wav" />
-    <EmbeddedResource Include="controller\sounds\ENDRUN.wav" />
     <EmbeddedResource Include="controller\sounds\SPLASHSCREEN.wav" />
     <EmbeddedResource Include="controller\sounds\WARNING.wav" />
   </ItemGroup>
@@ -300,6 +299,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="view\icons\BHicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="controller\sounds\ENDINSPECTION.wav" />
+    <EmbeddedResource Include="controller\sounds\ENDSCHEME.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

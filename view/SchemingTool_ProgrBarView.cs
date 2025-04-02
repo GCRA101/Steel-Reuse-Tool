@@ -44,6 +44,9 @@ namespace ReuseSchemeTool.view
         {
             // UPDATE PROGRESS BAR
 
+            // Make sure the Progress Bar is top most
+            this.TopMost = true;
+
             // Get input maximum number of iterations
             int iterNumMax = this.model.getNumSteps();
             // Define value of progress bar step based on max number of iterations

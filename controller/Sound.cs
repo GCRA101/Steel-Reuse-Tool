@@ -12,6 +12,7 @@ namespace ReuseSchemeTool.controller
         CLICKBUTTON,
         CHECKBOX,
         WARNING,
-        ENDRUN
+        END_INSPECTION,
+        END_SCHEME
     }
 }

@@ -41,7 +41,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.15385F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.84615F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel.Controls.Add(this.panelLogo, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.prgbProgress, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.lblProgrPercent, 2, 0);
@@ -79,7 +79,7 @@
             // 
             this.lblProgrPercent.AutoSize = true;
             this.lblProgrPercent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProgrPercent.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgrPercent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProgrPercent.Location = new System.Drawing.Point(328, 0);
             this.lblProgrPercent.Name = "lblProgrPercent";
             this.lblProgrPercent.Size = new System.Drawing.Size(57, 57);

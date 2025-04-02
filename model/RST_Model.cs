@@ -41,6 +41,7 @@ namespace ReuseSchemeTool.model
         public Autodesk.Revit.DB.Document dbDoc;
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
+        private ExcelDataManager excelDataManager;
         public Queue<View> revitViews = new Queue<View>();
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
@@ -558,7 +559,7 @@ namespace ReuseSchemeTool.model
         public void createExcelFile(string embeddedFilePath, string outputsFolderPath, List<ExistingSteelFrame> existingSteelFrames, Tool tool)
         {
 
-            ExcelDataManager excelDataManager = new ExcelDataManager(embeddedFilePath, outputsFolderPath);
+            excelDataManager = new ExcelDataManager(embeddedFilePath, outputsFolderPath);
             excelDataManager.initialize();
 
             switch (tool)
@@ -579,7 +580,6 @@ namespace ReuseSchemeTool.model
 
             if (tool == Tool.INSPECTOR)
             {
-                excelDataManager.setTopMost();
                 excelDataManager.visible(true);
             }
 
@@ -632,6 +632,8 @@ namespace ReuseSchemeTool.model
 
             return null;
         }
+
+        public ExcelDataManager getExcelDataManager() { return this.excelDataManager; }
         public string getModelVersion() { return MODEL_VERSION; }
         public string getModelCopyRight() { return MODEL_COPYRIGHT; }
         public string getModelAuthor() { return MODEL_AUTHOR; }

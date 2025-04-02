@@ -54,6 +54,8 @@ namespace ReuseSchemeTool.view.revit_plugin
                 if (controller.view.getAboutBox().ShowDialog() == DialogResult.OK) {
                     controller.getSoundManager().play(Sound.CLICKBUTTON);
 
+                    System.Threading.Thread.Sleep(1000);
+
                     controller.view.createProgressBarView(Tool.INSPECTOR);
 
                     revitTransaction.Start();

@@ -71,6 +71,7 @@ namespace ReuseSchemeTool.controller
             {
                 case Tool.INSPECTOR:
                     this.model.runInspection();
+                    this.soundManager.play(Sound.END_INSPECTION);
                     break;
                 case Tool.SCHEME:
                     try
@@ -78,7 +79,7 @@ namespace ReuseSchemeTool.controller
                         this.model.runScheming();
                         this.model.updateReuseRatings();
                         this.model.buildRevitViews();
-                        this.soundManager.play(Sound.ENDRUN);
+                        this.soundManager.play(Sound.END_SCHEME);
                     }
                     catch (MissingInputsException ex1)
                     {
@@ -99,6 +100,11 @@ namespace ReuseSchemeTool.controller
             switch (tool)
             {
                 case Tool.INSPECTOR:
+                    //Close and dispose the progress bar view
+                    this.view.getProgressBarView().Close();
+                    this.view.getProgressBarView().Dispose();
+                    System.Threading.Thread.Sleep(1000);
+                    this.model.getExcelDataManager().setTopMost();
                     break;
                 case Tool.SCHEME:
                     //Close and dispose the form

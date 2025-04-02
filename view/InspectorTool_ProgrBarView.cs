@@ -44,6 +44,9 @@ namespace ReuseSchemeTool.view
         {
             // UPDATE PROGRESS BAR
 
+            // Make sure the Progress Bar is top most
+            this.TopMost = true;
+
             // Get input maximum number of iterations
             int iterNumMax = this.model.getNumSteps();
             // Define value of progress bar step based on max number of iterations
@@ -52,7 +55,7 @@ namespace ReuseSchemeTool.view
                 this.progrBarStep = (int)((this.prgbProgress.Maximum - this.prgbProgress.Minimum) / iterNumMax);
             }
             // Increment the progress bar if step has been run
-            if (this.model.isSchemingRun() || this.model.isUpdateReuseRatingRun() || this.model.isBuildRevitViewsRun())
+            if (this.model.isPullRevitDataRun() || this.model.isConvertDataRun() || this.model.isPushToExcelRun())
             {
                 this.prgbProgress.Increment(progrBarStep);
                 System.Threading.Thread.Sleep(1000);
@@ -63,7 +66,7 @@ namespace ReuseSchemeTool.view
             }
 
             // ITERATION COMPLETE MESSAGE
-            if (this.model.isSchemingComplete() == true)
+            if (this.model.isInspectionComplete() == true)
             {
                 //this.lblProgrBar.Text = "PROCESS COMPLETE!";
                 this.prgbProgress.Increment(this.prgbProgress.Maximum - this.prgbProgress.Value);
