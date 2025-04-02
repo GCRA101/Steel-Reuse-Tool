@@ -47,7 +47,7 @@ namespace ReuseSchemeTool.view
             //Company Name info
             this.lblCompanyName.Text = this.model.getModelOwner();
             //Description
-            this.txtDescription.Text = ControllerFileManager.getDocText(Document.APP_DESCRIPTION);
+            this.txtDescription.Text = ControllerFileManager.getDocText(Document.INSPECTORTOOL_DESCRIPTION);
         }
 
     }

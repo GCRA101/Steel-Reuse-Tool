@@ -41,7 +41,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 String inspector_largeImagePath = "ReuseSchemeTool.view.images.InspectorTool_AppLogo32x32.png";
                 String inspector_toolTipImagePath = "ReuseSchemeTool.view.images.InspectorTool_AppLogo.png";
                 String inspector_toolTipText = "Reuse Inspector Tool";
-                String inspector_longDescriptionFilePath = "ReuseSchemeTool.text_files.InspectorTool_LongDescription.txt";
+                String inspector_longDescriptionFilePath = "ReuseSchemeTool.model.text_files.InspectorTool_LongDescription.txt";
                 String inspector_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(inspector_longDescriptionFilePath)).ReadToEnd();
                 String inspector_className = "ReuseSchemeTool.view.revit_plugin.CommandInspectorTool";
                 // Scheming Tool
@@ -49,7 +49,7 @@ namespace ReuseSchemeTool.view.revit_plugin
                 String scheming_largeImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo32x32.png";
                 String scheming_toolTipImagePath = "ReuseSchemeTool.view.images.SchemingTool_AppLogo.png";
                 String scheming_toolTipText = "Reuse Inspector Tool";
-                String scheming_longDescriptionFilePath = "ReuseSchemeTool.text_files.SchemingTool_LongDescription.txt";
+                String scheming_longDescriptionFilePath = "ReuseSchemeTool.model.text_files.SchemingTool_LongDescription.txt";
                 String scheming_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(scheming_longDescriptionFilePath)).ReadToEnd();
                 String scheming_className = "ReuseSchemeTool.view.revit_plugin.CommandSchemeTool";
 

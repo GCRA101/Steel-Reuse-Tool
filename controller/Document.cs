@@ -8,6 +8,7 @@ namespace ReuseSchemeTool.controller
 {
     public enum Document
     {
-        APP_DESCRIPTION
+        INSPECTORTOOL_DESCRIPTION,
+        SCHEMETOOL_DESCRIPTION
     }
 }

@@ -243,12 +243,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="text_files\AboutBox_Description.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="text_files\InspectorTool_LongDescription.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -278,12 +272,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="text_files\SchemingTool_LongDescription.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="text_files\C02_SavingFactors.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="controller\sounds\CHECKBOX.wav" />
     <EmbeddedResource Include="controller\sounds\CLICKBUTTON.wav" />
     <EmbeddedResource Include="controller\sounds\SPLASHSCREEN.wav" />
@@ -303,6 +291,11 @@
   <ItemGroup>
     <EmbeddedResource Include="controller\sounds\ENDINSPECTION.wav" />
     <EmbeddedResource Include="controller\sounds\ENDSCHEME.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="model\text_files\C02_SavingFactors.txt" />
+    <EmbeddedResource Include="model\text_files\InspectorTool_LongDescription.txt" />
+    <EmbeddedResource Include="model\text_files\SchemingTool_LongDescription.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

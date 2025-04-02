@@ -462,7 +462,7 @@ namespace ReuseSchemeTool.model
                     if (cd.getName().Contains("WITHIN")) { cd.setName("(Inside criteria kg * 1.6965) =\n " + cd.getValue() * 1.6965 + "kgCO2e savings"); }
                 });
 
-                String c02SavingFactors_NotesFilePath = "ReuseSchemeTool.text_files.C02_SavingFactors.txt";
+                String c02SavingFactors_NotesFilePath = "ReuseSchemeTool.model.text_files.C02_SavingFactors.txt";
                 String c02SavingFactors_Notes = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(c02SavingFactors_NotesFilePath)).ReadToEnd();
 
                 ViewDrafting bcC02SavingsView = (ViewDrafting)ViewsFactory.getInstance().create(dbDoc, RevitViewType.DRAFTING, "Reuse Scheme Bar Chart - Potential Carbon Savings", 20);

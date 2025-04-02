@@ -16,8 +16,10 @@ namespace ReuseSchemeTool.controller
             //Return a pre-set file path depending on the value of the input Document enumeration
             switch (doc)
             {
-                case Document.APP_DESCRIPTION:
-                    return "ReuseSchemeTool.text_files.AboutBox_Description.txt";
+                case Document.INSPECTORTOOL_DESCRIPTION:
+                    return "ReuseSchemeTool.model.text_files.InspectorTool_LongDescription.txt";
+                case Document.SCHEMETOOL_DESCRIPTION:
+                    return "ReuseSchemeTool.model.text_files.SchemingTool_LongDescription.txt";
                 default:
                     return null;
             }
