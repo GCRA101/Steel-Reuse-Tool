@@ -104,7 +104,7 @@ namespace ReuseSchemeTool.model.revit
 
                     File.WriteAllBytes(tempFilePath, readFully(stream));
 
-                    bool success = dbDoc.LoadFamily(tempFilePath, out embeddedRevitFamily);
+                    bool success = dbDoc.LoadFamily(tempFilePath.Split('.').Last(), out embeddedRevitFamily);
 
                     embeddedRevitFamilies.Add(embeddedRevitFamily);
 
