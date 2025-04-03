@@ -6,15 +6,17 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using Microsoft.Office.Interop.Excel;
+using Autodesk.Revit.DB;
+using Microsoft.Office.Core;
+using Excel = Microsoft.Office.Interop.Excel;
 using ReuseSchemeTool.model;
 
 public class ExcelDataManager
 {
     // ATTRIBUTES
     private Microsoft.Office.Interop.Excel.Application ExcelApp;
-    private Workbook ExcelWkb;
-    private Worksheet ExcelWks;
+    private Excel.Workbook ExcelWkb;
+    private Excel.Worksheet ExcelWks;
     private string filePath;
     private string outputsFolderPath;
 
@@ -92,7 +94,7 @@ public class ExcelDataManager
     private void activateWorksheet(string worksheetName)
     {
         // 1. OPEN/CREATE EXCEL WORKSHEET
-        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
+        if (ExcelWkb.Worksheets.Cast<Excel.Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
         {
             ExcelWks = ExcelWkb.Worksheets[worksheetName];
         }
@@ -101,16 +103,16 @@ public class ExcelDataManager
             ExcelWks = ExcelWkb.Worksheets.Add();
             ExcelWks.Name = worksheetName;
         }
-        ExcelWks.Tab.ColorIndex = (XlColorIndex)6;
+        ExcelWks.Tab.ColorIndex = (Excel.XlColorIndex)6;
         ExcelWks.Activate();
 
     }
 
     public void hideWorksheet(string worksheetName)
     {
-        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
+        if (ExcelWkb.Worksheets.Cast<Excel.Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
         {
-            ExcelWkb.Worksheets[worksheetName].Visible=XlSheetVisibility.xlSheetHidden;
+            ExcelWkb.Worksheets[worksheetName].Visible= Excel.XlSheetVisibility.xlSheetHidden;
         }
 
     }
@@ -123,10 +125,10 @@ public class ExcelDataManager
 
     public void printWorkSheet(string worksheetName, string folderPath)
     {
-        if (ExcelWkb.Worksheets.Cast<Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
+        if (ExcelWkb.Worksheets.Cast<Excel.Worksheet>().Select(wks => wks.Name).Contains(worksheetName))
         {
-            Worksheet wks = ExcelWkb.Worksheets[worksheetName];
-            wks.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, folderPath + "\\" + wks.Name + ".pdf"); 
+            Excel.Worksheet wks = ExcelWkb.Worksheets[worksheetName];
+            wks.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, folderPath + "\\" + wks.Name + ".pdf"); 
         }
     }
 
@@ -164,9 +166,9 @@ public class ExcelDataManager
             matrix[i,4] = existingFrame.getReuseRating().ToString();
         }
 
-        Range topLeftCell = ExcelWks.Range[startCellAddress];
-        Range btmRightCell = ExcelWks.Range[startCellAddress].Offset[data.Count()-1, 4];
-        Range outputsRange = ExcelApp.Range[topLeftCell, btmRightCell];
+        Excel.Range topLeftCell = ExcelWks.Range[startCellAddress];
+        Excel.Range btmRightCell = ExcelWks.Range[startCellAddress].Offset[data.Count()-1, 4];
+        Excel.Range outputsRange = ExcelApp.Range[topLeftCell, btmRightCell];
 
         outputsRange.Value = matrix;
 
@@ -193,16 +195,16 @@ public class ExcelDataManager
         }
     }
 
-    public void formatRange(Range range, ExcelRangeType excelRangeType)
+    public void formatRange(Excel.Range range, ExcelRangeType excelRangeType)
     {
         // Assign specific Range Format based on input ExcelRangeType Enum value
         switch (excelRangeType)
         {
             case ExcelRangeType.HEADER_PRIMARY:
                 // Call private FormatRange() method with pre-set inputs
-                formatRange(range, "Segoe UI", 10, true, XlHAlign.xlHAlignCenter, XlVAlign.xlVAlignCenter, XlLineStyle.xlContinuous,
-                    XlBorderWeight.xlMedium, XlColorIndex.xlColorIndexNone, XlPattern.xlPatternLinearGradient, 90,
-                    XlThemeColor.xlThemeColorAccent6, false);
+                formatRange(range, "Segoe UI", 10, true, XlHAlign.xlHAlignCenter, XlVAlign.xlVAlignCenter, Excel.XlLineStyle.xlContinuous,
+                    XlBorderWeight.xlMedium, XlColorIndex.xlColorIndexNone, Excel.XlPattern.xlPatternLinearGradient, 90,
+                    Excel.XlThemeColor.xlThemeColorAccent6, false);
                 break;
             case ExcelRangeType.HEADER_SECONDARY:
                 // Call private FormatRange() method with pre-set inputs
@@ -215,11 +217,11 @@ public class ExcelDataManager
         }
     }
 
-    private void formatRange(Range range, string fontName = "Segoe UI", int fontSize = 10, bool fontBold = false,
+    private void formatRange(Excel.Range range, string fontName = "Segoe UI", int fontSize = 10, bool fontBold = false,
     XlHAlign textHorAlignment = XlHAlign.xlHAlignCenter, XlVAlign textVertAlignment = XlVAlign.xlVAlignCenter,
-    XlLineStyle borderLineStyle = XlLineStyle.xlContinuous, XlBorderWeight borderLineWeight = XlBorderWeight.xlThin,
-        XlColorIndex interiorColor = XlColorIndex.xlColorIndexNone, XlPattern interiorPattern = XlPattern.xlPatternNone,
-        int gradientDegree = 0, XlThemeColor gradientThemeColor = XlThemeColor.xlThemeColorDark1, bool autoFit = true)
+    Excel.XlLineStyle borderLineStyle = Excel.XlLineStyle.xlContinuous, XlBorderWeight borderLineWeight = XlBorderWeight.xlThin,
+        XlColorIndex interiorColor = XlColorIndex.xlColorIndexNone, Excel.XlPattern interiorPattern = Excel.XlPattern.xlPatternNone,
+        int gradientDegree = 0, Excel.XlThemeColor gradientThemeColor = Excel.XlThemeColor.xlThemeColorDark1, bool autoFit = true)
     {
         // Font
         range.Font.Name = fontName;
@@ -231,7 +233,7 @@ public class ExcelDataManager
         range.VerticalAlignment = textVertAlignment;
 
         // Color Pattern
-        if (interiorPattern != XlPattern.xlPatternNone)
+        if (interiorPattern != Excel.XlPattern.xlPatternNone)
         {
             range.Interior.ColorIndex = interiorColor;
             range.Interior.Pattern = interiorPattern;
@@ -241,8 +243,8 @@ public class ExcelDataManager
         }
 
         // Edges
-        XlBordersIndex[] edgeTypes = { XlBordersIndex.xlEdgeLeft, XlBordersIndex.xlEdgeTop,
-                                       XlBordersIndex.xlEdgeRight, XlBordersIndex.xlEdgeBottom };
+        Excel.XlBordersIndex[] edgeTypes = { Excel.XlBordersIndex.xlEdgeLeft, Excel.XlBordersIndex.xlEdgeTop,
+                                                Excel.XlBordersIndex.xlEdgeRight, Excel.XlBordersIndex.xlEdgeBottom };
 
         edgeTypes.ToList().ForEach(edgeType =>
         {

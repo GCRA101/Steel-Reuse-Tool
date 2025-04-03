@@ -42,7 +42,7 @@ namespace ReuseSchemeTool.model
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
         private ExcelDataManager excelDataManager;
-        public Queue<View> revitViews = new Queue<View>();
+        public Queue<Autodesk.Revit.DB.View> revitViews = new Queue<Autodesk.Revit.DB.View>();
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
         private string excelFilesFolderPath;
@@ -274,7 +274,7 @@ namespace ReuseSchemeTool.model
 
                 RevitFileManager.loadEmbeddedRevitFamilies(dbDoc, "ReuseSchemeTool.model.revit_files.Revit2020");
 
-                View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View", 100);
+                Autodesk.Revit.DB.View ThreeDView = ViewsFactory.getInstance().create(dbDoc, RevitViewType.THREE_D, "Reuse Scheme 3D View", 100);
 
                 // Collect only the Existing Steel Frames
                 RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
