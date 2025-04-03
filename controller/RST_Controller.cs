@@ -104,6 +104,8 @@ namespace ReuseSchemeTool.controller
                     this.view.getProgressBarView().Close();
                     this.view.getProgressBarView().Dispose();
                     System.Threading.Thread.Sleep(1000);
+                    this.model.getExcelDataManager().initialize();
+                    this.model.getExcelDataManager().visible(true);
                     this.model.getExcelDataManager().setTopMost();
                     break;
                 case Tool.SCHEME:

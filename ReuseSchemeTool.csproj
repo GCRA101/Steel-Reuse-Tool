@@ -210,8 +210,6 @@
     <Compile Include="view\WindowResizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="model\excel_files\Database_Graphs.xlsm" />
-    <EmbeddedResource Include="model\revit_files\Revit2020\BHE_TitleBlocks_A0-A1-A2.rfa" />
     <EmbeddedResource Include="view\InputsView.resx">
       <DependentUpon>InputsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +231,8 @@
     <EmbeddedResource Include="view\SchemingTool_SplashScreen.resx">
       <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="model\excel_files\Database_Graphs.xlsm" />
+    <EmbeddedResource Include="model\revit_files\Revit2020\BHE_TitleBlocks_A0-A1-A2_RST.rfa" />
     <None Include="packages.config" />
     <None Include="ReuseSchemeTool.addin" />
   </ItemGroup>
@@ -296,6 +296,10 @@
     <EmbeddedResource Include="model\text_files\C02_SavingFactors.txt" />
     <EmbeddedResource Include="model\text_files\InspectorTool_LongDescription.txt" />
     <EmbeddedResource Include="model\text_files\SchemingTool_LongDescription.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\images\InspectorTool_AppLogo300x300.png" />
+    <EmbeddedResource Include="view\images\SchemingTool_AppLogo300x300.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -560,12 +561,13 @@ namespace ReuseSchemeTool.model
         {
 
             excelDataManager = new ExcelDataManager(embeddedFilePath, outputsFolderPath);
-            excelDataManager.initialize();
+            excelDataManager.initialize(false, true);
 
             switch (tool)
             {
                 case (Tool.INSPECTOR):
                     excelDataManager.write(existingSteelFrames, "Inputs", "A2");
+                    excelDataManager.getExcelApp().Run("Module1.ResetGraphs");
                     break;
                 case (Tool.SCHEME):
                     string endCutOffLength = ((UserDefined_RatingStrategy)this.reuseRatingCalculator.getRatingStrategy()).endCutOffLength.ToString();
@@ -580,7 +582,8 @@ namespace ReuseSchemeTool.model
 
             if (tool == Tool.INSPECTOR)
             {
-                excelDataManager.visible(true);
+                excelDataManager.refreshWorkbook();
+                excelDataManager.dispose();
             }
 
             if (tool == Tool.SCHEME)

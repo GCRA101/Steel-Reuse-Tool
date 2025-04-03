@@ -73,11 +73,13 @@ public class ExcelDataManager
 
 
     // METHODS
-    public void initialize(bool excelAppVisible = false)
+    public void initialize(bool excelAppVisible = false, bool macrosEnabled=false)
     {
         // 1. INITIALIZE EXCEL APPLICATION
         ExcelApp = new Microsoft.Office.Interop.Excel.Application();
         ExcelApp.Visible = excelAppVisible;
+
+        if (macrosEnabled) ExcelApp.AutomationSecurity = MsoAutomationSecurity.msoAutomationSecurityLow;
 
         // 2. OPEN/CREATE EXCEL WORKBOOK
         if (filePath == "")
@@ -191,6 +193,8 @@ public class ExcelDataManager
         {
             ExcelWkb.Save();
             ExcelWkb.Close();
+            ExcelApp.Quit();
+            Marshal.ReleaseComObject(ExcelApp);
             ExcelApp = null;
         }
     }
@@ -267,7 +271,6 @@ public class ExcelDataManager
     }
 
 
-
     // Import the SetWindowPos function from the user32.dll
     [DllImport("user32.dll")]
     private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
@@ -290,5 +293,11 @@ public class ExcelDataManager
         SetWindowPos(excelHandle, HWND_TOPMOST, x, y, width, height, SWP_NOSIZE | SWP_NOMOVE | SWP_SHOWWINDOW);
 
     }
+
+
+    public Microsoft.Office.Interop.Excel.Application getExcelApp() { return this.ExcelApp; }
+    public Excel.Workbook getExcelWkb() { return this.ExcelWkb; }
+    public Excel.Worksheet getExcelWks() { return this.ExcelWks; }
+
 
 }
