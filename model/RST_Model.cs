@@ -497,7 +497,7 @@ namespace ReuseSchemeTool.model
 
 
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc), "SKXXX", "STEEL REUSE POTENTIAL OVERVIEW");
-                ViewSheetBuilder.buildTitleBlock("BHE_A1");
+                ViewSheetBuilder.buildTitleBlock("BHE_TitleBlocks_A0-A1-A2_RST", "BHE_A1");
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);

@@ -100,11 +100,13 @@ namespace ReuseSchemeTool.model.revit
                     if (stream == null) break;
 
                     // Create a temporary file
-                    string tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetFileName(fPath));
+                    string[] splitFilePath = fPath.Split('.');
+                    string fileName = splitFilePath[splitFilePath.Length - 2] + "." + splitFilePath.Last();
+                    string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
 
                     File.WriteAllBytes(tempFilePath, readFully(stream));
 
-                    bool success = dbDoc.LoadFamily(tempFilePath.Split('.').Last(), out embeddedRevitFamily);
+                    bool success = dbDoc.LoadFamily(tempFilePath, out embeddedRevitFamily);
 
                     embeddedRevitFamilies.Add(embeddedRevitFamily);
 

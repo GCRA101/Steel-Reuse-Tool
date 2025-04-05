@@ -25,13 +25,13 @@ namespace ReuseSchemeTool.model.revit
             viewSheet.LookupParameter("BHE_Sheet Title 1").Set(title);
         }
 
-        public static void buildTitleBlock(string titleBlockTypeName)
+        public static void buildTitleBlock(string titleBlockFamilySymbolName, string titleBlockTypeName)
         {
             if (viewSheet == null) { return; }
 
-            if (searchTitleBlockByName(titleBlockTypeName)!=null) 
+            if (searchTitleBlockByName(titleBlockFamilySymbolName, titleBlockTypeName) !=null) 
             {
-                Autodesk.Revit.DB.Element titleBlock = searchTitleBlockByName(titleBlockTypeName);
+                Autodesk.Revit.DB.Element titleBlock = searchTitleBlockByName(titleBlockFamilySymbolName, titleBlockTypeName);
                 viewSheet.ConvertToRealSheet(titleBlock.Id);
             }
 
@@ -170,13 +170,14 @@ namespace ReuseSchemeTool.model.revit
 
 
 
-        private static Element searchTitleBlockByName(string titleBlockTypeName)
+        private static Element searchTitleBlockByName(string titleBlockFamilySymbolName, string titleBlockTypeName)
         {
             return new FilteredElementCollector(viewSheet.Document)
                     .WhereElementIsElementType()
                     .OfCategory(BuiltInCategory.OST_TitleBlocks)
+                    .Cast<FamilySymbol>()
                     .ToList()
-                    .First(tb => tb.Name == titleBlockTypeName);
+                    .First(fb => (fb.FamilyName == titleBlockFamilySymbolName) && (fb.Name == titleBlockTypeName));
         }
 
 
