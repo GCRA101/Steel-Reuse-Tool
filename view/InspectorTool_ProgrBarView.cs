@@ -81,6 +81,17 @@ namespace ReuseSchemeTool.view
         }
 
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // Create a pen with the desired color and thickness
+            Pen darkPen = new Pen(Color.DarkGray, 5);
+            // Draw a rectangle around the form
+            e.Graphics.DrawRectangle(darkPen, 0, 0, this.ClientSize.Width - 1, this.ClientSize.Height - 1);
+
+        }
+
+
         protected override CreateParams CreateParams
         {
             get
