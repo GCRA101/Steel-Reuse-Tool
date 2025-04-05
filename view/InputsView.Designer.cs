@@ -50,6 +50,7 @@
             this.lblCutOffValue = new System.Windows.Forms.Label();
             this.lblCutOff = new System.Windows.Forms.Label();
             this.trbCutOff = new System.Windows.Forms.TrackBar();
+            this.fbd_SchemeOuputs = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMaxLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinWeight)).BeginInit();
@@ -355,5 +356,6 @@
         public System.Windows.Forms.Label lblCutOffValue;
         internal System.Windows.Forms.Label lblCutOff;
         public System.Windows.Forms.TrackBar trbCutOff;
+        public System.Windows.Forms.FolderBrowserDialog fbd_SchemeOuputs;
     }
 }

@@ -44,6 +44,7 @@ namespace ReuseSchemeTool.model
         private FrameConverter frameConverter;
         private ExcelDataManager excelDataManager;
         public Queue<Autodesk.Revit.DB.View> revitViews = new Queue<Autodesk.Revit.DB.View>();
+        private string outputsParentFolderPath;
         private string outputsFolderPath;
         private string jsonFilesFolderPath;
         private string excelFilesFolderPath;
@@ -113,13 +114,13 @@ namespace ReuseSchemeTool.model
             switch (tool)
             {
                 case (Tool.INSPECTOR):
-                    this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Inspector_Ouputs");
+                    this.outputsFolderPath = FileManager.setDatedFolderPath(this.outputsParentFolderPath, "RST_Inspector_Ouputs");
                     this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
                     this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
                     folderPaths = new List<string>() { this.excelFilesFolderPath, this.pdfFilesFolderPath };
                     break;
                 case (Tool.SCHEME):
-                    this.outputsFolderPath = FileManager.setDatedFolderPath(System.IO.Path.GetDirectoryName(revitModelPath), "RST_Scheming_Ouputs");
+                    this.outputsFolderPath = FileManager.setDatedFolderPath(this.outputsParentFolderPath, "RST_Scheming_Ouputs");
                     this.jsonFilesFolderPath = this.outputsFolderPath + "\\JSON_Files";
                     this.excelFilesFolderPath = this.outputsFolderPath + "\\EXCEL_Files";
                     this.pdfFilesFolderPath = this.outputsFolderPath + "\\PDF_Files";
@@ -636,6 +637,8 @@ namespace ReuseSchemeTool.model
             return null;
         }
 
+        public void setOutputsParentFolderPath (string outputsParentFolderPath) { this.outputsParentFolderPath = outputsParentFolderPath; }
+        public string getOutputsParentFolderPath() { return this.outputsParentFolderPath; }
         public ExcelDataManager getExcelDataManager() { return this.excelDataManager; }
         public string getModelVersion() { return MODEL_VERSION; }
         public string getModelCopyRight() { return MODEL_COPYRIGHT; }

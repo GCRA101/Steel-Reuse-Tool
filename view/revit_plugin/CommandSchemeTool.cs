@@ -68,6 +68,16 @@ namespace ReuseSchemeTool.view.revit_plugin
 
                     System.Threading.Thread.Sleep(1000);
 
+                    FolderBrowserDialog fbd_SchemeOutputs = new FolderBrowserDialog()
+                    {Description = "Select Folder to store the Ouputs"};
+
+                    if (fbd_SchemeOutputs.ShowDialog()==DialogResult.OK)
+                    {
+                        controller.model.setOutputsParentFolderPath(fbd_SchemeOutputs.SelectedPath);
+                    }
+
+                    System.Threading.Thread.Sleep(1000);
+
                     controller.view.createProgressBarView(Tool.SCHEME);
 
                     revitTransaction.Start();
