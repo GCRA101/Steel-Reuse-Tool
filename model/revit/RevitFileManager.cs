@@ -68,6 +68,59 @@ namespace ReuseSchemeTool.model.revit
             }
         }
 
+
+        public static void exportRevitViewToPDF(Autodesk.Revit.UI.UIDocument uiDoc, Autodesk.Revit.DB.View view, string folderPath)
+        {
+
+            Transaction revitTransaction = null;
+            Autodesk.Revit.DB.Document dbDoc = view.Document;
+
+            try
+            {
+                //Start New Transaction
+                if (!dbDoc.IsModifiable)
+                {
+                    revitTransaction = new Transaction(dbDoc, "Export View as PDF");
+                    revitTransaction.Start();
+                }
+
+                PDFExportOptions pdfExportOptions = new PDFExportOptions
+                {
+                    Combine = true,
+                    FileName = view.Name
+                };
+
+                List<ElementId> viewIds = new List<ElementId> {view.Id};
+
+                dbDoc.Export(folderPath, viewIds, pdfExportOptions);
+
+
+                if (revitTransaction != null)
+                {
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (revitTransaction != null)
+                {
+
+                    revitTransaction.RollBack();
+
+                    TaskDialog.Show("ERROR MESSAGES", ex.Message);
+
+                    // Close and Dispose Transaction
+                    revitTransaction.Commit();
+                    revitTransaction.Dispose();
+                }
+            }
+        }
+
+
+
         public static List<Autodesk.Revit.DB.Family> loadEmbeddedRevitFamilies(Autodesk.Revit.DB.Document dbDoc,string embedFolderPath)
         {
             Transaction revitTransaction = null;

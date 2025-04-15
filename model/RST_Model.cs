@@ -43,6 +43,7 @@ namespace ReuseSchemeTool.model
         private ReuseRatingCalculator reuseRatingCalculator;
         private FrameConverter frameConverter;
         private ExcelDataManager excelDataManager;
+        private ViewSheet viewSheet;
         public Queue<Autodesk.Revit.DB.View> revitViews = new Queue<Autodesk.Revit.DB.View>();
         private string outputsParentFolderPath;
         private string outputsFolderPath;
@@ -163,6 +164,7 @@ namespace ReuseSchemeTool.model
             /* 3. GENERATE OUTPUTS */
             // Excel File
             this.createExcelFile(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath, existingSteelFrames, Tool.INSPECTOR);
+            RevitFileManager.exportRevitViewToImage(uiDoc, this.viewSheet, this.pdfFilesFolderPath + "\\PDF_Files");
 
             this.inspectorTool_pushToExcelRun = true;
             this.inspectorTool_processComplete = true;
@@ -199,7 +201,6 @@ namespace ReuseSchemeTool.model
             /* 5. GENERATE OUTPUTS */
             // Excel File
             this.createExcelFile(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath, existingSteelFrames, Tool.SCHEME);
-
 
             this.schemeTool_schemingRun = true;
 
@@ -515,7 +516,7 @@ namespace ReuseSchemeTool.model
 
                 ViewSheetBuilder.buildViewPort(bcC02SavingsView, new ViewportLocationOnSheet(SheetColumn.C09, SheetRow.R01), false);
 
-                ViewSheet viewSheet = ViewSheetBuilder.getViewSheet();
+                this.viewSheet = ViewSheetBuilder.getViewSheet();
 
                 revitViews.Enqueue(viewSheet);
 
@@ -639,7 +640,11 @@ namespace ReuseSchemeTool.model
 
         public void setOutputsParentFolderPath (string outputsParentFolderPath) { this.outputsParentFolderPath = outputsParentFolderPath; }
         public string getOutputsParentFolderPath() { return this.outputsParentFolderPath; }
+        public string getJsonFilesOutputsFolderPath() { return this.jsonFilesFolderPath; }
+        public string getExcelFilesOutputsFolderPath() { return this.excelFilesFolderPath; }
+        public string getPDFFilesOutputsFolderPath() { return this.pdfFilesFolderPath; }
         public ExcelDataManager getExcelDataManager() { return this.excelDataManager; }
+        public ViewSheet getViewSheet() { return this.viewSheet; }
         public string getModelVersion() { return MODEL_VERSION; }
         public string getModelCopyRight() { return MODEL_COPYRIGHT; }
         public string getModelAuthor() { return MODEL_AUTHOR; }
