@@ -16,7 +16,7 @@ using System.Windows.Media;
 
 namespace ReuseSchemeTool.view
 {
-    public partial class InputsView : System.Windows.Forms.Form, Observer
+    public partial class DesignTool_InputsView : System.Windows.Forms.Form, Observer
     {
 
         //ATTRIBUTES
@@ -25,7 +25,7 @@ namespace ReuseSchemeTool.view
         private int progrBarStep;
 
 
-        public InputsView(RST_Model model, RST_Controller controller)
+        public DesignTool_InputsView(RST_Model model, RST_Controller controller)
         {
             // This call is required by the designer.
             InitializeComponent();

@@ -8,6 +8,7 @@ namespace ReuseSchemeTool.model
 {
     public enum Tool
     {
+        DESIGN,
         INSPECTOR,
         SCHEME
     }

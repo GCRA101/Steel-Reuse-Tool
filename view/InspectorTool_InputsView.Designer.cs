@@ -1,6 +1,6 @@
 ﻿namespace ReuseSchemeTool.view
 {
-    partial class InputsView
+    partial class InspectorTool_InputsView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputsView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InspectorTool_InputsView));
             this.clbSectionTypes = new System.Windows.Forms.CheckedListBox();
             this.trbMinLength = new System.Windows.Forms.TrackBar();
             this.trbMaxLength = new System.Windows.Forms.TrackBar();
@@ -291,7 +291,7 @@
             this.trbCutOff.Size = new System.Drawing.Size(257, 56);
             this.trbCutOff.TabIndex = 54;
             // 
-            // InputsView
+            // InspectorTool_InputsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -320,8 +320,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "InputsView";
-            this.Text = "InputsView";
+            this.Name = "InspectorTool_InputsView";
+            this.Text = "Inputs";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.trbMinLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbMaxLength)).EndInit();

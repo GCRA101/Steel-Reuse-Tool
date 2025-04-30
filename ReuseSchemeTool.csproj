@@ -155,18 +155,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="view\DockType.cs" />
-    <Compile Include="view\InputsView.cs">
+    <Compile Include="view\DesignTool_ETABSSettingsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\InputsView.Designer.cs">
-      <DependentUpon>InputsView.cs</DependentUpon>
+    <Compile Include="view\DesignTool_ETABSSettingsView.Designer.cs">
+      <DependentUpon>DesignTool_ETABSSettingsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\DockType.cs" />
+    <Compile Include="view\DesignTool_InputsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\DesignTool_InputsView.Designer.cs">
+      <DependentUpon>DesignTool_InputsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\InspectorTool_InputsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\InspectorTool_InputsView.Designer.cs">
+      <DependentUpon>InspectorTool_InputsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\DesignTool_AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\DesignTool_AboutBox.Designer.cs">
+      <DependentUpon>DesignTool_AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="view\InspectorTool_AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="view\InspectorTool_AboutBox.Designer.cs">
       <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\DesignTool_ProgrBarView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\DesignTool_ProgrBarView.Designer.cs">
+      <DependentUpon>DesignTool_ProgrBarView.cs</DependentUpon>
     </Compile>
     <Compile Include="view\InspectorTool_ProgrBarView.cs">
       <SubType>Form</SubType>
@@ -201,6 +225,12 @@
     <Compile Include="view\SchemingTool_ProgrBarView.Designer.cs">
       <DependentUpon>SchemingTool_ProgrBarView.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\DesignTool_SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\DesignTool_SplashScreen.Designer.cs">
+      <DependentUpon>DesignTool_SplashScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\SchemingTool_SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,11 +240,23 @@
     <Compile Include="view\WindowResizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="view\InputsView.resx">
-      <DependentUpon>InputsView.cs</DependentUpon>
+    <EmbeddedResource Include="view\DesignTool_ETABSSettingsView.resx">
+      <DependentUpon>DesignTool_ETABSSettingsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\DesignTool_InputsView.resx">
+      <DependentUpon>DesignTool_InputsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\InspectorTool_InputsView.resx">
+      <DependentUpon>InspectorTool_InputsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\DesignTool_AboutBox.resx">
+      <DependentUpon>DesignTool_AboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\InspectorTool_AboutBox.resx">
       <DependentUpon>InspectorTool_AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\DesignTool_ProgrBarView.resx">
+      <DependentUpon>DesignTool_ProgrBarView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\InspectorTool_ProgrBarView.resx">
       <DependentUpon>InspectorTool_ProgrBarView.cs</DependentUpon>
@@ -227,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\SchemingTool_ProgrBarView.resx">
       <DependentUpon>SchemingTool_ProgrBarView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\DesignTool_SplashScreen.resx">
+      <DependentUpon>DesignTool_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\SchemingTool_SplashScreen.resx">
       <DependentUpon>SchemingTool_SplashScreen.cs</DependentUpon>
@@ -300,6 +345,18 @@
   <ItemGroup>
     <EmbeddedResource Include="view\images\InspectorTool_AppLogo300x300.png" />
     <EmbeddedResource Include="view\images\SchemingTool_AppLogo300x300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\images\DesignTool_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="model\etabs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\icons\JSONicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\icons\FEAicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

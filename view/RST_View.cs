@@ -25,7 +25,7 @@ namespace ReuseSchemeTool.view
         private System.Windows.Forms.Form splashScreen;
         private System.Windows.Forms.Form aboutBox;
         private System.Windows.Forms.Form progressBarView;
-        private InputsView inputsView;
+        private InspectorTool_InputsView inputsView;
 
         //CONSTRUCTORS
         public RST_View(RST_Model model, RST_Controller controller)
@@ -80,7 +80,7 @@ namespace ReuseSchemeTool.view
 
         public void createInputsView()
         {
-            this.inputsView = new InputsView(this.model, this.controller);
+            this.inputsView = new InspectorTool_InputsView(this.model, this.controller);
             this.inputsView.initialise(EMRInputSettings.getInstance());
 
             this.model.removeObserver((Observer)this.aboutBox);
@@ -117,7 +117,7 @@ namespace ReuseSchemeTool.view
         public System.Windows.Forms.Form getAboutBox() { return this.aboutBox; }
         public System.Windows.Forms.Form getProgressBarView() { return this.progressBarView; }
         
-        public InputsView getInputsView() { return this.inputsView; }
+        public InspectorTool_InputsView getInputsView() { return this.inputsView; }
 
     }
 }
