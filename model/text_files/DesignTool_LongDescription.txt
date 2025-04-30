@@ -1,0 +1,19 @@
+DESCRIPTION
+***********************************
+***********************************
+
+ALGORITHM
+***********************************
+***********************************
+
+LIMITATIONS
+
+1. Tool compatible with all Revit versions from Revit 2020 onwards
+
+2. Only To-Recycle frames are considered
+- Only frames with Reuse_Strategy parameter assigned with the value TO RECYCLE are extracted from the model
+
+3. Naming Conventions for Revit Parameters
+- Whatever family/element doesn't abide by the following conventions, the corresponding parameter values won't be extracted from the model by the tool and won't be taken into account in the computations
+- Weight -> "Nominal Weight"
+- Length -> "Length"

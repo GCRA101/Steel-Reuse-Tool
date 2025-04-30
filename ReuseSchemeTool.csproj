@@ -207,6 +207,7 @@
     <Compile Include="view\ProcessName.cs" />
     <Compile Include="view\ProcessNameRetriever.cs" />
     <Compile Include="view\revit_plugin\BitmapImageFactory.cs" />
+    <Compile Include="view\revit_plugin\CommandDesignTool.cs" />
     <Compile Include="view\revit_plugin\CommandInspectorTool.cs" />
     <Compile Include="view\revit_plugin\CommandSchemeTool.cs" />
     <Compile Include="view\revit_plugin\RibbonItemFactory.cs" />
@@ -347,9 +348,6 @@
     <EmbeddedResource Include="view\images\SchemingTool_AppLogo300x300.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="view\images\DesignTool_Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="model\etabs\" />
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +355,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="view\icons\FEAicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="model\text_files\DesignTool_LongDescription.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="view\images\DesignTool_AppLogo.png" />
+    <EmbeddedResource Include="view\images\DesignTool_AppLogo16x16.png" />
+    <EmbeddedResource Include="view\images\DesignTool_AppLogo300x300.png" />
+    <EmbeddedResource Include="view\images\DesignTool_AppLogo32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

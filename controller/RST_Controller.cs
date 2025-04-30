@@ -117,6 +117,14 @@ namespace ReuseSchemeTool.controller
                     this.view.getProgressBarView().Close();
                     this.view.getProgressBarView().Dispose();
                     break;
+                case Tool.DESIGN:
+                    //Close and dispose the form
+                    this.view.getInputsView().Close();
+                    this.view.getInputsView().Dispose();
+                    //Close and dispose the progress bar view
+                    this.view.getProgressBarView().Close();
+                    this.view.getProgressBarView().Dispose();
+                    break;
             }
 
         }

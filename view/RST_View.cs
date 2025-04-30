@@ -48,6 +48,9 @@ namespace ReuseSchemeTool.view
                 case Tool.SCHEME:
                     this.splashScreen = new SchemingTool_SplashScreen(this.model);
                     break;
+                case Tool.DESIGN:
+                    this.splashScreen = new DesignTool_SplashScreen(this.model);
+                    break;
             }
 
             this.controller.getSoundManager().play(Sound.SPLASHSCREEN);
@@ -71,6 +74,9 @@ namespace ReuseSchemeTool.view
                     break;
                 case Tool.SCHEME:
                     this.aboutBox = new SchemingTool_AboutBox(this.model);
+                    break;
+                case Tool.DESIGN:
+                    this.aboutBox = new DesignTool_AboutBox(this.model);
                     break;
             }
 
@@ -98,6 +104,9 @@ namespace ReuseSchemeTool.view
                     break;
                 case Tool.SCHEME:
                     this.progressBarView = new SchemingTool_ProgrBarView(this.model);
+                    break;
+                case Tool.DESIGN:
+                    this.progressBarView = new DesignTool_ProgrBarView(this.model);
                     break;
             }
 

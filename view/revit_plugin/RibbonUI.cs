@@ -52,6 +52,14 @@ namespace ReuseSchemeTool.view.revit_plugin
                 String scheming_longDescriptionFilePath = "ReuseSchemeTool.model.text_files.SchemingTool_LongDescription.txt";
                 String scheming_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(scheming_longDescriptionFilePath)).ReadToEnd();
                 String scheming_className = "ReuseSchemeTool.view.revit_plugin.CommandSchemeTool";
+                // Design Tool
+                String design_imagePath = "ReuseSchemeTool.view.images.DesignTool_AppLogo16x16.png";
+                String design_largeImagePath = "ReuseSchemeTool.view.images.DesignTool_AppLogo32x32.png";
+                String design_toolTipImagePath = "ReuseSchemeTool.view.images.DesignTool_AppLogo300x300.png";
+                String design_toolTipText = "Reuse Design Tool";
+                String design_longDescriptionFilePath = "ReuseSchemeTool.model.text_files.DesignTool_LongDescription.txt";
+                String design_longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(design_longDescriptionFilePath)).ReadToEnd();
+                String design_className = "ReuseSchemeTool.view.revit_plugin.CommandDesignTool";
 
                 String assemblyFullPath = Assembly.GetExecutingAssembly().Location;
 
@@ -64,6 +72,10 @@ namespace ReuseSchemeTool.view.revit_plugin
                 RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Scheme\n Tool", scheming_imagePath,
                                                        scheming_largeImagePath, scheming_toolTipImagePath, scheming_toolTipText, scheming_longDescription,
                                                        assemblyFullPath, scheming_className);
+                // Design Tool
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "Design\n Tool", design_imagePath,
+                                                       design_largeImagePath, design_toolTipImagePath, design_toolTipText, design_longDescription,
+                                                       assemblyFullPath, design_className);
 
                 return Result.Succeeded;
             }
