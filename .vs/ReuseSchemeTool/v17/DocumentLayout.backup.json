@@ -3,19 +3,23 @@
   "WorkspaceRootPath": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|c:\\users\\galbieri\\documents\\github\\reuse_scheme_tool\\controller\\rst_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|c:\\users\\galbieri\\documents\\github\\reuse_scheme_tool\\view\\designtool_etabssettingsview.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\designtool_etabssettingsview.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\controller\\rst_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:controller\\rst_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|c:\\users\\galbieri\\documents\\github\\reuse_scheme_tool\\view\\revit_plugin\\commanddesigntool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\commanddesigntool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\revit_plugin\\commanddesigntool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|c:\\users\\galbieri\\documents\\github\\reuse_scheme_tool\\view\\rst_view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\rst_view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\rst_view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|c:\\users\\galbieri\\documents\\github\\reuse_scheme_tool\\view\\revit_plugin\\commandinspectortool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\commandinspectortool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\revit_plugin\\commandinspectortool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -57,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\inspectortool_inputsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\inspectortool_inputsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\designtool_etabssettingsview.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|solutionrelative:view\\designtool_etabssettingsview.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\designtool_etabssettingsview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -122,34 +122,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 234,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RST_Controller.cs",
-              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\controller\\RST_Controller.cs",
-              "RelativeDocumentMoniker": "controller\\RST_Controller.cs",
-              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\controller\\RST_Controller.cs",
-              "RelativeToolTip": "controller\\RST_Controller.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAIwGIAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T11:01:02.75Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RST_View.cs",
-              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\RST_View.cs",
-              "RelativeDocumentMoniker": "view\\RST_View.cs",
-              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\RST_View.cs",
-              "RelativeToolTip": "view\\RST_View.cs",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAUwHoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T10:59:00.921Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
@@ -164,20 +138,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CommandDesignTool.cs",
-              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\CommandDesignTool.cs",
-              "RelativeDocumentMoniker": "view\\revit_plugin\\CommandDesignTool.cs",
-              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\CommandDesignTool.cs*",
-              "RelativeToolTip": "view\\revit_plugin\\CommandDesignTool.cs*",
-              "ViewState": "AgIAADcAAAAAAAAAAAAQwFYAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T10:18:15.361Z",
+              "DocumentIndex": 0,
+              "Title": "DesignTool_ETABSSettingsView.resx",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.resx",
+              "RelativeDocumentMoniker": "view\\DesignTool_ETABSSettingsView.resx",
+              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.resx",
+              "RelativeToolTip": "view\\DesignTool_ETABSSettingsView.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2025-04-30T08:25:24.794Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CommandInspectorTool.cs",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\CommandInspectorTool.cs",
               "RelativeDocumentMoniker": "view\\revit_plugin\\CommandInspectorTool.cs",
@@ -185,12 +158,11 @@
               "RelativeToolTip": "view\\revit_plugin\\CommandInspectorTool.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T10:57:27.088Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T10:57:27.088Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "RibbonUI.cs",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\RibbonUI.cs",
               "RelativeDocumentMoniker": "view\\revit_plugin\\RibbonUI.cs",
@@ -198,12 +170,11 @@
               "RelativeToolTip": "view\\revit_plugin\\RibbonUI.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAAwFIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T10:13:10.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T10:13:10.142Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "DesignTool_SplashScreen.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_SplashScreen.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_SplashScreen.cs",
@@ -214,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DesignTool_ProgrBarView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ProgrBarView.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_ProgrBarView.cs",
@@ -225,7 +196,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "DesignTool_InputsView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_InputsView.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_InputsView.cs",
@@ -236,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "DesignTool_AboutBox.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_AboutBox.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_AboutBox.cs",
@@ -247,7 +218,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 2,
+              "Title": "CommandDesignTool.cs",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\CommandDesignTool.cs",
+              "RelativeDocumentMoniker": "view\\revit_plugin\\CommandDesignTool.cs",
+              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\CommandDesignTool.cs",
+              "RelativeToolTip": "view\\revit_plugin\\CommandDesignTool.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAQwFYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T10:18:15.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RST_View.cs",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\RST_View.cs",
+              "RelativeDocumentMoniker": "view\\RST_View.cs",
+              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\RST_View.cs",
+              "RelativeToolTip": "view\\RST_View.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAUwHoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T10:59:00.921Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RST_Controller.cs",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\controller\\RST_Controller.cs",
+              "RelativeDocumentMoniker": "controller\\RST_Controller.cs",
+              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\controller\\RST_Controller.cs",
+              "RelativeToolTip": "controller\\RST_Controller.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAIwGUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T11:01:02.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "BitmapImageFactory.cs",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\revit_plugin\\BitmapImageFactory.cs",
               "RelativeDocumentMoniker": "view\\revit_plugin\\BitmapImageFactory.cs",
@@ -259,7 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "DesignTool_ETABSSettingsView.cs",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_ETABSSettingsView.cs",
@@ -271,7 +278,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "DesignTool_InputsView.cs",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_InputsView.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_InputsView.cs",
@@ -283,7 +290,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "DesignTool_ETABSSettingsView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.cs",
               "RelativeDocumentMoniker": "view\\DesignTool_ETABSSettingsView.cs",
@@ -294,7 +301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "InspectorTool_InputsView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\InspectorTool_InputsView.cs",
               "RelativeDocumentMoniker": "view\\InspectorTool_InputsView.cs",
@@ -302,17 +309,6 @@
               "RelativeToolTip": "view\\InspectorTool_InputsView.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T07:59:53.312Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "DesignTool_ETABSSettingsView.resx",
-              "DocumentMoniker": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.resx",
-              "RelativeDocumentMoniker": "view\\DesignTool_ETABSSettingsView.resx",
-              "ToolTip": "C:\\Users\\galbieri\\Documents\\GitHub\\Reuse_Scheme_Tool\\view\\DesignTool_ETABSSettingsView.resx",
-              "RelativeToolTip": "view\\DesignTool_ETABSSettingsView.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2025-04-30T08:25:24.794Z"
             },
             {
               "$type": "Document",
@@ -466,6 +462,24 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T08:02:25.552Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 234,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{9a7cebbb-dc5c-4986-bc49-962da46aa506}"
             }
           ]
         }
