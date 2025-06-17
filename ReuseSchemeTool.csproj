@@ -304,6 +304,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"
-copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2022\10_$(TargetName).addin"</PostBuildEvent>
+copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2022\10_$(TargetName).addin"
+copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2023\$(TargetName)\$(TargetFileName)"
+copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2023\10_$(TargetName).addin"
+copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2024\$(TargetName)\$(TargetFileName)"
+copy /Y "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2024\10_$(TargetName).addin"</PostBuildEvent>
   </PropertyGroup>
 </Project>

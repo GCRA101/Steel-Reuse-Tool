@@ -109,8 +109,6 @@ namespace ReuseSchemeTool.model
 
         private void initializeOutputFolders(Tool tool)
         {
-            // LOCATION OF REVITMODELPATH TO BE REVIEWED !!!!!!!!!!! ******
-            string revitModelPath = "c:\\Users\\galbieri\\Buro Happold\\Design & Technology - R&D Wishlist\\00728_STR Steel Re-use\\03_Reference Revit Model\\JIM-BHC-S4-04-002-100-ZZ-M3-ST-000001_rvt.rvt";
 
             switch (tool)
             {
@@ -164,7 +162,6 @@ namespace ReuseSchemeTool.model
             /* 3. GENERATE OUTPUTS */
             // Excel File
             this.createExcelFile(EMBEDDEDFILEPATH_XLSM_DATABASE, this.excelFilesFolderPath, existingSteelFrames, Tool.INSPECTOR);
-            RevitFileManager.exportRevitViewToImage(uiDoc, this.viewSheet, this.pdfFilesFolderPath + "\\PDF_Files");
 
             this.inspectorTool_pushToExcelRun = true;
             this.inspectorTool_processComplete = true;
@@ -230,7 +227,7 @@ namespace ReuseSchemeTool.model
                                                  .BinarySearch(frameElId);
                     ReuseRating reuseRating = existingSteelFrames[index].getReuseRating();
 
-                    frameEl.LookupParameter("BHE_Survey Information").Set(reuseRating.ToString());
+                    frameEl.LookupParameter("BHE_Filter Comments 01").Set(reuseRating.ToString());
                 });
 
                 if (revitTransaction != null) {
@@ -290,7 +287,7 @@ namespace ReuseSchemeTool.model
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Survey Information", BHColorPalette.TRAFFICLIGHTS_BRIGHT, false);
+                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Filter Comments 01", BHColorPalette.TRAFFICLIGHTS_BRIGHT, false);
 
                 // Color all Elements with a semi-transparent grey color
                 OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
