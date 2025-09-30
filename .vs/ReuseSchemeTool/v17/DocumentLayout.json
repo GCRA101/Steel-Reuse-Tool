@@ -1,12 +1,79 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\galbieri\\Buro Happold\\Design \u0026 Technology - R\u0026D Wishlist\\00728_STR Steel Re-use\\04_Dev\\ReuseSchemeTool\\ReuseSchemeTool\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool\\ReuseSchemeTool.csproj|c:\\users\\galbieri\\downloads\\reuseschemetool\\reuseschemetool\\view\\rst_view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool\\ReuseSchemeTool.csproj|solutionrelative:reuseschemetool\\view\\rst_view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool\\ReuseSchemeTool.csproj|C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\reuseschemetool\\view\\revit_plugin\\commandschemetool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA07F71A-F4CF-42A7-8087-BAE99C8A4EFA}|ReuseSchemeTool\\ReuseSchemeTool.csproj|solutionrelative:reuseschemetool\\view\\revit_plugin\\commandschemetool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 234,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CommandSchemeTool.cs",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\ReuseSchemeTool\\view\\revit_plugin\\CommandSchemeTool.cs",
+              "RelativeDocumentMoniker": "ReuseSchemeTool\\view\\revit_plugin\\CommandSchemeTool.cs",
+              "ToolTip": "C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\ReuseSchemeTool\\view\\revit_plugin\\CommandSchemeTool.cs",
+              "RelativeToolTip": "ReuseSchemeTool\\view\\revit_plugin\\CommandSchemeTool.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADYAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:55:58.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RST_View.cs",
+              "DocumentMoniker": "C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\ReuseSchemeTool\\view\\RST_View.cs",
+              "RelativeDocumentMoniker": "ReuseSchemeTool\\view\\RST_View.cs",
+              "ToolTip": "C:\\Users\\galbieri\\Downloads\\ReuseSchemeTool\\ReuseSchemeTool\\view\\RST_View.cs",
+              "RelativeToolTip": "ReuseSchemeTool\\view\\RST_View.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAwCkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T16:56:57.88Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 234,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{9a7cebbb-dc5c-4986-bc49-962da46aa506}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
