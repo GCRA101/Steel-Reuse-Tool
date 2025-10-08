@@ -68,9 +68,9 @@ namespace ReuseSchemeTool.model.revit
                 parameterValues = new FilteredElementCollector(view.Document).
                                         OfClass(typeof(FamilyInstance)).
                                         WherePasses(elMultiCatFilter).
-                                        Where(el => materialsList.Contains(el.LookupParameter("BHE_Material").AsString())).
+                                        Where(el => materialsList.Contains(el.LookupParameter(AppConfig.PARAM_STRUCTURAL_MATERIAL).AsString())).
                                         Select(el => el.LookupParameter(parameterName).AsString()).
-                                        Where(parName => parName != null).
+                                        Where(parName => parName != null && parName !="").
                                         ToHashSet().
                                         ToList();
 
@@ -202,9 +202,9 @@ namespace ReuseSchemeTool.model.revit
                 parameterValues = new FilteredElementCollector(view.Document).
                                         OfClass(typeof(FamilyInstance)).
                                         WherePasses(elMultiCatFilter).
-                                        Where(el => materialsList.Contains(el.LookupParameter("BHE_Material").AsString())).
+                                        Where(el => materialsList.Contains(el.LookupParameter(AppConfig.PARAM_STRUCTURAL_MATERIAL).AsString())).
                                         Select(el => el.LookupParameter(parameterName).AsString()).
-                                        Where(parName => parName != null).
+                                        Where(parName => parName != null && parName !="").
                                         ToHashSet().
                                         ToList();
 

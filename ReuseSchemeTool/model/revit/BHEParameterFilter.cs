@@ -23,7 +23,7 @@ namespace ReuseSchemeTool.model.revit
             Document dbDoc = this.getDBDoc();
 
             return this.revitElementsCollector.collectElements()
-                .Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter("BHE_Reuse Strategy").AsString()))
+                .Where(el => !string.IsNullOrWhiteSpace(el.LookupParameter(AppConfig.PARAM_REUSE_STRATEGY).AsString()))
                 .Where(el => el.LookupParameter(parameterName).AsString() == parameterValue).ToList();
 
         }

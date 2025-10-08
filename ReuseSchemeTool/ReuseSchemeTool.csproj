@@ -75,6 +75,7 @@
     <Compile Include="controller\Sound.cs" />
     <Compile Include="controller\SoundManager.cs" />
     <Compile Include="controller\SoundPathRetriever.cs" />
+    <Compile Include="model\AppConfig.cs" />
     <Compile Include="model\BHColor.cs" />
     <Compile Include="model\BHColorPaletteType.cs" />
     <Compile Include="model\revit\BarChartType.cs" />

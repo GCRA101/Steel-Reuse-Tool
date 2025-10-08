@@ -50,8 +50,8 @@ namespace ReuseSchemeTool.view
         {
 
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.controller.getUIApp().ActiveUIDocument.Document));
-            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
-            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_REUSE_STRATEGY, "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, AppConfig.PARAM_PHASE);
             
             
             List<string> frameTypeLabels = revitFramesCollector.collectElements()
@@ -73,7 +73,7 @@ namespace ReuseSchemeTool.view
 
 
             List<string> materialNames = revitFramesCollector.collectElements()
-                .Select(el => el.LookupParameter("BHE_Material").AsString())
+                .Select(el => el.LookupParameter(AppConfig.PARAM_STRUCTURAL_MATERIAL).AsString())
                 .Where(matName => !String.IsNullOrEmpty(matName))
                 .Where(matName => matName.ToUpper().Contains("STEEL") || matName.ToUpper().Contains("S235") || matName.ToUpper().Contains("S275") ||
                                   matName.ToUpper().Contains("S355") || matName.ToUpper().Contains("S460"))

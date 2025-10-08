@@ -85,7 +85,7 @@ namespace ReuseSchemeTool.model.revit
 
         private String getMaterial()
         {
-            Parameter materialParam = element.LookupParameter("BHE_Material");
+            Parameter materialParam = element.LookupParameter(AppConfig.PARAM_STRUCTURAL_MATERIAL);
             return materialParam.AsValueString();
         }
 

@@ -144,9 +144,9 @@ namespace ReuseSchemeTool.model
 
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
-            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
-            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
-            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_REUSE_STRATEGY, "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_STRUCTURAL_MATERIAL, "Steel");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, AppConfig.PARAM_PHASE);
             frameElements = revitFramesCollector.collectElements();
 
             this.inspectorTool_pullRevitDataRun = true;
@@ -177,9 +177,9 @@ namespace ReuseSchemeTool.model
 
             /* 1. EXTRACT REVIT STRUCTURAL FRAMES*/
             RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
-            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE");
-            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
-            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_REUSE_STRATEGY, "EXISTING TO DISMANTLE - TO RECYCLE");
+            revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_STRUCTURAL_MATERIAL, "Steel");
+            revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, AppConfig.PARAM_PHASE);
             frameElements = revitFramesCollector.collectElements();
 
             /* 2. CONVERT REVIT TO SOFTWARE-AGNOSTIC FRAME OBJECTS */
@@ -227,7 +227,7 @@ namespace ReuseSchemeTool.model
                                                  .BinarySearch(frameElId);
                     ReuseRating reuseRating = existingSteelFrames[index].getReuseRating();
 
-                    frameEl.LookupParameter("BHE_Filter Comments 01").Set(reuseRating.ToString());
+                    frameEl.LookupParameter(AppConfig.PARAM_REUSE_RATING).Set(reuseRating.ToString());
                 });
 
                 if (revitTransaction != null) {
@@ -278,8 +278,8 @@ namespace ReuseSchemeTool.model
 
                 // Collect only the Existing Steel Frames
                 RevitElementsCollector revitFramesCollector = new RevitElementsCollector(new RevitFramesCollectorStrategy(this.dbDoc));
-                revitFramesCollector = new BHEParameterFilter(revitFramesCollector, "BHE_Material", "Steel");
-                revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, "Existing");
+                revitFramesCollector = new BHEParameterFilter(revitFramesCollector, AppConfig.PARAM_STRUCTURAL_MATERIAL, "Steel");
+                revitFramesCollector = new PhaseCreatedFilter(revitFramesCollector, AppConfig.PARAM_PHASE);
                 // Show only the Existing Steel Frames in the 3D View
                 ThreeDView.UnhideElements(revitFramesCollector.collectElements().Select(f => f.Id).ToList());
                 ThreeDView.IsolateElementsTemporary(revitFramesCollector.collectElements().Select(f => f.Id).ToList());
@@ -287,13 +287,13 @@ namespace ReuseSchemeTool.model
                 List<BuiltInCategory> categoriesList = new List<BuiltInCategory>()
                     { BuiltInCategory.OST_StructuralColumns, BuiltInCategory.OST_StructuralFraming};
                 List<String> materialsList = new List<String>() { "Steel" };
-                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, "BHE_Filter Comments 01", BHColorPalette.TRAFFICLIGHTS_BRIGHT, false);
+                ViewFiltersFactory.getInstance().createNewBHFilters(ThreeDView, categoriesList, materialsList, AppConfig.PARAM_REUSE_RATING, BHColorPalette.TRAFFICLIGHTS_BRIGHT, false);
 
                 // Color all Elements with a semi-transparent grey color
                 OverrideGraphicSettings overrideSettings = new OverrideGraphicSettings();
                 System.Drawing.Color systBHGreyColor = ColorsFactory.getInstance().createBHColor(BHColor.MUTED_GREY); // RGB values for grey
                 Autodesk.Revit.DB.Color revitBHGreyColor = new Autodesk.Revit.DB.Color(systBHGreyColor.R, systBHGreyColor.G, systBHGreyColor.B);
-                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "OTHER TO BE RETAINED", "BHE_Reuse Strategy", "EXISTING TO DISMANTLE - TO RECYCLE", revitBHGreyColor, 75, true);
+                ViewFiltersFactory.getInstance().createNewFilter(ThreeDView, categoriesList, "OTHER TO BE RETAINED", AppConfig.PARAM_REUSE_STRATEGY, "EXISTING TO DISMANTLE - TO RECYCLE", revitBHGreyColor, 75, true);
 
                 revitViews.Enqueue(ThreeDView);
 
@@ -357,9 +357,9 @@ namespace ReuseSchemeTool.model
                 IList<Element> filteredElements = null;
 
 
-                List<Element> toDismantleFrames = revitFramesCollector.collectElements().Where(el => el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("EXISTING TO DISMANTLE")).ToList();
-                List<Element> knownToDismantleFrames = toDismantleFrames.Where(el => !el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("UNKNOWN")).ToList();
-                List<Element> unknownToDismantleFrames = toDismantleFrames.Where(el => el.LookupParameter("BHE_Reuse Strategy").AsString().Contains("UNKNOWN")).ToList();
+                List<Element> toDismantleFrames = revitFramesCollector.collectElements().Where(el => el.LookupParameter(AppConfig.PARAM_REUSE_STRATEGY).AsString().Contains("EXISTING TO DISMANTLE")).ToList();
+                List<Element> knownToDismantleFrames = toDismantleFrames.Where(el => !el.LookupParameter(AppConfig.PARAM_REUSE_STRATEGY).AsString().Contains("UNKNOWN")).ToList();
+                List<Element> unknownToDismantleFrames = toDismantleFrames.Where(el => el.LookupParameter(AppConfig.PARAM_REUSE_STRATEGY).AsString().Contains("UNKNOWN")).ToList();
 
                 double lenKnown = Math.Round(knownToDismantleFrames.Select(el => UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(), UnitTypeId.Meters)).Sum(), 1);
                 double lenUnknown = Math.Round(unknownToDismantleFrames.Select(el => UnitUtils.ConvertFromInternalUnits(el.LookupParameter("Length").AsDouble(), UnitTypeId.Meters)).Sum(), 1);
@@ -495,11 +495,10 @@ namespace ReuseSchemeTool.model
 
 
                 ViewSheetBuilder.initialise(ViewSheet.CreatePlaceholder(dbDoc), "SKXXX", "STEEL REUSE POTENTIAL OVERVIEW");
-                ViewSheetBuilder.buildTitleBlock("BHE_TitleBlocks_A0-A1-A2_RST", "BHE_A1");
+                ViewSheetBuilder.buildTitleBlock(AppConfig.TITLEBLOCK_FAMILY_NAME, AppConfig.TITLEBLOCK_TYPE_NAME);
                 ViewportLocationOnSheet location = new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R01);
                 ViewportSizeOnSheet size = new ViewportSizeOnSheet(SheetColumn.C06, SheetRow.R04);
                 ViewSheetBuilder.buildViewPort(ThreeDView, location, size);
-
 
                 ViewSheetBuilder.buildViewPort(notesView, new ViewportLocationOnSheet(SheetColumn.C01, SheetRow.R12), false);
 
