@@ -4,7 +4,8 @@
 
 ## Overview
 
-The **Steel Reuse Inspector & Scheme Tool** is a pair of Revit plugins developed by **Buro Happold** to empower structural engineers in assessing the potential for reuse of existing steelwork in refurbishment projects. These tools streamline sustainable design workflows by integrating directly into the Revit environment and producing outputs in Revit sheets, Excel, PDF, and JSON formats.
+The **Steel Reuse Inspector & Scheme Tool** is a pair of Revit plugins developed by **Buro Happold** to empower structural engineers in assessing the potential for reuse of existing steelwork in refurbishment projects. 
+These tools streamline sustainable design workflows by integrating directly into the Revit environment and producing outputs in Revit sheets, Excel, PDF, and JSON formats.
 
 ## 🚀 Features
 
