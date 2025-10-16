@@ -1,19 +1,37 @@
 DESCRIPTION
-***********************************
-***********************************
+The Scheme Tool represents the second/scheming step of the Steel Reuse Scheming Process.
+Its aim is to assign a rating to the different existing steel frames in the model based on their potential for reuse based on the criteria inputs by the user.
+
 
 ALGORITHM
-***********************************
-***********************************
+Based on the input criteria provided by the user, the Tool rates each existing steel frame in the Revit model, serializes the data in json format, generates data
+analytics and filtered 3D Views of the model within a Revit View Sheet as well as a set of dedicated Excel and PDF files that summarize the results of the scheming process.
 
 LIMITATIONS
 
 1. Tool compatible with all Revit versions from Revit 2020 onwards
 
-2. Only To-Recycle frames are considered
-- Only frames with Reuse_Strategy parameter assigned with the value TO RECYCLE are extracted from the model
+2. All the Steel Frames must be assigned with the following Revit Parameters:
+	- BHE_Material
+		- Allowed Values: 
+			- "Steel"
+	- BHE_Reuse_Strategy
+		- Allowed Values:
+			- "EXISTING TO DISMANTLE - TO RECYCLE"
+			- "EXISTING TO DISMANTLE - UNKNOWN"
+			- "EXISTING TO REMAIN – MAKE GOOD"
+	- BHE_Reuse_Rating
+		- Keep this parameter empty, the tool will populate it automatically.
+
+3. If any of the parameters above are not present in the Revit model, the user shall create them before running the tool
+	- Consult the User Guide of the Tool for instructions on how to create the parameters.
+
+4. Only Steel To-Recycle frames are considered
+	- Only frames with following assigned parameters are considered by the tool
+		- BHE_Material = "Steel"
+		- BHE_Reuse Strategy = "EXISTING TO DISMANTLE - TO RECYCLE"
 
 3. Naming Conventions for Revit Parameters
-- Whatever family/element doesn't abide by the following conventions, the corresponding parameter values won't be extracted from the model by the tool and won't be taken into account in the computations
-- Weight -> "Nominal Weight"
-- Length -> "Length"
+	- Whatever family/element doesn't abide by the following conventions, the corresponding parameter values won't be extracted from the model by the tool and won't be taken into account in the computations
+	- Weight -> "Nominal Weight"
+	- Length -> "Length"
