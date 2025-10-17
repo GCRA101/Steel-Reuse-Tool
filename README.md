@@ -43,6 +43,12 @@ These tools streamline sustainable design workflows by integrating directly into
 ### Scheme Tool
 - Splashscreen → AboutBox → Inputs Form → Folder Selection → Progress Bar → Revit Sheet + JSON + Excel/PDF
 
+## 🧪 How to Use
+1. Launch Revit and open a model.
+2. Navigate to the **BH Plugins** tab.
+3. Run the Inspector Tool to analyze existing steelwork.
+4. Run the Scheme Tool to assess reuse potential.
+
 ## 📦 Outputs
 
 ### Inspector Tool
