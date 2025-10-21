@@ -1,6 +1,7 @@
 # 🏗️ Steel Reuse Inspector & Scheme Tool
 
-<img width="2020" height="1237" alt="Scheming and Inspector Tools - Solid Background" src="https://github.com/user-attachments/assets/99a566b4-84c9-4b7c-bc7c-287c01d2bdcf" />
+<img width="3909" height="1529" alt="Scheming and Inspector Tools Capabilities - Solid Background" src="https://github.com/user-attachments/assets/90acdca3-67c8-4140-a83c-14f08c0ce1e1" />
+
 
 ## Overview
 
